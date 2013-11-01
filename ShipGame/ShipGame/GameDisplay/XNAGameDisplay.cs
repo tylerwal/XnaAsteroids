@@ -26,7 +26,10 @@ namespace ShipGame.GameDisplay
 		private IList<GameObjectBase> _gameObjects;
 
 		//test
+		private ContentManager contentManager;
+
 		private Texture2D tesTexture2D;
+		private Texture2D shipTexture2D;
 		private Rectangle rectangle;
 
 		#endregion Fields
@@ -65,13 +68,15 @@ namespace ShipGame.GameDisplay
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			//test
+			contentManager = new ContentManager(Services);
+
 			rectangle = new Rectangle(50,50,50,50);
-			
+
+			shipTexture2D = contentManager.Load<Texture2D>("Ship");
 
 			tesTexture2D = new Texture2D(GraphicsDevice, 1, 1);
 			tesTexture2D.SetData(new Color[]{Color.AliceBlue});
 
-			
 
 			/*_spriteBatch.Begin();
 			_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);*/
@@ -123,13 +128,9 @@ namespace ShipGame.GameDisplay
 			
 			_spriteBatch.Begin();
 			_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);
+			_spriteBatch.Draw(shipTexture2D, new Vector2(120,120), Color.Blue );
 			_spriteBatch.End();
 
-			/*var t = new Texture2D(GraphicsDevice, 1, 1);
-			t.SetData(new[] { Color.White });
-			_spriteBatch.Begin();
-			_spriteBatch.Draw(t, rectangle, Color.Black);
-			_spriteBatch.End();*/
 		}
 
 		#endregion Overrides
