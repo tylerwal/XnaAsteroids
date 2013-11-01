@@ -29,6 +29,7 @@ namespace ShipGame.GameDisplay
 		private Texture2D tesTexture2D;
 		private Rectangle rectangle;
 
+
 		#endregion Fields
 
 		#region Properties
@@ -70,8 +71,8 @@ namespace ShipGame.GameDisplay
 
 			tesTexture2D = new Texture2D(GraphicsDevice, 1, 1);
 			tesTexture2D.SetData(new Color[]{Color.AliceBlue});
-/*
-			_spriteBatch.Begin();
+
+			/*_spriteBatch.Begin();
 			_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);*/
 			
 
@@ -118,11 +119,12 @@ namespace ShipGame.GameDisplay
 				gameObject.Draw();
 			}
 
-			/*_spriteBatch.Begin();
+			
+			_spriteBatch.Begin();
 			_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);
-			_spriteBatch.End();*/
+			_spriteBatch.End();
 
-			GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 2, 3);
+
 			
 		}
 
