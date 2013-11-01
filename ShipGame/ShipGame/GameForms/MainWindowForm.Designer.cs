@@ -1,4 +1,6 @@
-﻿namespace ShipGame.GameForms
+﻿using ShipGame.GameDisplay;
+
+namespace ShipGame.GameForms
 {
 	partial class MainWindowForm
 	{
@@ -33,8 +35,10 @@
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
-			this.xnaGameDisplay = new ShipGame.CustomControls.XNAGameDisplay();
+			this.xnaGameDisplay = new XNAGameDisplay();
 			this.gameStatusBar = new GameProgrammingTest.MainWindowMenu0();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.highScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -52,7 +56,9 @@
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-		  this.newGameToolStripMenuItem});
+		  this.newGameToolStripMenuItem,
+		  this.highScoresToolStripMenuItem,
+		  this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -60,7 +66,7 @@
 			// newGameToolStripMenuItem
 			// 
 			this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-			this.newGameToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+			this.newGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.newGameToolStripMenuItem.Text = "New Game";
 			// 
 			// pnlGamePanel
@@ -95,6 +101,18 @@
 			this.gameStatusBar.Size = new System.Drawing.Size(784, 83);
 			this.gameStatusBar.TabIndex = 2;
 			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem.Text = "Exit";
+			// 
+			// highScoresToolStripMenuItem
+			// 
+			this.highScoresToolStripMenuItem.Name = "highScoresToolStripMenuItem";
+			this.highScoresToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.highScoresToolStripMenuItem.Text = "High Scores";
+			// 
 			// MainWindowForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,11 +134,13 @@
 
 		#endregion
 
-		private CustomControls.XNAGameDisplay xnaGameDisplay;
+		private XNAGameDisplay xnaGameDisplay;
 		private System.Windows.Forms.MenuStrip mnsTopMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
 		private GameProgrammingTest.MainWindowMenu0 gameStatusBar;
 		private System.Windows.Forms.Panel pnlGamePanel;
+		private System.Windows.Forms.ToolStripMenuItem highScoresToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 	}
 }

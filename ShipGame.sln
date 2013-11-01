@@ -3,9 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipGame", "ShipGame\ShipGame\ShipGame.csproj", "{43988A71-9443-4E1D-A19C-F4D6605A9347}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ShipGameContent", "ShipGame\ShipGameContent\ShipGameContent.contentproj", "{44B1FE2B-26F4-4C94-8420-0BCE51539F07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipGameContent", "ShipGame\ShipGameContent\ShipGameContent.contentproj", "{44B1FE2B-26F4-4C94-8420-0BCE51539F07}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tylerwal.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ShipGame\\ShipGame\\ShipGame.csproj
+		SccProjectName1 = ShipGame/ShipGame
+		SccLocalPath1 = ShipGame\\ShipGame
+		SccProjectUniqueName2 = ShipGame\\ShipGameContent\\ShipGameContent.contentproj
+		SccProjectName2 = ShipGame/ShipGameContent
+		SccLocalPath2 = ShipGame\\ShipGameContent
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
