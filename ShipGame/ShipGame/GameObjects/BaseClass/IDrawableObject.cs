@@ -2,6 +2,12 @@
 {
 	public interface IDrawableObject
 	{
+		int DisplayOrder
+		{
+			get;
+			set;
+		}
+
 		void Initialize();
 
 		void Update();

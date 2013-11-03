@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace ShipGame.GameDisplay
 {
-	public class XNAGameDisplay : GraphicsDeviceControl
+	public class XnaGameDisplay : GraphicsDeviceControl
 	{
 		#region Constants
 
@@ -30,7 +30,7 @@ namespace ShipGame.GameDisplay
 
 		private GameTime _gameTime;
 
-		private IList<GameObjectBase> _gameObjects;
+		private IList<IDrawableObject> _gameObjects;
 
 		//private IList<Rectangle> _shipRects;
 
@@ -96,13 +96,25 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
+		public IList<IDrawableObject> GameObjects
+		{
+			get
+			{
+				return _gameObjects;
+			}
+			set
+			{
+				_gameObjects = value;
+			}
+		}
+
 		
 		
 		#endregion Properties
 
 		#region Constructors
 
-		public XNAGameDisplay()
+		public XnaGameDisplay()
 		{
 			var test = this.Size;
 		}
@@ -137,7 +149,7 @@ namespace ShipGame.GameDisplay
 
 			_gameTime = new GameTime();
 
-			_gameObjects = new List<GameObjectBase>();
+			_gameObjects = new List<IDrawableObject>();
 
 			Ship ship = new Ship(this);
 

@@ -24,7 +24,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private int _yVelocity;*/
 
-		private XNAGameDisplay _gameDisplay;
+		private XnaGameDisplay _gameDisplay;
 
 		private int _displayOrder;
 
@@ -122,7 +122,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}*/
 
-		protected XNAGameDisplay GameDisplay
+		protected XnaGameDisplay GameDisplay
 		{
 			get
 			{
@@ -200,7 +200,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		#region Constructors
 
-		protected GameObjectBase(XNAGameDisplay xnaGameDisplay)
+		protected GameObjectBase(XnaGameDisplay xnaGameDisplay)
 		{
 			GameDisplay = xnaGameDisplay;
 

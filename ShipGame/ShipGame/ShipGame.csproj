@@ -135,6 +135,7 @@
     <Compile Include="GameObjects\BaseClass\GameObjectBase.cs" />
     <Compile Include="GameObjects\BaseClass\IDrawableObject.cs" />
     <Compile Include="GameObjects\Ship.cs" />
+    <Compile Include="GameObjects\TargetingSystem.cs" />
     <Compile Include="GameUtilities\GameUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

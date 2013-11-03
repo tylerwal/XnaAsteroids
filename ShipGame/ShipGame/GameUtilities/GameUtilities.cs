@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,12 +59,34 @@ namespace ShipGame.GameUtilities
 			{
 				Rectangle tempRectangle = tempList[i];
 
-				tempRectangle.Inflate(-1, -1);
+				tempRectangle.Inflate(-2, -2);
 
 				tempList[i] = tempRectangle;
 			}
 
 			return tempList;
+		}
+
+		public static Texture2D ReturnSingleSpriteFrame(Texture2D originalTexture, int rows, int columns, int frameSelection, bool removeFrameLines)
+		{
+			IList<Rectangle> spriteRectangles = GetSpriteRectangles(originalTexture, rows, columns);
+
+			if (removeFrameLines)
+			{
+				spriteRectangles = RemoveFrameLines(spriteRectangles);
+			}
+
+			Tuple<int, int> frameRectangeWidthAndHeight = GetSingleRectangleWidthAndHeight(spriteRectangles);
+
+			Color[] pixels = new Color[frameRectangeWidthAndHeight.Item1 * frameRectangeWidthAndHeight.Item2];
+
+			Texture2D croppedTexture2D = new Texture2D(originalTexture.GraphicsDevice, frameRectangeWidthAndHeight.Item1, frameRectangeWidthAndHeight.Item2);
+
+			originalTexture.GetData(0, spriteRectangles[frameSelection], pixels, 0, pixels.Length);
+
+			croppedTexture2D.SetData(pixels);
+
+			return croppedTexture2D;
 		}
 
 		#endregion Methods
@@ -79,6 +102,17 @@ namespace ShipGame.GameUtilities
 		{
 			return texture.Height / rows;
 		}
+
+		private static Tuple<int, int> GetSingleRectangleWidthAndHeight(IList<Rectangle> sourceRectangles)
+		{
+			Tuple<int, int> rectangleWidthHeigt = new Tuple<int, int>(
+				sourceRectangles.First().Width,
+				sourceRectangles.First().Height
+				);
+
+			return rectangleWidthHeigt;
+		}
+			
 
 		#endregion Helper Methods
 	}

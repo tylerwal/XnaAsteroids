@@ -37,7 +37,7 @@ namespace ShipGame.GameForms
 			this.highScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
-			this.xnaGameDisplay = new ShipGame.GameDisplay.XNAGameDisplay();
+			this.xnaGameDisplay = new ShipGame.GameDisplay.XnaGameDisplay();
 			this.gameStatusBar = new GameProgrammingTest.MainWindowMenu0();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
@@ -139,7 +139,7 @@ namespace ShipGame.GameForms
 
 		#endregion
 
-		private XNAGameDisplay xnaGameDisplay;
+		private XnaGameDisplay xnaGameDisplay;
 		private System.Windows.Forms.MenuStrip mnsTopMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
