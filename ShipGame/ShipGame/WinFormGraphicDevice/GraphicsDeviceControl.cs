@@ -170,8 +170,7 @@ namespace ShipGame.WinFormGraphicDevice
 		{
 			try
 			{
-				Rectangle sourceRectangle = new Rectangle(0, 0, ClientSize.Width,
-													   ClientSize.Height);
+				Rectangle sourceRectangle = new Rectangle(0, 0, ClientSize.Width, ClientSize.Height);
 
 				GraphicsDevice.Present(sourceRectangle, null, this.Handle);
 			}

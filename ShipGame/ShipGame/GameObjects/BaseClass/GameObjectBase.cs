@@ -1,6 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShipGame.GameDisplay;
 
 namespace ShipGame.GameObjects.BaseClass
 {
@@ -10,13 +14,27 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private Texture2D _texture;
 
-		private Vector2 _vector;
+		private Vector2 _positionVector;
+
+		private Vector2 _velocityVector;
 
 		private bool _isActive;
 
 		private int _xVelocity;
 
 		private int _yVelocity;
+
+		/*private int _height;
+
+		private int _width;*/
+
+		private XNAGameDisplay _gameDisplay;
+
+		private int _displayOrder;
+
+		private IList<Rectangle> _spriteRectangles;
+
+		private int _terminalVelocity;
 
 		#endregion Fields
 
@@ -34,15 +52,15 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public Vector2 Vector
+		public Vector2 PositionVector
 		{
 			get
 			{
-				return _vector;
+				return _positionVector;
 			}
 			set
 			{
-				_vector = value;
+				_positionVector = value; 
 			}
 		}
 
@@ -62,7 +80,7 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				return _texture.Width;
+				return SpriteRectangles.First().Width;
 			}
 		}
 
@@ -70,7 +88,7 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				return _texture.Height;
+				return SpriteRectangles.First().Height;
 			}
 		}
 
@@ -106,13 +124,78 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
+		protected XNAGameDisplay GameDisplay
+		{
+			get
+			{
+				return _gameDisplay;
+			}
+			set
+			{
+				_gameDisplay = value;
+			}
+		}
+
+		public int DisplayOrder
+		{
+			get
+			{
+				return _displayOrder;
+			}
+			set
+			{
+				_displayOrder = value;
+			}
+		}
+
+		public IList<Rectangle> SpriteRectangles
+		{
+			get
+			{
+				return _spriteRectangles;
+			}
+			set
+			{
+				_spriteRectangles = value;
+			}
+		}
+
+		public Vector2 VelocityVector
+		{
+			get
+			{
+				return _velocityVector;
+			}
+			set
+			{
+				_velocityVector = value; 
+			}
+		}
+
+		public int TerminalVelocity
+		{
+			get
+			{
+				return _terminalVelocity;
+			}
+			set
+			{
+				_terminalVelocity = value;
+			}
+		}
+
+		
+		
 		#endregion Properties
 
 		#region Constructors
 
-		protected GameObjectBase()
+		protected GameObjectBase(XNAGameDisplay xnaGameDisplay)
 		{
-			
+			GameDisplay = xnaGameDisplay;
+
+			//initial display order
+			DisplayOrder = 1;
 		}
 
 		#endregion Constructors
@@ -129,7 +212,62 @@ namespace ShipGame.GameObjects.BaseClass
 
 		#region Helper Methods
 
+		#region Bound Methods
 
+		protected bool IsWithinBounds()
+		{
+			return GameDisplay.ClientRectangle.Contains(Convert.ToInt32(_positionVector.X), Convert.ToInt32(_positionVector.Y));
+		}
+
+		protected bool IsWithinHorizontalEastBounds()
+		{
+			return GameDisplay.ClientRectangle.Right >= (_positionVector.X + Width);
+		}
+
+		protected bool IsWithinHorizontalWestBounds()
+		{
+			return GameDisplay.ClientRectangle.Left <= _positionVector.X;
+		}
+
+		protected bool IsWithinVerticalNorthBounds()
+		{
+			return GameDisplay.ClientRectangle.Top <= _positionVector.Y;
+		}
+
+		protected bool IsWithinVerticalSouthBounds()
+		{
+			return GameDisplay.ClientRectangle.Bottom >= (_positionVector.Y + Height);
+		} 
+
+		#endregion Bound Methods
+
+		#region Velocity Methods
+
+		protected bool HasReachedTerminalXVelocity()
+		{
+
+			return VelocityVector.X >= TerminalVelocity;
+		}
+
+		protected bool HasReachedTerminalXNegativeVelocity()
+		{
+
+			return VelocityVector.X <= (TerminalVelocity * -1);
+		}
+
+		protected bool HasReachedTerminalYVelocity()
+		{
+
+			return VelocityVector.Y >= TerminalVelocity;
+		}
+
+		protected bool HasReachedTerminalYNegativeVelocity()
+		{
+
+			return VelocityVector.Y <= (TerminalVelocity * -1);
+		} 
+
+		#endregion Velocity Methods
 
 		#endregion Helper Methods
 	}
