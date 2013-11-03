@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows.Forms;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.WinFormGraphicDevice;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ShipGame.GameDisplay
 {
@@ -39,9 +37,7 @@ namespace ShipGame.GameDisplay
 		private KeyboardState _keyboardCurrentState;
 
 		private MouseState _mouseCurrentState;
-
 		
-
 		/*//test
 
 		private Texture2D tesTexture2D;
@@ -143,9 +139,9 @@ namespace ShipGame.GameDisplay
 
 			_gameObjects = new List<GameObjectBase>();
 
-			Ship playerOne = new Ship(this);
+			Ship ship = new Ship(this);
 
-			_gameObjects.Add(playerOne);
+			_gameObjects.Add(ship);
 
 			//loop through game object initialize methods
 			foreach (GameObjectBase gameObject in _gameObjects)

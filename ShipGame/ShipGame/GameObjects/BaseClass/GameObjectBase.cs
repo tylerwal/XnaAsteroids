@@ -20,13 +20,9 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private bool _isActive;
 
-		private int _xVelocity;
+		/*private int _xVelocity;
 
-		private int _yVelocity;
-
-		/*private int _height;
-
-		private int _width;*/
+		private int _yVelocity;*/
 
 		private XNAGameDisplay _gameDisplay;
 
@@ -34,7 +30,9 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private IList<Rectangle> _spriteRectangles;
 
-		private int _terminalVelocity;
+		private float _terminalVelocity;
+
+		private float _rotationAngle;
 
 		#endregion Fields
 
@@ -100,7 +98,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public int XVelocity
+		/*public int XVelocity
 		{
 			get
 			{
@@ -122,7 +120,7 @@ namespace ShipGame.GameObjects.BaseClass
 			{
 				_yVelocity = value;
 			}
-		}
+		}*/
 
 		protected XNAGameDisplay GameDisplay
 		{
@@ -172,7 +170,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public int TerminalVelocity
+		public float TerminalVelocity
 		{
 			get
 			{
@@ -181,6 +179,18 @@ namespace ShipGame.GameObjects.BaseClass
 			set
 			{
 				_terminalVelocity = value;
+			}
+		}
+
+		public float RotationAngle
+		{
+			get
+			{
+				return _rotationAngle;
+			}
+			set
+			{
+				_rotationAngle = value;
 			}
 		}
 
