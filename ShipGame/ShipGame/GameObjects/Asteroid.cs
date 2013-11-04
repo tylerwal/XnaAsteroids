@@ -60,6 +60,8 @@ namespace ShipGame.GameObjects
 			RotationAngle = GetRandomStartingRotation();
 
 			_rotationSpeed = GetRandomRotationSpeed();
+
+			VelocityVector = GetRandomVelocity();
 		}
 
 		public override void Draw()
@@ -82,6 +84,8 @@ namespace ShipGame.GameObjects
 			ApplyEndlessDisplay();
 
 			RotationAngle += _rotationSpeed;
+
+			PositionVector += VelocityVector;
 		}
 
 		#endregion Methods
@@ -100,7 +104,7 @@ namespace ShipGame.GameObjects
 
 		private float GetRandomStartingRotation()
 		{
-			double randomRotation = _random.NextDouble() * ((Math.PI * 2) - 0d);
+			double randomRotation = _random.NextDouble() * ((Math.PI * 2));
 
 			return (float)randomRotation;
 		}
@@ -109,12 +113,28 @@ namespace ShipGame.GameObjects
 		{
 			float rotationSpeed = _random.Next(0, 10) * .005f;
 
-			if (_random.Next(0, 6) > 3)
+			if (GameDisplay.GameUtilities.CoinFlip())
 			{
 				rotationSpeed *= -1;
 			}
 
 			return rotationSpeed;
+		}
+
+		private Vector2 GetRandomVelocity()
+		{
+			Vector2 velocity = GameDisplay.GameUtilities.GetRandomVector(0f, 1.2f, 0f, 1.2f);
+
+			if (GameDisplay.GameUtilities.CoinFlip())
+			{
+				velocity.X *= -1;
+			}
+			if (GameDisplay.GameUtilities.CoinFlip())
+			{
+				velocity.Y *= -1;
+			}
+
+			return velocity;
 		}
 
 		#endregion Helper Methods

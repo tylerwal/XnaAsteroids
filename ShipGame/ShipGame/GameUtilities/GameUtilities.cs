@@ -112,6 +112,22 @@ namespace ShipGame.GameUtilities
 			return randomVector;
 		}
 
+		public Vector2 GetRandomVector(float lowerXBounds, float upperXboards, float lowerYBounds, float upperYBounds)
+		{
+			Vector2 randomVector = new Vector2();
+
+			randomVector.X = (float)Random.NextDouble() * (upperXboards - lowerXBounds) + lowerXBounds;
+
+			randomVector.Y = (float)Random.NextDouble() * (upperYBounds - lowerYBounds) + lowerYBounds;
+
+			return randomVector;
+		}
+
+		public bool CoinFlip()
+		{
+			return (Random.Next(0, 6) > 3);
+		}
+
 		#endregion Methods
 
 		#region Helper Methods
