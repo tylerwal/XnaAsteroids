@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShipGame.GameObjects.BaseClass
 {
-	abstract public class GameObjectBase: IDrawableObject
+	abstract public class GameObjectBase: IGameObject
 	{
 		#region Fields
 
@@ -18,13 +17,9 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private Vector2 _velocityVector;
 
-		private bool _isActive;
+		private bool _isVisible;
 
-		/*private int _xVelocity;
-
-		private int _yVelocity;*/
-
-		private XnaGameDisplay _gameDisplay;
+		private XnaGame _gameDisplay;
 
 		private int _displayOrder;
 
@@ -33,6 +28,8 @@ namespace ShipGame.GameObjects.BaseClass
 		private float _terminalVelocity;
 
 		private float _rotationAngle;
+
+		private int _spriteSelectedFrame;
 
 		#endregion Fields
 
@@ -62,15 +59,15 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public bool IsActive
+		public bool IsVisible
 		{
 			get
 			{
-				return _isActive;
+				return _isVisible;
 			}
 			set
 			{
-				_isActive = value;
+				_isVisible = value;
 			}
 		}
 
@@ -90,39 +87,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public Rectangle Bounds
-		{
-			get
-			{
-				return _texture.Bounds;
-			}
-		}
-
-		/*public int XVelocity
-		{
-			get
-			{
-				return _xVelocity;
-			}
-			set
-			{
-				_xVelocity = value;
-			}
-		}
-
-		public int YVelocity
-		{
-			get
-			{
-				return _yVelocity;
-			}
-			set
-			{
-				_yVelocity = value;
-			}
-		}*/
-
-		protected XnaGameDisplay GameDisplay
+		protected XnaGame GameDisplay
 		{
 			get
 			{
@@ -194,15 +159,27 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
+		public int SpriteSelectedFrame
+		{
+			get
+			{
+				return _spriteSelectedFrame;
+			}
+			set
+			{
+				_spriteSelectedFrame = value;
+			}
+		}
+
 		
 		
 		#endregion Properties
 
 		#region Constructors
 
-		protected GameObjectBase(XnaGameDisplay xnaGameDisplay)
+		protected GameObjectBase(XnaGame xnaGame)
 		{
-			GameDisplay = xnaGameDisplay;
+			GameDisplay = xnaGame;
 
 			//initial display order
 			DisplayOrder = 1;
@@ -231,7 +208,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected bool IsWithinHorizontalEastBounds()
 		{
-			return GameDisplay.ClientRectangle.Right >= (_positionVector.X + Width);
+			return GameDisplay.ClientRectangle.Right >= _positionVector.X;
 		}
 
 		protected bool IsWithinHorizontalWestBounds()
@@ -246,14 +223,14 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected bool IsWithinVerticalSouthBounds()
 		{
-			return GameDisplay.ClientRectangle.Bottom >= (_positionVector.Y + Height);
+			return GameDisplay.ClientRectangle.Bottom >= _positionVector.Y;
 		} 
 
 		#endregion Bound Methods
 
 		#region Velocity Methods
 
-		protected bool HasReachedTerminalXVelocity()
+		protected bool HasReachedTerminalXPositiveVelocity()
 		{
 
 			return VelocityVector.X >= TerminalVelocity;
@@ -265,7 +242,7 @@ namespace ShipGame.GameObjects.BaseClass
 			return VelocityVector.X <= (TerminalVelocity * -1);
 		}
 
-		protected bool HasReachedTerminalYVelocity()
+		protected bool HasReachedTerminalYPositiveVelocity()
 		{
 
 			return VelocityVector.Y >= TerminalVelocity;
@@ -278,6 +255,42 @@ namespace ShipGame.GameObjects.BaseClass
 		} 
 
 		#endregion Velocity Methods
+
+		protected void ApplyEndlessDisplay()
+		{
+			Vector2 tempPosition = PositionVector;
+
+			if (!IsWithinHorizontalEastBounds())
+			{
+				tempPosition.X = GameDisplay.ClientRectangle.Left;
+			}
+			if (!IsWithinHorizontalWestBounds())
+			{
+				tempPosition.X = GameDisplay.ClientRectangle.Right;
+			}
+			if (!IsWithinVerticalNorthBounds())
+			{
+				tempPosition.Y = GameDisplay.ClientRectangle.Bottom;
+			}
+			if (!IsWithinVerticalSouthBounds())
+			{
+				tempPosition.Y = GameDisplay.ClientRectangle.Top;
+			}
+
+			PositionVector = tempPosition;
+		}
+
+		protected bool IsBoundsWithinAnotherObjectsBounds()
+		{
+			IEnumerable<GameObjectBase> gameObjectsVisible = GameDisplay.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible);
+
+			foreach (GameObjectBase gameObjectBase in gameObjectsVisible)
+			{
+				Rectangle test = gameObjectBase.Texture.Bounds;
+			}
+
+			return true;
+		}
 
 		#endregion Helper Methods
 	}

@@ -12,12 +12,10 @@ using System.Windows.Forms;
 
 namespace ShipGame.GameDisplay
 {
-	public class XnaGameDisplay : GraphicsDeviceControl
+	public class XnaGame : GraphicsDeviceControl
 	{
 		#region Constants
-
-		private const int _gameUpdateElapsedTime = 20;
-
+		
 		#endregion Constants
 
 		#region Fields
@@ -28,21 +26,13 @@ namespace ShipGame.GameDisplay
 
 		private Stopwatch _stopwatch;
 
-		private GameTime _gameTime;
-
-		private IList<IDrawableObject> _gameObjects;
-
-		//private IList<Rectangle> _shipRects;
+		private IList<IGameObject> _gameObjects;
 
 		private KeyboardState _keyboardCurrentState;
 
 		private MouseState _mouseCurrentState;
-		
-		/*//test
 
-		private Texture2D tesTexture2D;
-		private Texture2D shipTexture2D;
-		private Rectangle rectangle;*/
+		private GameUtilities.GameUtilities _gameUtilities;
 
 		#endregion Fields
 
@@ -96,7 +86,7 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
-		public IList<IDrawableObject> GameObjects
+		public IList<IGameObject> GameObjects
 		{
 			get
 			{
@@ -108,15 +98,31 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
-		
-		
+		public GameUtilities.GameUtilities GameUtilities
+		{
+			get
+			{
+				return _gameUtilities;
+			}
+			set
+			{
+				_gameUtilities = value;
+			}
+		}
+
 		#endregion Properties
 
 		#region Constructors
 
-		public XnaGameDisplay()
+		public XnaGame()
 		{
-			var test = this.Size;
+			/*Content = new ContentManager(Services, "Content");
+
+			SpriteBatch = new SpriteBatch(GraphicsDevice);*/
+
+			GameObjects = new List<IGameObject>();
+
+			GameUtilities = new GameUtilities.GameUtilities();
 		}
 
 		#endregion Constructors
@@ -125,35 +131,30 @@ namespace ShipGame.GameDisplay
 
 		protected override void Initialize()
 		{
-			_content = new ContentManager(Services, "Content");
+			Content = new ContentManager(Services, "Content");
 
-			_spriteBatch = new SpriteBatch(GraphicsDevice);
+			SpriteBatch = new SpriteBatch(GraphicsDevice);
 
 			/*//test
-
 			rectangle = new Rectangle(50,50,50,50);
-
-			shipTexture2D = _content.Load<Texture2D>("Ship");
-
-			_shipRects =  GameUtilities.GameUtilities.GetSpriteRectangles(shipTexture2D, 2, 8);
-
-			_shipRects = GameUtilities.GameUtilities.RemoveFrameLines(_shipRects);
-
 			tesTexture2D = new Texture2D(GraphicsDevice, 1, 1);
 			tesTexture2D.SetData(new Color[]{Color.AliceBlue});
-
-			
 			//test end*/
 			
 			_stopwatch = Stopwatch.StartNew();
-
-			_gameTime = new GameTime();
-
-			_gameObjects = new List<IDrawableObject>();
-
+			
 			Ship ship = new Ship(this);
 
 			_gameObjects.Add(ship);
+
+			GameControls gameControls = new GameControls(this);
+
+			_gameObjects.Add(gameControls);
+
+			for (int i = 0; i < 5; i++)
+			{
+				_gameObjects.Add(new Asteroid(this)); 
+			}
 
 			//loop through game object initialize methods
 			foreach (GameObjectBase gameObject in _gameObjects)
@@ -174,7 +175,7 @@ namespace ShipGame.GameDisplay
 			int elapsedTime = _stopwatch.Elapsed.Milliseconds;
 
 			//only update game objects so often to avoid game moving too fast
-			if (elapsedTime > _gameUpdateElapsedTime)
+			if (elapsedTime > ShipGame.GameUtilities.GameSettings.GameUpdateTime)
 			{
 				UpdateGameObjects();
 
@@ -187,8 +188,8 @@ namespace ShipGame.GameDisplay
 			/*_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);
 			_spriteBatch.Draw(shipTexture2D, new Vector2(120, 120), _shipRects[0], Color.White);*/
 
-			//lop through game objects and draw them based on DisplayOrder
-			_gameObjects.OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
+			//loop through game objects and draw them based on DisplayOrder
+			_gameObjects.Where(v => v.IsVisible).OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
 		
 			_spriteBatch.End();
 

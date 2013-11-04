@@ -1,56 +1,42 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework.Input;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
 
 namespace ShipGame.GameObjects
 {
-	public class TargetingSystem : GameObjectBase
+	public class GameControls: GameObjectBase
 	{
 		#region Fields
 
-		private Vector2 _originatingVector;
+		private KeyboardState _keyboardCurrentState;
 
-		private Vector2 _targetedVector;
-
-		private float _targetingLength;
+		private MouseState _mouseCurrentState;
 
 		#endregion Fields
 
 		#region Properties
 
-		public Vector2 OriginatingVector
+		public KeyboardState KeyboardCurrentState
 		{
 			get
 			{
-				return _originatingVector;
+				return _keyboardCurrentState;
 			}
 			set
 			{
-				_originatingVector = value;
+				_keyboardCurrentState = value;
 			}
 		}
 
-		public Vector2 TargetedVector
+		public MouseState MouseCurrentState
 		{
 			get
 			{
-				return _targetedVector;
+				return _mouseCurrentState;
 			}
 			set
 			{
-				_targetedVector = value;
-			}
-		}
-
-		public float TargetingLength
-		{
-			get
-			{
-				return _targetingLength;
-			}
-			set
-			{
-				_targetingLength = value;
+				_mouseCurrentState = value;
 			}
 		}
 
@@ -60,7 +46,7 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public TargetingSystem(XnaGame xnaGame) : base(xnaGame)
+		public GameControls(XnaGame xnaGame): base(xnaGame)
 		{
 			
 		}
@@ -71,7 +57,6 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			DisplayOrder = 1;
 		}
 
 		public override void Draw()
@@ -80,14 +65,18 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
-			
+			Mouse.WindowHandle = GameDisplay.Handle;
+
+			KeyboardCurrentState = Keyboard.GetState();
+
+			MouseCurrentState = Mouse.GetState();
 		}
 
 		#endregion Methods
 
 		#region Helper Methods
 
-		 
+
 
 		#endregion Helper Methods
 	}

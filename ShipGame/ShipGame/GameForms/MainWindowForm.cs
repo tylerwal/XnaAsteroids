@@ -15,9 +15,9 @@ namespace ShipGame.GameForms
 		{
 			InitializeComponent();
 
-			/*xnaGameDisplay.MouseEnter += xnaGameDisplay_MouseEnter;
+			/*XnaGame.MouseEnter += xnaGameDisplay_MouseEnter;
 
-			xnaGameDisplay.MouseLeave += xnaGameDisplay_MouseLeave;*/
+			XnaGame.MouseLeave += xnaGameDisplay_MouseLeave;*/
 		}
 
 		#region Event Handlers

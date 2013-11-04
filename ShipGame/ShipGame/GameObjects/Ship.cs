@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,15 +13,17 @@ namespace ShipGame.GameObjects
 	{
 		#region Fields
 
-		private int _previousMouseX;
-
-		private int _previousMouseY;
-
 		private float _brakePower;
 
 		private float _enginePower;
 
 		private float _thrusterPower;
+
+		private int _spriteSelectedFrame;
+
+		private KeyboardState _keyboardState;
+
+		private MouseState _mouseState;
 
 		#endregion Fields
 
@@ -32,16 +35,17 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public Ship(XnaGameDisplay xnaGameDisplay) : base(xnaGameDisplay)
+		public Ship(XnaGame xnaGame)
+			: base(xnaGame)
 		{
 			//start ship in center
 			Vector2 centerScreenVector = new Vector2(GameDisplay.ClientRectangle.Width / 2, GameDisplay.ClientRectangle.Height / 2);
 			PositionVector = centerScreenVector;
 
-			TerminalVelocity = 2.5f;
-			_brakePower = .1f;
-			_enginePower = 1f;
-			_thrusterPower = .5f;
+			TerminalVelocity = GameUtilities.GameSettings.ShipTerminalVelocity;
+			_brakePower = GameUtilities.GameSettings.ShipBrakePower;
+			_enginePower = GameUtilities.GameSettings.ShipEnginePower;
+			_thrusterPower = GameUtilities.GameSettings.ShipThrusterPower;
 		}
 
 		#endregion Constructors
@@ -50,26 +54,31 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			Texture = GameDisplay.Content.Load<Texture2D>("Ship");
+			SpriteSelectedFrame = GameUtilities.GameSettings.ShipSelectedFrame;
 
-			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 2, 8);
+			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameSettings.ShipTextureName);
+			
+			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
+				GameUtilities.GameSettings.ShipTextureRows, 
+				GameUtilities.GameSettings.ShipTextureColumns);
 
 			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
 
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 2, 8, 0, true);
-
-			/*//set starting mouse point
-			MouseState mouseState = Mouse.GetState();
-
-			_previousMouseX = mouseState.X;*/
-
-			RotationAngle = 0;
+			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
+				GameUtilities.GameSettings.ShipTextureRows, 
+				GameUtilities.GameSettings.ShipTextureColumns,
+				SpriteSelectedFrame, 
+				true);
 
 			DisplayOrder = 2;
+
+			IsVisible = true;
 		}
 
 		public override void Draw()
 		{
+			#region Junk
+
 			/*GameDisplay.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
@@ -82,17 +91,33 @@ namespace ShipGame.GameObjects
 					1.0f
 				);*/
 
-			GameDisplay.SpriteBatch.Draw(
+			/*GameDisplay.SpriteBatch.Draw(
 					Texture,
-					new Vector2(30,30), 
+					new Vector2(30, 30),
 					null,
 					Color.White,
 					RotationAngle,
 					new Vector2(Width / 2, Height / 2),
 					1.0f,
 					SpriteEffects.None,
-					1.0f);
+					1.0f);*/
 
+			/*GameDisplay.SpriteBatch.Draw(
+					Texture,
+					new Rectangle(50, 50, 24, 24),
+					null, //use whole texture
+					Color.White, //tint
+					RotationAngle/* + (float)(Math.PI/2)#1#,
+					new Vector2(Height / 2, Width / 2), //origin of rotation
+				//1.0f, //scale
+					SpriteEffects.None,
+					1.0f
+				);*/
+
+
+			#endregion Junk
+
+			//moving
 			GameDisplay.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
@@ -100,27 +125,19 @@ namespace ShipGame.GameObjects
 					Color.White, //tint
 					RotationAngle/* + (float)(Math.PI/2)*/,
 					new Vector2(Height / 2, Width / 2), //origin of rotation
-					1.0f, //scale
+					GameUtilities.GameSettings.ShipScale, //scale
 					SpriteEffects.None,
-					1.0f
-				);
-
-			GameDisplay.SpriteBatch.Draw(
-					Texture,
-					new Rectangle(50,50,24,24), 
-					null, //use whole texture
-					Color.White, //tint
-					RotationAngle/* + (float)(Math.PI/2)*/,
-					new Vector2(Height / 2, Width / 2), //origin of rotation
-					//1.0f, //scale
-					SpriteEffects.None,
-					1.0f
+					1.0f //layer depth, for sorting sprites but this is already done
 				);
 		}
-		
+
 		public override void Update()
 		{
+			GetCurrentKeyboardMouseStates();
+
 			#region Position And Velocity
+
+			ApplyEndlessDisplay();
 
 			Vector2 tempPosition = PositionVector;
 
@@ -128,135 +145,101 @@ namespace ShipGame.GameObjects
 
 			#region Keyboard States
 
-			if (GameDisplay.KeyboardCurrentState.IsKeyDown(Keys.W))
+			if (_keyboardState.IsKeyDown(Keys.W) && !HasReachedTerminalYNegativeVelocity())
 			{
-				if (IsWithinVerticalNorthBounds())
-				{
-					if (!HasReachedTerminalYNegativeVelocity())
-					{
-						tempVelocity.Y -= _enginePower;
-					}
-				}
-				else
-				{
-					tempVelocity.Y = 0;
-				}
+				tempVelocity.Y -= _enginePower;
 			}
-			if (GameDisplay.KeyboardCurrentState.IsKeyDown(Keys.A))
+			if (_keyboardState.IsKeyDown(Keys.A) && !HasReachedTerminalXNegativeVelocity())
 			{
-				if (IsWithinHorizontalWestBounds())
-				{
-					if (!HasReachedTerminalXNegativeVelocity())
-					{
-						tempVelocity.X -= _thrusterPower;
-					}
-				}
-				else
-				{
-					tempVelocity.X = 0;
-				}
+				tempVelocity.X -= _thrusterPower;
 			}
-			if (GameDisplay.KeyboardCurrentState.IsKeyDown(Keys.S))
+			if (_keyboardState.IsKeyDown(Keys.S) && !HasReachedTerminalYPositiveVelocity())
 			{
-				if (IsWithinVerticalSouthBounds())
-				{
-					if (!HasReachedTerminalYVelocity())
-					{
-						tempVelocity.Y += _enginePower;
-					}
-				}
-				else
-				{
-					tempVelocity.Y = 0;
-				}
+				tempVelocity.Y += _enginePower;
 			}
-			if (GameDisplay.KeyboardCurrentState.IsKeyDown(Keys.D))
+			if (_keyboardState.IsKeyDown(Keys.D) && !HasReachedTerminalXPositiveVelocity())
 			{
-				if (IsWithinHorizontalEastBounds())
-				{
-					if (!HasReachedTerminalXVelocity())
-					{
-						tempVelocity.X += _thrusterPower;
-					}
-				}
-				else
-				{
-					tempVelocity.X = 0;
-				}
+				tempVelocity.X += _thrusterPower;
 			}
 
-			if (GameDisplay.KeyboardCurrentState.IsKeyDown(Keys.Space))
+			if (_keyboardState.IsKeyDown(Keys.Space))
 			{
-				if (tempVelocity.X > 0)
-				{
-					tempVelocity.X -= _brakePower;
-				}
-				if (tempVelocity.Y > 0)
-				{
-					tempVelocity.Y -= _brakePower;
-				}
-				if (tempVelocity.X < 0)
-				{
-					tempVelocity.X += _brakePower;
-				}
-				if (tempVelocity.Y < 0)
-				{
-					tempVelocity.Y += _brakePower;
-				}
-
-				if (Math.Abs(tempVelocity.X) < .1f && Math.Abs(tempVelocity.Y) < 0.1f)
-				{
-					tempVelocity.X = 0;
-					tempVelocity.Y = 0;
-				}
+				tempVelocity = ApplyBrakes(tempVelocity);
 			}
 
 			#endregion Keyboard States
 
 			tempPosition = Vector2.Add(tempPosition, tempVelocity);
-
-			VelocityVector = tempVelocity;
-
-			PositionVector = tempPosition;
-
+			
 			#endregion Position And Velocity
 
 			#region Rotation Angle
 
-			Vector2 mousePosition = new Vector2(GameDisplay.MouseCurrentState.X, GameDisplay.MouseCurrentState.Y);
+			Vector2 mousePosition = new Vector2(_mouseState.X, _mouseState.Y);
 
 			Vector2 directionVector = mousePosition - new Vector2(PositionVector.X + Width, PositionVector.Y + Height);
 
 			directionVector.Normalize();
 
 			RotationAngle = (float)(Math.Atan2(directionVector.Y, directionVector.X));
-			
+
 			#endregion Rotation Angle
 
 			#region Mouse Press
 
-			if (GameDisplay.MouseCurrentState.LeftButton == ButtonState.Pressed)
+			if (_mouseState.LeftButton == ButtonState.Pressed)
 			{
 				var test = 1;
 			}
 
 			#endregion Mouse Press
+
+			VelocityVector = tempVelocity;
+
+			PositionVector = tempPosition;
 		}
 
 		#endregion Methods
 
 		#region Helper Methods
 
-		/*private bool HasMouseMovedRight()
+		private void GetCurrentKeyboardMouseStates()
 		{
-			return _previousMouseX < GameDisplay.MouseCurrentState.X + 10;
+			_mouseState = GameDisplay.GameObjects.OfType<GameControls>().First().MouseCurrentState;
+
+			_keyboardState = GameDisplay.GameObjects.OfType<GameControls>().First().KeyboardCurrentState;
 		}
 
-		private bool HasMouseMovedLeft()
+		private Vector2 ApplyBrakes(Vector2 currentVelocity)
 		{
-			return _previousMouseX > GameDisplay.MouseCurrentState.X - 10;
-		}*/
+			Vector2 tempVelocity = currentVelocity;
 
+			if (tempVelocity.X > 0)
+			{
+				tempVelocity.X -= _brakePower;
+			}
+			if (tempVelocity.Y > 0)
+			{
+				tempVelocity.Y -= _brakePower;
+			}
+			if (tempVelocity.X < 0)
+			{
+				tempVelocity.X += _brakePower;
+			}
+			if (tempVelocity.Y < 0)
+			{
+				tempVelocity.Y += _brakePower;
+			}
+
+			if (Math.Abs(tempVelocity.X) < .1f && Math.Abs(tempVelocity.Y) < 0.1f)
+			{
+				tempVelocity.X = 0;
+				tempVelocity.Y = 0;
+			}
+
+			return tempVelocity;
+		}
+		
 		#endregion Helper Methods
 	}
 }

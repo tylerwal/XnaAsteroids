@@ -37,7 +37,7 @@ namespace ShipGame.GameForms
 			this.highScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
-			this.xnaGameDisplay = new ShipGame.GameDisplay.XnaGameDisplay();
+			this.xnaGame = new ShipGame.GameDisplay.XnaGame();
 			this.gameStatusBar = new GameProgrammingTest.MainWindowMenu0();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
@@ -83,24 +83,24 @@ namespace ShipGame.GameForms
 			// 
 			// pnlGamePanel
 			// 
-			this.pnlGamePanel.Controls.Add(this.xnaGameDisplay);
+			this.pnlGamePanel.Controls.Add(this.xnaGame);
 			this.pnlGamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlGamePanel.Location = new System.Drawing.Point(0, 24);
 			this.pnlGamePanel.Name = "pnlGamePanel";
 			this.pnlGamePanel.Size = new System.Drawing.Size(784, 455);
 			this.pnlGamePanel.TabIndex = 3;
 			// 
-			// xnaGameDisplay
+			// XnaGame
 			// 
-			this.xnaGameDisplay.Content = null;
-			this.xnaGameDisplay.Cursor = System.Windows.Forms.Cursors.Default;
-			this.xnaGameDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.xnaGameDisplay.Location = new System.Drawing.Point(0, 0);
-			this.xnaGameDisplay.Name = "xnaGameDisplay";
-			this.xnaGameDisplay.Size = new System.Drawing.Size(784, 455);
-			this.xnaGameDisplay.SpriteBatch = null;
-			this.xnaGameDisplay.TabIndex = 0;
-			this.xnaGameDisplay.Text = "xnaGameDisplay";
+			this.xnaGame.Content = null;
+			this.xnaGame.Cursor = System.Windows.Forms.Cursors.Default;
+			this.xnaGame.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.xnaGame.Location = new System.Drawing.Point(0, 0);
+			this.xnaGame.Name = "xnaGame";
+			this.xnaGame.Size = new System.Drawing.Size(784, 455);
+			this.xnaGame.SpriteBatch = null;
+			this.xnaGame.TabIndex = 0;
+			this.xnaGame.Text = "XnaGame";
 			// 
 			// gameStatusBar
 			// 
@@ -139,7 +139,7 @@ namespace ShipGame.GameForms
 
 		#endregion
 
-		private XnaGameDisplay xnaGameDisplay;
+		private XnaGame xnaGame;
 		private System.Windows.Forms.MenuStrip mnsTopMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;

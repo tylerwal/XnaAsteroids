@@ -1,8 +1,14 @@
 ﻿namespace ShipGame.GameObjects.BaseClass
 {
-	public interface IDrawableObject
+	public interface IGameObject
 	{
 		int DisplayOrder
+		{
+			get;
+			set;
+		}
+
+		bool IsVisible
 		{
 			get;
 			set;

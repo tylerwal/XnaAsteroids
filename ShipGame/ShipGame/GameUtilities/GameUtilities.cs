@@ -10,13 +10,25 @@ namespace ShipGame.GameUtilities
 	{
 		#region Fields
 
-
+		private Random _random;
 
 		#endregion Fields
 
 		#region Properties
 
+		public Random Random
+		{
+			get
+			{
+				return _random;
+			}
+			set
+			{
+				_random = value;
+			}
+		}
 
+		
 
 		#endregion Properties
 
@@ -24,7 +36,7 @@ namespace ShipGame.GameUtilities
 
 		public GameUtilities()
 		{
-			
+			Random = new Random();
 		}
 
 		#endregion Constructors
@@ -87,6 +99,17 @@ namespace ShipGame.GameUtilities
 			croppedTexture2D.SetData(pixels);
 
 			return croppedTexture2D;
+		}
+
+		public Vector2 GetRandomVector(int lowerXBounds, int upperXboards, int lowerYBounds, int upperYBounds)
+		{
+			Vector2 randomVector = new Vector2();
+
+			randomVector.X = Random.Next(lowerXBounds, upperXboards);
+
+			randomVector.Y = Random.Next(lowerYBounds, upperYBounds);
+
+			return randomVector;
 		}
 
 		#endregion Methods
