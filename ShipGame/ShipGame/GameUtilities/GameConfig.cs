@@ -1,10 +1,12 @@
 ﻿namespace ShipGame.GameUtilities
 {
-	public static class GameSettings
+	public static class GameConfig
 	{
 		#region General
 
-		public const int GameUpdateTime = 20; 
+		public const int GameUpdateTime = 20;
+
+		public const string ContentManagerName = "Content";
 
 		#endregion General
 
@@ -20,7 +22,7 @@
 
 		public const float ShipBrakePower = .1f;
 
-		public const float ShipTerminalVelocity = 2.5f;
+		public const float ShipTerminalVelocity = 4f;
 
 		public const float ShipEnginePower = 1f;
 

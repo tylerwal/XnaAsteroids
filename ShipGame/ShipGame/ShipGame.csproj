@@ -17,8 +17,8 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>869678d3-e585-45b9-b0aa-1439348a0b5c</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <ApplicationIcon>Possibly don%27t Need\Game.ico</ApplicationIcon>
+    <Thumbnail>Possibly don%27t Need\GameThumbnail.png</Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -138,11 +138,11 @@
     <Compile Include="GameObjects\GameControls.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TargetingSystem.cs" />
-    <Compile Include="GameUtilities\GameSettings.cs" />
+    <Compile Include="GameUtilities\GameConfig.cs" />
     <Compile Include="GameUtilities\GameUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Possibly don%27t Need\Game1.cs" />
     <Compile Include="WinFormGraphicDevice\GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -150,8 +150,8 @@
     <Compile Include="WinFormGraphicDevice\ServiceContainer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
+    <Content Include="Possibly don%27t Need\Game.ico" />
+    <Content Include="Possibly don%27t Need\GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShipGameContent\ShipGameContent.contentproj">

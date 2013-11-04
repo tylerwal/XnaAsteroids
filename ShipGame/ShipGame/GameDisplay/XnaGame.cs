@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
+using ShipGame.GameUtilities;
 using ShipGame.WinFormGraphicDevice;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,6 @@ namespace ShipGame.GameDisplay
 {
 	public class XnaGame : GraphicsDeviceControl
 	{
-		#region Constants
-		
-		#endregion Constants
-
 		#region Fields
 
 		private ContentManager _content;
@@ -123,6 +120,9 @@ namespace ShipGame.GameDisplay
 			GameObjects = new List<IGameObject>();
 
 			GameUtilities = new GameUtilities.GameUtilities();
+
+			//hook the idle event to constantly redraw the animation
+			Application.Idle += delegate { Invalidate(); };
 		}
 
 		#endregion Constructors
@@ -131,7 +131,7 @@ namespace ShipGame.GameDisplay
 
 		protected override void Initialize()
 		{
-			Content = new ContentManager(Services, "Content");
+			Content = new ContentManager(Services, GameConfig.ContentManagerName);
 
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -145,26 +145,22 @@ namespace ShipGame.GameDisplay
 			
 			Ship ship = new Ship(this);
 
-			_gameObjects.Add(ship);
+			GameObjects.Add(ship);
 
 			GameControls gameControls = new GameControls(this);
 
-			_gameObjects.Add(gameControls);
+			GameObjects.Add(gameControls);
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 10; i++)
 			{
-				_gameObjects.Add(new Asteroid(this)); 
+				GameObjects.Add(new Asteroid(this)); 
 			}
 
 			//loop through game object initialize methods
-			foreach (GameObjectBase gameObject in _gameObjects)
+			foreach (GameObjectBase gameObject in GameObjects)
 			{
 				gameObject.Initialize();
 			}
-
-
-			//hook the idle event to constantly redraw the animation
-			Application.Idle += delegate { Invalidate(); };
 		}
 
 		protected override void Draw()
@@ -175,21 +171,21 @@ namespace ShipGame.GameDisplay
 			int elapsedTime = _stopwatch.Elapsed.Milliseconds;
 
 			//only update game objects so often to avoid game moving too fast
-			if (elapsedTime > ShipGame.GameUtilities.GameSettings.GameUpdateTime)
+			if (elapsedTime > ShipGame.GameUtilities.GameConfig.GameUpdateTime)
 			{
 				UpdateGameObjects();
 
 				_stopwatch.Restart();
 			}
 			
-			_spriteBatch.Begin();
+			SpriteBatch.Begin();
 
 			//tcw delete
 			/*_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);
 			_spriteBatch.Draw(shipTexture2D, new Vector2(120, 120), _shipRects[0], Color.White);*/
 
 			//loop through game objects and draw them based on DisplayOrder
-			_gameObjects.Where(v => v.IsVisible).OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
+			GameObjects.Where(v => v.IsVisible).OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
 		
 			_spriteBatch.End();
 
@@ -206,7 +202,7 @@ namespace ShipGame.GameDisplay
 			MouseCurrentState = Mouse.GetState();
 
 			//loop through game object update methods
-			foreach (GameObjectBase gameObject in _gameObjects)
+			foreach (GameObjectBase gameObject in GameObjects)
 			{
 				gameObject.Update();
 			}

@@ -33,19 +33,19 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			SpriteSelectedFrame = GameUtilities.GameSettings.AsteroidSelectedFrame;
+			SpriteSelectedFrame = GameUtilities.GameConfig.AsteroidSelectedFrame;
 
-			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameSettings.AsteroidTextureName);
+			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameConfig.AsteroidTextureName);
 
 			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
-				GameUtilities.GameSettings.AsteroidTextureRows,
-				GameUtilities.GameSettings.AsteroidTextureColumns);
+				GameUtilities.GameConfig.AsteroidTextureRows,
+				GameUtilities.GameConfig.AsteroidTextureColumns);
 
 			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
 
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture,
-				GameUtilities.GameSettings.AsteroidTextureRows,
-				GameUtilities.GameSettings.AsteroidTextureColumns,
+				GameUtilities.GameConfig.AsteroidTextureRows,
+				GameUtilities.GameConfig.AsteroidTextureColumns,
 				SpriteSelectedFrame,
 				true);
 
@@ -73,7 +73,7 @@ namespace ShipGame.GameObjects
 					Color.White, //tint
 					RotationAngle,
 					new Vector2(Height / 2, Width / 2), //origin of rotation
-					GameUtilities.GameSettings.AsteroidScale, //scale
+					GameUtilities.GameConfig.AsteroidScale, //scale
 					SpriteEffects.None,
 					1.0f //layer depth, not used
 				);

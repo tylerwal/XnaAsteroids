@@ -42,10 +42,10 @@ namespace ShipGame.GameObjects
 			Vector2 centerScreenVector = new Vector2(GameDisplay.ClientRectangle.Width / 2, GameDisplay.ClientRectangle.Height / 2);
 			PositionVector = centerScreenVector;
 
-			TerminalVelocity = GameUtilities.GameSettings.ShipTerminalVelocity;
-			_brakePower = GameUtilities.GameSettings.ShipBrakePower;
-			_enginePower = GameUtilities.GameSettings.ShipEnginePower;
-			_thrusterPower = GameUtilities.GameSettings.ShipThrusterPower;
+			TerminalVelocity = GameUtilities.GameConfig.ShipTerminalVelocity;
+			_brakePower = GameUtilities.GameConfig.ShipBrakePower;
+			_enginePower = GameUtilities.GameConfig.ShipEnginePower;
+			_thrusterPower = GameUtilities.GameConfig.ShipThrusterPower;
 		}
 
 		#endregion Constructors
@@ -54,19 +54,19 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			SpriteSelectedFrame = GameUtilities.GameSettings.ShipSelectedFrame;
+			SpriteSelectedFrame = GameUtilities.GameConfig.ShipSelectedFrame;
 
-			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameSettings.ShipTextureName);
+			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
 			
 			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
-				GameUtilities.GameSettings.ShipTextureRows, 
-				GameUtilities.GameSettings.ShipTextureColumns);
+				GameUtilities.GameConfig.ShipTextureRows, 
+				GameUtilities.GameConfig.ShipTextureColumns);
 
 			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
 
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
-				GameUtilities.GameSettings.ShipTextureRows, 
-				GameUtilities.GameSettings.ShipTextureColumns,
+				GameUtilities.GameConfig.ShipTextureRows, 
+				GameUtilities.GameConfig.ShipTextureColumns,
 				SpriteSelectedFrame, 
 				true);
 
@@ -125,7 +125,7 @@ namespace ShipGame.GameObjects
 					Color.White, //tint
 					RotationAngle/* + (float)(Math.PI/2)*/,
 					new Vector2(Height / 2, Width / 2), //origin of rotation
-					GameUtilities.GameSettings.ShipScale, //scale
+					GameUtilities.GameConfig.ShipScale, //scale
 					SpriteEffects.None,
 					1.0f //layer depth, for sorting sprites but this is already done
 				);
