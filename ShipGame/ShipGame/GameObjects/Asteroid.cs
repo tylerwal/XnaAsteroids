@@ -101,36 +101,38 @@ namespace ShipGame.GameObjects
 					null, //use whole texture
 					Color.White, //tint
 					RotationAngle,
-					new Vector2(Height / 2, Width / 2), //origin of rotation
+					new Vector2(Texture.Height / 2, Texture.Width / 2), //origin of rotation
 					_textureScale, //scale
 					SpriteEffects.None,
 					1.0f //layer depth, not used
 				);
 
-			/*GameDisplay.SpriteBatch.Draw(tesTexture2D, Bounds, Color.White);
+			GameDisplay.SpriteBatch.Draw(tesTexture2D, Bounds, Color.White);
 
-			var test = Bounds;
+			/*var rectangleBounds = Bounds;
 
 			var center = PositionVector;
 			
-			test.Width = (int)(test.Width *_textureScale);
+			rectangleBounds.Width = (int)(rectangleBounds.Width *_textureScale);
 
-			test.Height = (int)(test.Height * _textureScale);
+			rectangleBounds.Height = (int)(rectangleBounds.Height * _textureScale);
 
-			test.X -= test.Width / 2;
+			rectangleBounds.X -= rectangleBounds.Width / 2;
 
-			test.Y -= test.Height / 2;
+			rectangleBounds.Y -= rectangleBounds.Height / 2;
 
-			GameDisplay.SpriteBatch.Draw(tesTexture2D, test, Color.Green);
+			GameDisplay.SpriteBatch.Draw(tesTexture2D, Bounds, Color.Green);*/
 
-			GameDisplay.SpriteBatch.Draw(tesTexture2D, new Rectangle((int)PositionVector.X - 20, (int)PositionVector.Y - 20, 20, 20),Color.Yellow );*/
+			//GameDisplay.SpriteBatch.Draw(tesTexture2D, rectangleBounds, Color.Green);
+
+			//GameDisplay.SpriteBatch.Draw(tesTexture2D, new Rectangle((int)PositionVector.X - 20, (int)PositionVector.Y - 20, 20, 20),Color.Yellow );
 		}
 
 		public override void Update()
 		{
 			ApplyEndlessDisplay();
 
-			//Bounds = GetBounds(_textureScale);
+			Bounds = GetBounds(_textureScale);
 
 			RotationAngle += _rotationSpeed;
 
@@ -144,11 +146,11 @@ namespace ShipGame.GameObjects
 				{
 					Vector2 collidedVelocity = collidedObject.VelocityVector;
 
-					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, -0.001f);
+					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, 0.0001f);
 
 					Vector2 thisVelocity = VelocityVector;
 
-					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, -0.001f);
+					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, 0.0001f);
 
 					collidedObject.VelocityVector = thisVelocity;
 

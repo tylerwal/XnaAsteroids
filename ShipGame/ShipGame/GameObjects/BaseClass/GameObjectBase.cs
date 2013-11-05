@@ -177,8 +177,8 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				return new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
-				//return _bounds;
+				//return new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
+				return _bounds;
 			}
 			set
 			{
@@ -306,7 +306,7 @@ namespace ShipGame.GameObjects.BaseClass
 			{
 				Rectangle gameObjectRectangle = otherGameObject.Bounds;
 
-				Rectangle startingRectangle = new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
+				Rectangle startingRectangle = Bounds;/*new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);*/
 
 				if (startingRectangle.Intersects(gameObjectRectangle))
 				{
@@ -329,15 +329,15 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected Rectangle GetBounds(float scale)
 		{
-			Rectangle bounds = new Rectangle();
+			Rectangle bounds = Texture.Bounds;
 
-			bounds.Width = (int)(Width * scale);
+			bounds.Height = (int)(bounds.Height * scale);
 
-			bounds.Height = (int)(Height * scale);
+			bounds.Width = (int)(bounds.Width * scale);
 
-			bounds.X -= Width / 2;
+			bounds.X = (int)PositionVector.X - (bounds.Width / 2);
 
-			bounds.Y -= Height / 2;
+			bounds.Y = (int)PositionVector.Y - (bounds.Height / 2);
 
 			return bounds;
 		}
