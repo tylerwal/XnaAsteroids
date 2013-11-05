@@ -31,6 +31,8 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private int _spriteSelectedFrame;
 
+		private Rectangle _bounds;
+		
 		#endregion Fields
 
 		#region Properties
@@ -171,7 +173,18 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		
+		public Rectangle Bounds
+		{
+			get
+			{
+				return new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
+				//return _bounds;
+			}
+			set
+			{
+				_bounds = value;
+			}
+		}
 		
 		#endregion Properties
 
@@ -282,14 +295,51 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected bool IsBoundsWithinAnotherObjectsBounds()
 		{
-			IEnumerable<GameObjectBase> gameObjectsVisible = GameDisplay.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible);
+			return GetCollidedObject() != null;
+		}
 
-			foreach (GameObjectBase gameObjectBase in gameObjectsVisible)
+		protected GameObjectBase GetCollidedObject()
+		{
+			IEnumerable<GameObjectBase> otherGameObjectsVisible = GameDisplay.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible).Where(i => i != this);
+
+			foreach (GameObjectBase otherGameObject in otherGameObjectsVisible)
 			{
-				Rectangle test = gameObjectBase.Texture.Bounds;
+				Rectangle gameObjectRectangle = otherGameObject.Bounds;
+
+				Rectangle startingRectangle = new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
+
+				if (startingRectangle.Intersects(gameObjectRectangle))
+				{
+					return otherGameObject;
+				}
 			}
 
-			return true;
+			return null;
+		}
+
+		protected Vector2 GetRandomStartingPoint()
+		{
+			return GameDisplay.GameUtilities.GetRandomVector(
+				GameDisplay.ClientRectangle.Left,
+				GameDisplay.ClientRectangle.Right,
+				GameDisplay.ClientRectangle.Top,
+				GameDisplay.ClientRectangle.Bottom
+				);
+		}
+
+		protected Rectangle GetBounds(float scale)
+		{
+			Rectangle bounds = new Rectangle();
+
+			bounds.Width = (int)(Width * scale);
+
+			bounds.Height = (int)(Height * scale);
+
+			bounds.X -= Width / 2;
+
+			bounds.Y -= Height / 2;
+
+			return bounds;
 		}
 
 		#endregion Helper Methods

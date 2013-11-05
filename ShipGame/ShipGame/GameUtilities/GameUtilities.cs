@@ -12,6 +12,8 @@ namespace ShipGame.GameUtilities
 
 		private Random _random;
 
+		public Dictionary<int, Tuple<string, int, int, int, float>> _asteroidSettings; 
+
 		#endregion Fields
 
 		#region Properties
@@ -28,8 +30,18 @@ namespace ShipGame.GameUtilities
 			}
 		}
 
+		public Dictionary<int, Tuple<string, int, int, int, float>> AsteroidSettings
+		{
+			get
+			{
+				return _asteroidSettings;
+			}
+			set
+			{
+				_asteroidSettings = value;
+			}
+		}
 		
-
 		#endregion Properties
 
 		#region Constructors
@@ -37,6 +49,10 @@ namespace ShipGame.GameUtilities
 		public GameUtilities()
 		{
 			Random = new Random();
+
+			AsteroidSettings = new Dictionary<int, Tuple<string, int, int, int, float>>();
+
+			InitializeAsteroidSettings();
 		}
 
 		#endregion Constructors
@@ -81,6 +97,11 @@ namespace ShipGame.GameUtilities
 
 		public static Texture2D ReturnSingleSpriteFrame(Texture2D originalTexture, int rows, int columns, int frameSelection, bool removeFrameLines)
 		{
+			if ((rows * columns) == 1)
+			{
+				return originalTexture;
+			}
+
 			IList<Rectangle> spriteRectangles = GetSpriteRectangles(originalTexture, rows, columns);
 
 			if (removeFrameLines)
@@ -128,6 +149,30 @@ namespace ShipGame.GameUtilities
 			return (Random.Next(0, 6) > 3);
 		}
 
+		public static float MoveTowardsZero(float input, float offset)
+		{
+			if (input > 0)
+			{
+				return input -= offset;
+			}
+			if (input < 0)
+			{
+				return input += offset;
+			}
+			return input;
+		}
+
+		public static Vector2 MoveTowardsZero(Vector2 input, float offset)
+		{
+			Vector2 tempVector2 = input;
+
+			tempVector2.X = MoveTowardsZero(tempVector2.X, offset);
+
+			tempVector2.Y = MoveTowardsZero(tempVector2.Y, offset);
+
+			return tempVector2;
+		}
+		
 		#endregion Methods
 
 		#region Helper Methods
@@ -151,7 +196,44 @@ namespace ShipGame.GameUtilities
 
 			return rectangleWidthHeigt;
 		}
-			
+
+		private void InitializeAsteroidSettings()
+		{
+			AsteroidSettings.Add(1, new Tuple<string, int, int, int, float>(
+				GameConfig.AsteroidOneTextureName,
+				GameConfig.AsteroidOneTextureRows,
+				GameConfig.AsteroidOneTextureColumns,
+				GameConfig.AsteroidOneSelectedFrame,
+				GameConfig.AsteroidOneScale));
+
+			AsteroidSettings.Add(2, new Tuple<string, int, int, int, float>(
+				GameConfig.AsteroidTwoTextureName,
+				GameConfig.AsteroidTwoTextureRows,
+				GameConfig.AsteroidTwoTextureColumns,
+				GameConfig.AsteroidTwoSelectedFrame,
+				GameConfig.AsteroidTwoScale));
+
+			AsteroidSettings.Add(3, new Tuple<string, int, int, int, float>(
+				GameConfig.AsteroidThreeTextureName,
+				GameConfig.AsteroidThreeTextureRows,
+				GameConfig.AsteroidThreeTextureColumns,
+				GameConfig.AsteroidThreeSelectedFrame,
+				GameConfig.AsteroidThreeScale));
+
+			AsteroidSettings.Add(4, new Tuple<string, int, int, int, float>(
+				GameConfig.AsteroidFourTextureName,
+				GameConfig.AsteroidFourTextureRows,
+				GameConfig.AsteroidFourTextureColumns,
+				GameConfig.AsteroidFourSelectedFrame,
+				GameConfig.AsteroidFourScale));
+
+			AsteroidSettings.Add(5, new Tuple<string, int, int, int, float>(
+				GameConfig.AsteroidFiveTextureName,
+				GameConfig.AsteroidFiveTextureRows,
+				GameConfig.AsteroidFiveTextureColumns,
+				GameConfig.AsteroidFiveSelectedFrame,
+				GameConfig.AsteroidFiveScale));
+		}
 
 		#endregion Helper Methods
 	}
