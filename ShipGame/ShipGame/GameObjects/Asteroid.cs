@@ -121,7 +121,9 @@ namespace ShipGame.GameObjects
 
 			test.Y -= test.Height / 2;
 
-			GameDisplay.SpriteBatch.Draw(tesTexture2D, test, Color.Green);*/
+			GameDisplay.SpriteBatch.Draw(tesTexture2D, test, Color.Green);
+
+			GameDisplay.SpriteBatch.Draw(tesTexture2D, new Rectangle((int)PositionVector.X - 20, (int)PositionVector.Y - 20, 20, 20),Color.Yellow );*/
 		}
 
 		public override void Update()
