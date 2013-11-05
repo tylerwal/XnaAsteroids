@@ -172,6 +172,16 @@ namespace ShipGame.GameUtilities
 
 			return tempVector2;
 		}
+
+		public static Vector2 GetVectorFromPoint(Point point)
+		{
+			return new Vector2(point.X, point.Y);
+		}
+
+		public static Point GetPointFromVector(Vector2 vector)
+		{
+			return new Point((int)vector.X, (int)vector.Y);
+		}
 		
 		#endregion Methods
 

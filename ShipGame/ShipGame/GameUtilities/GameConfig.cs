@@ -39,9 +39,7 @@ namespace ShipGame.GameUtilities
 		#region Asteroid Constants
 
 		public const float AsteroidTerminalVelocity = 1.5f;
-
-		public static Dictionary<string, string> _asteroidSettings;
-
+		
 		#region AsteroidOne
 
 		public const string AsteroidOneTextureName = "Asteroid1";

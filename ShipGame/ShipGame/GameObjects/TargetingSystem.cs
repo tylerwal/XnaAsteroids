@@ -60,7 +60,7 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public TargetingSystem(XnaGame xnaGame) : base(xnaGame)
+		public TargetingSystem(XnaGame xnaXnaGame) : base(xnaXnaGame)
 		{
 			
 		}

@@ -19,7 +19,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private bool _isVisible;
 
-		private XnaGame _gameDisplay;
+		private XnaGame _xnaGame;
 
 		private int _displayOrder;
 
@@ -77,7 +77,9 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				return SpriteRectangles.First().Width;
+				return Bounds.Width;
+
+				//return SpriteRectangles.First().Width;
 			}
 		}
 
@@ -85,19 +87,21 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				return SpriteRectangles.First().Height;
+				return Bounds.Height;
+
+				//return SpriteRectangles.First().Height;
 			}
 		}
 
-		protected XnaGame GameDisplay
+		protected XnaGame XnaGame
 		{
 			get
 			{
-				return _gameDisplay;
+				return _xnaGame;
 			}
 			set
 			{
-				_gameDisplay = value;
+				_xnaGame = value;
 			}
 		}
 
@@ -190,9 +194,9 @@ namespace ShipGame.GameObjects.BaseClass
 
 		#region Constructors
 
-		protected GameObjectBase(XnaGame xnaGame)
+		protected GameObjectBase(XnaGame xnaXnaGame)
 		{
-			GameDisplay = xnaGame;
+			XnaGame = xnaXnaGame;
 
 			//initial display order
 			DisplayOrder = 1;
@@ -207,7 +211,7 @@ namespace ShipGame.GameObjects.BaseClass
 		public abstract void Draw();
 
 		public abstract void Update();
-
+		
 		#endregion Methods
 
 		#region Helper Methods
@@ -216,27 +220,27 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected bool IsWithinBounds()
 		{
-			return GameDisplay.ClientRectangle.Contains(Convert.ToInt32(_positionVector.X), Convert.ToInt32(_positionVector.Y));
+			return XnaGame.ClientRectangle.Contains(Convert.ToInt32(_positionVector.X), Convert.ToInt32(_positionVector.Y));
 		}
 
 		protected bool IsWithinHorizontalEastBounds()
 		{
-			return GameDisplay.ClientRectangle.Right >= _positionVector.X;
+			return XnaGame.ClientRectangle.Right >= _positionVector.X;
 		}
 
 		protected bool IsWithinHorizontalWestBounds()
 		{
-			return GameDisplay.ClientRectangle.Left <= _positionVector.X;
+			return XnaGame.ClientRectangle.Left <= _positionVector.X;
 		}
 
 		protected bool IsWithinVerticalNorthBounds()
 		{
-			return GameDisplay.ClientRectangle.Top <= _positionVector.Y;
+			return XnaGame.ClientRectangle.Top <= _positionVector.Y;
 		}
 
 		protected bool IsWithinVerticalSouthBounds()
 		{
-			return GameDisplay.ClientRectangle.Bottom >= _positionVector.Y;
+			return XnaGame.ClientRectangle.Bottom >= _positionVector.Y;
 		} 
 
 		#endregion Bound Methods
@@ -275,19 +279,19 @@ namespace ShipGame.GameObjects.BaseClass
 
 			if (!IsWithinHorizontalEastBounds())
 			{
-				tempPosition.X = GameDisplay.ClientRectangle.Left;
+				tempPosition.X = XnaGame.ClientRectangle.Left;
 			}
 			if (!IsWithinHorizontalWestBounds())
 			{
-				tempPosition.X = GameDisplay.ClientRectangle.Right;
+				tempPosition.X = XnaGame.ClientRectangle.Right;
 			}
 			if (!IsWithinVerticalNorthBounds())
 			{
-				tempPosition.Y = GameDisplay.ClientRectangle.Bottom;
+				tempPosition.Y = XnaGame.ClientRectangle.Bottom;
 			}
 			if (!IsWithinVerticalSouthBounds())
 			{
-				tempPosition.Y = GameDisplay.ClientRectangle.Top;
+				tempPosition.Y = XnaGame.ClientRectangle.Top;
 			}
 
 			PositionVector = tempPosition;
@@ -300,7 +304,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected GameObjectBase GetCollidedObject()
 		{
-			IEnumerable<GameObjectBase> otherGameObjectsVisible = GameDisplay.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible).Where(i => i != this);
+			IEnumerable<GameObjectBase> otherGameObjectsVisible = XnaGame.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible).Where(i => i != this);
 
 			foreach (GameObjectBase otherGameObject in otherGameObjectsVisible)
 			{
@@ -319,11 +323,11 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected Vector2 GetRandomStartingPoint()
 		{
-			return GameDisplay.GameUtilities.GetRandomVector(
-				GameDisplay.ClientRectangle.Left,
-				GameDisplay.ClientRectangle.Right,
-				GameDisplay.ClientRectangle.Top,
-				GameDisplay.ClientRectangle.Bottom
+			return XnaGame.GameUtilities.GetRandomVector(
+				XnaGame.ClientRectangle.Left,
+				XnaGame.ClientRectangle.Right,
+				XnaGame.ClientRectangle.Top,
+				XnaGame.ClientRectangle.Bottom
 				);
 		}
 

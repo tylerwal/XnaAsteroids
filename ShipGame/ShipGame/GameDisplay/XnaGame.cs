@@ -107,6 +107,18 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
+		public Stopwatch Stopwatch
+		{
+			get
+			{
+				return _stopwatch;
+			}
+			set
+			{
+				_stopwatch = value;
+			}
+		}
+
 		#endregion Properties
 
 		#region Constructors

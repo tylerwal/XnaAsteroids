@@ -46,7 +46,7 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public GameControls(XnaGame xnaGame): base(xnaGame)
+		public GameControls(XnaGame xnaXnaGame): base(xnaXnaGame)
 		{
 			
 		}
@@ -65,7 +65,7 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
-			Mouse.WindowHandle = GameDisplay.Handle;
+			Mouse.WindowHandle = XnaGame.Handle;
 
 			KeyboardCurrentState = Keyboard.GetState();
 

@@ -39,10 +39,10 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public Asteroid(XnaGame xnaGame)
-			: base(xnaGame)
+		public Asteroid(XnaGame xnaXnaGame)
+			: base(xnaXnaGame)
 		{
-			_random = GameDisplay.GameUtilities.Random;
+			_random = XnaGame.GameUtilities.Random;
 		}
 
 		#endregion Constructors
@@ -52,34 +52,7 @@ namespace ShipGame.GameObjects
 		public override void Initialize()
 		{
 			RandomizeStart();
-
-			#region DeleteLater
-
-			/*SpriteSelectedFrame = GameUtilities.GameConfig.AsteroidOneSelectedFrame;
-
-			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameConfig.AsteroidOneTextureName);
-
-			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
-				GameUtilities.GameConfig.AsteroidOneTextureRows,
-				GameUtilities.GameConfig.AsteroidOneTextureColumns);
-
-			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
-
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture,
-				GameUtilities.GameConfig.AsteroidOneTextureRows,
-				GameUtilities.GameConfig.AsteroidOneTextureColumns,
-				SpriteSelectedFrame,
-				true);*/
-
-			//SpriteSelectedFrame = GameUtilities.GameConfig.AsteroidOneSelectedFrame; 
-
-			#endregion DeleteLater
-			//delete below
-			rectangle = Bounds;
-			tesTexture2D = new Texture2D(GameDisplay.GraphicsDevice, 1, 1);
-			tesTexture2D.SetData(new Color[] { Color.AliceBlue });
-			//delete above
-
+			
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture,
 				_textureRows,
 				_textureColumns,
@@ -95,7 +68,7 @@ namespace ShipGame.GameObjects
 
 		public override void Draw()
 		{
-			GameDisplay.SpriteBatch.Draw(
+			XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
 					null, //use whole texture
@@ -106,26 +79,6 @@ namespace ShipGame.GameObjects
 					SpriteEffects.None,
 					1.0f //layer depth, not used
 				);
-
-			GameDisplay.SpriteBatch.Draw(tesTexture2D, Bounds, Color.White);
-
-			/*var rectangleBounds = Bounds;
-
-			var center = PositionVector;
-			
-			rectangleBounds.Width = (int)(rectangleBounds.Width *_textureScale);
-
-			rectangleBounds.Height = (int)(rectangleBounds.Height * _textureScale);
-
-			rectangleBounds.X -= rectangleBounds.Width / 2;
-
-			rectangleBounds.Y -= rectangleBounds.Height / 2;
-
-			GameDisplay.SpriteBatch.Draw(tesTexture2D, Bounds, Color.Green);*/
-
-			//GameDisplay.SpriteBatch.Draw(tesTexture2D, rectangleBounds, Color.Green);
-
-			//GameDisplay.SpriteBatch.Draw(tesTexture2D, new Rectangle((int)PositionVector.X - 20, (int)PositionVector.Y - 20, 20, 20),Color.Yellow );
 		}
 
 		public override void Update()
@@ -146,11 +99,11 @@ namespace ShipGame.GameObjects
 				{
 					Vector2 collidedVelocity = collidedObject.VelocityVector;
 
-					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, 0.0001f);
+					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, -0.0001f);
 
 					Vector2 thisVelocity = VelocityVector;
 
-					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, 0.0001f);
+					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, -0.0001f);
 
 					collidedObject.VelocityVector = thisVelocity;
 
@@ -169,13 +122,13 @@ namespace ShipGame.GameObjects
 		{
 			InitializeRandomTexture();
 			
-			Texture = GameDisplay.Content.Load<Texture2D>(_textureName);
+			Texture = XnaGame.Content.Load<Texture2D>(_textureName);
 
-			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
+			/*SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
 				_textureRows,
 				_textureColumns);
 
-			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
+			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);*/
 
 			do
 			{
@@ -190,11 +143,14 @@ namespace ShipGame.GameObjects
 			VelocityVector = GetRandomVelocity();
 		}
 
+		/// <summary>
+		/// Chooses an Asteroid texture randomly and plugs in the settings for that particular texture
+		/// </summary>
 		private void InitializeRandomTexture()
 		{
 			int random = _random.Next(1, 6);
 
-			KeyValuePair<int, Tuple<string, int, int, int, float>> asteroidSettingsKeyValuePair = GameDisplay.GameUtilities.AsteroidSettings.Single(i => i.Key == random);
+			KeyValuePair<int, Tuple<string, int, int, int, float>> asteroidSettingsKeyValuePair = XnaGame.GameUtilities.AsteroidSettings.Single(i => i.Key == random);
 
 			Tuple<string, int, int, int, float> asteroidSettingsTuple = asteroidSettingsKeyValuePair.Value;
 
@@ -209,6 +165,10 @@ namespace ShipGame.GameObjects
 			_textureScale = asteroidSettingsTuple.Item5;
 		}
 
+		/// <summary>
+		/// Gets random starting rotation, otherwise all asteroids would start in the same orientation
+		/// </summary>
+		/// <returns>random float within 0 and 2PI</returns>
 		private float GetRandomStartingRotation()
 		{
 			double randomRotation = _random.NextDouble() * ((Math.PI * 2));
@@ -216,11 +176,15 @@ namespace ShipGame.GameObjects
 			return (float)randomRotation;
 		}
 
+		/// <summary>
+		/// Gets random rotation speed for start
+		/// </summary>
+		/// <returns>Random Velocity</returns>
 		private float GetRandomRotationSpeed()
 		{
 			float rotationSpeed = _random.Next(0, 10) * .005f;
 
-			if (GameDisplay.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.CoinFlip())
 			{
 				rotationSpeed *= -1;
 			}
@@ -228,15 +192,19 @@ namespace ShipGame.GameObjects
 			return rotationSpeed;
 		}
 
+		/// <summary>
+		/// Gets random velocity for start
+		/// </summary>
+		/// <returns>Random Vector</returns>
 		private Vector2 GetRandomVelocity()
 		{
-			Vector2 velocity = GameDisplay.GameUtilities.GetRandomVector(0f, 1.2f, 0f, 1.2f);
+			Vector2 velocity = XnaGame.GameUtilities.GetRandomVector(0f, 1.2f, 0f, 1.2f);
 
-			if (GameDisplay.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.CoinFlip())
 			{
 				velocity.X *= -1;
 			}
-			if (GameDisplay.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.CoinFlip())
 			{
 				velocity.Y *= -1;
 			}
@@ -244,6 +212,9 @@ namespace ShipGame.GameObjects
 			return velocity;
 		}
 
+		/// <summary>
+		/// Keeps Velocity under a set Terminal Velocity
+		/// </summary>
 		private void MaintainTerminalVelocity()
 		{
 			Vector2 tempVelocity = VelocityVector;

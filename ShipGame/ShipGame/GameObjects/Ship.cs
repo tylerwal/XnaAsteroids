@@ -35,11 +35,11 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public Ship(XnaGame xnaGame)
-			: base(xnaGame)
+		public Ship(XnaGame xnaXnaGame)
+			: base(xnaXnaGame)
 		{
 			//start ship in center
-			Vector2 centerScreenVector = new Vector2(GameDisplay.ClientRectangle.Width / 2, GameDisplay.ClientRectangle.Height / 2);
+			Vector2 centerScreenVector = new Vector2(XnaGame.ClientRectangle.Width / 2, XnaGame.ClientRectangle.Height / 2);
 			PositionVector = centerScreenVector;
 
 			TerminalVelocity = GameUtilities.GameConfig.ShipTerminalVelocity;
@@ -56,7 +56,7 @@ namespace ShipGame.GameObjects
 		{
 			SpriteSelectedFrame = GameUtilities.GameConfig.ShipSelectedFrame;
 
-			Texture = GameDisplay.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
+			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
 			
 			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 
@@ -79,7 +79,7 @@ namespace ShipGame.GameObjects
 		{
 			#region Junk
 
-			/*GameDisplay.SpriteBatch.Draw(
+			/*XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
 					SpriteRectangles[0], //source rectangle
@@ -91,7 +91,7 @@ namespace ShipGame.GameObjects
 					1.0f
 				);*/
 
-			/*GameDisplay.SpriteBatch.Draw(
+			/*XnaGame.SpriteBatch.Draw(
 					Texture,
 					new Vector2(30, 30),
 					null,
@@ -102,7 +102,7 @@ namespace ShipGame.GameObjects
 					SpriteEffects.None,
 					1.0f);*/
 
-			/*GameDisplay.SpriteBatch.Draw(
+			/*XnaGame.SpriteBatch.Draw(
 					Texture,
 					new Rectangle(50, 50, 24, 24),
 					null, //use whole texture
@@ -118,13 +118,13 @@ namespace ShipGame.GameObjects
 			#endregion Junk
 
 			//moving
-			GameDisplay.SpriteBatch.Draw(
+			XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
 					null, //use whole texture
 					Color.White, //tint
 					RotationAngle/* + (float)(Math.PI/2)*/,
-					new Vector2(Height / 2, Width / 2), //origin of rotation
+					new Vector2(Bounds.Width/2, Bounds.Height / 2), //origin of rotation from the top left of the texture
 					GameUtilities.GameConfig.ShipScale, //scale
 					SpriteEffects.None,
 					1.0f //layer depth, for sorting sprites but this is already done
@@ -133,6 +133,8 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
+			Bounds = GetBounds(GameUtilities.GameConfig.ShipScale);
+
 			GetCurrentKeyboardMouseStates();
 
 			#region Position And Velocity
@@ -177,8 +179,8 @@ namespace ShipGame.GameObjects
 
 			Vector2 mousePosition = new Vector2(_mouseState.X, _mouseState.Y);
 
-			Vector2 directionVector = mousePosition - new Vector2(PositionVector.X + Width, PositionVector.Y + Height);
-
+			Vector2 directionVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
+			
 			directionVector.Normalize();
 
 			RotationAngle = (float)(Math.Atan2(directionVector.Y, directionVector.X));
@@ -189,7 +191,7 @@ namespace ShipGame.GameObjects
 
 			if (_mouseState.LeftButton == ButtonState.Pressed)
 			{
-				var test = 1;
+				XnaGame.Stopwatch.Stop();
 			}
 
 			#endregion Mouse Press
@@ -205,9 +207,9 @@ namespace ShipGame.GameObjects
 
 		private void GetCurrentKeyboardMouseStates()
 		{
-			_mouseState = GameDisplay.GameObjects.OfType<GameControls>().First().MouseCurrentState;
+			_mouseState = XnaGame.GameObjects.OfType<GameControls>().First().MouseCurrentState;
 
-			_keyboardState = GameDisplay.GameObjects.OfType<GameControls>().First().KeyboardCurrentState;
+			_keyboardState = XnaGame.GameObjects.OfType<GameControls>().First().KeyboardCurrentState;
 		}
 
 		private Vector2 ApplyBrakes(Vector2 currentVelocity)
