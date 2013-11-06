@@ -12,6 +12,12 @@ namespace ShipGame.GameUtilities
 
 		public const string ContentManagerName = "Content";
 
+		public const string BackgroundOneTextureName = "SpaceBackground";
+
+		public const string BackgroundTwoTextureName = "SpaceBackground2";
+
+		public const string BackgroundThreeTextureName = "SpaceBackground3";
+
 		#endregion General
 
 		#region Ship Constants
@@ -24,7 +30,7 @@ namespace ShipGame.GameUtilities
 
 		public const int ShipSelectedFrame = 4;
 
-		public const float ShipBrakePower = .1f;
+		public const float ShipBrakePower = .07f;
 
 		public const float ShipTerminalVelocity = 2.5f;
 

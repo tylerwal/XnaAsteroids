@@ -58,43 +58,16 @@ namespace ShipGame.GameUtilities
 		#endregion Constructors
 
 		#region Methods
-
-		public static IList<Rectangle> GetSpriteRectangles(Texture2D texture, int rows, int columns)
-		{
-			IList<Rectangle> spriteRectangles = new List<Rectangle>(rows * columns);
-
-			int frameHeight = GetFrameHeight(texture, rows);
-
-			int frameWidth = GetFrameWidth(texture, columns);
-
-			for (int i = 0; i < rows; i++)
-			{
-				for (int j = 0; j < columns; j++)
-				{
-					Rectangle currentFrame = new Rectangle(frameWidth * j, frameHeight * i, frameWidth, frameHeight);
-					spriteRectangles.Add(currentFrame);
-				}
-			}
-
-			return spriteRectangles;
-		}
-
-		public static IList<Rectangle> RemoveFrameLines(IEnumerable<Rectangle> spriteRectangles)
-		{
-			IList<Rectangle> tempList = spriteRectangles.ToList();
-
-			for (int i = 0; i < tempList.Count(); i++)
-			{
-				Rectangle tempRectangle = tempList[i];
-
-				tempRectangle.Inflate(-2, -2);
-
-				tempList[i] = tempRectangle;
-			}
-
-			return tempList;
-		}
-
+		
+		/// <summary>
+		/// Gets a single sprite frame from an image with multiple frames
+		/// </summary>
+		/// <param name="originalTexture"></param>
+		/// <param name="rows"></param>
+		/// <param name="columns"></param>
+		/// <param name="frameSelection"></param>
+		/// <param name="removeFrameLines"></param>
+		/// <returns>A Sprite Texture</returns>
 		public static Texture2D ReturnSingleSpriteFrame(Texture2D originalTexture, int rows, int columns, int frameSelection, bool removeFrameLines)
 		{
 			if ((rows * columns) == 1)
@@ -121,7 +94,15 @@ namespace ShipGame.GameUtilities
 
 			return croppedTexture2D;
 		}
-
+		
+		/// <summary>
+		/// Gets a random vector based on int type lower and upper bounds
+		/// </summary>
+		/// <param name="lowerXBounds"></param>
+		/// <param name="upperXboards"></param>
+		/// <param name="lowerYBounds"></param>
+		/// <param name="upperYBounds"></param>
+		/// <returns>A random vector</returns>
 		public Vector2 GetRandomVector(int lowerXBounds, int upperXboards, int lowerYBounds, int upperYBounds)
 		{
 			Vector2 randomVector = new Vector2();
@@ -133,6 +114,14 @@ namespace ShipGame.GameUtilities
 			return randomVector;
 		}
 
+		/// <summary>
+		/// Gets a random vector based on float type lower and upper bounds
+		/// </summary>
+		/// <param name="lowerXBounds"></param>
+		/// <param name="upperXboards"></param>
+		/// <param name="lowerYBounds"></param>
+		/// <param name="upperYBounds"></param>
+		/// <returns>A random vector</returns>
 		public Vector2 GetRandomVector(float lowerXBounds, float upperXboards, float lowerYBounds, float upperYBounds)
 		{
 			Vector2 randomVector = new Vector2();
@@ -144,11 +133,21 @@ namespace ShipGame.GameUtilities
 			return randomVector;
 		}
 
-		public bool CoinFlip()
+		/// <summary>
+		/// Gets a random boolean value
+		/// </summary>
+		/// <returns>random bool</returns>
+		public bool GetRandomBool()
 		{
 			return (Random.Next(0, 6) > 3);
 		}
 
+		/// <summary>
+		/// Transforms an input float to a float closer to zero
+		/// </summary>
+		/// <param name="input"></param>
+		/// <param name="offset"></param>
+		/// <returns>Lower absolute value float</returns>
 		public static float MoveTowardsZero(float input, float offset)
 		{
 			if (input > 0)
@@ -162,6 +161,12 @@ namespace ShipGame.GameUtilities
 			return input;
 		}
 
+		/// <summary>
+		/// Transforms an input int to a int closer to zero
+		/// </summary>
+		/// <param name="input"></param>
+		/// <param name="offset"></param>
+		/// <returns>Lower absolute value int</returns>
 		public static Vector2 MoveTowardsZero(Vector2 input, float offset)
 		{
 			Vector2 tempVector2 = input;
@@ -173,11 +178,21 @@ namespace ShipGame.GameUtilities
 			return tempVector2;
 		}
 
+		/// <summary>
+		/// Converts a point to a vector
+		/// </summary>
+		/// <param name="point"></param>
+		/// <returns>Vector2</returns>
 		public static Vector2 GetVectorFromPoint(Point point)
 		{
 			return new Vector2(point.X, point.Y);
 		}
 
+		/// <summary>
+		/// Converts a vector to a point
+		/// </summary>
+		/// <param name="vector"></param>
+		/// <returns>Point</returns>
 		public static Point GetPointFromVector(Vector2 vector)
 		{
 			return new Point((int)vector.X, (int)vector.Y);
@@ -186,6 +201,54 @@ namespace ShipGame.GameUtilities
 		#endregion Methods
 
 		#region Helper Methods
+
+		/// <summary>
+		/// Gets a list of rectangles for the sprite frames
+		/// </summary>
+		/// <param name="texture"></param>
+		/// <param name="rows"></param>
+		/// <param name="columns"></param>
+		/// <returns>A list of rectangles</returns>
+		private static IList<Rectangle> GetSpriteRectangles(Texture2D texture, int rows, int columns)
+		{
+			IList<Rectangle> spriteRectangles = new List<Rectangle>(rows * columns);
+
+			int frameHeight = GetFrameHeight(texture, rows);
+
+			int frameWidth = GetFrameWidth(texture, columns);
+
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					Rectangle currentFrame = new Rectangle(frameWidth * j, frameHeight * i, frameWidth, frameHeight);
+					spriteRectangles.Add(currentFrame);
+				}
+			}
+
+			return spriteRectangles;
+		}
+
+		/// <summary>
+		/// Deflates a list of sprite rectangles to remove Sprite frame lines
+		/// </summary>
+		/// <param name="spriteRectangles"></param>
+		/// <returns>A list of rectangles</returns>
+		private static IList<Rectangle> RemoveFrameLines(IEnumerable<Rectangle> spriteRectangles)
+		{
+			IList<Rectangle> tempList = spriteRectangles.ToList();
+
+			for (int i = 0; i < tempList.Count(); i++)
+			{
+				Rectangle tempRectangle = tempList[i];
+
+				tempRectangle.Inflate(-2, -2);
+
+				tempList[i] = tempRectangle;
+			}
+
+			return tempList;
+		}
 
 		private static int GetFrameWidth(Texture2D texture, int columns)
 		{

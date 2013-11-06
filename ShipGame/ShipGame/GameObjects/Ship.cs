@@ -58,11 +58,11 @@ namespace ShipGame.GameObjects
 
 			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
 			
-			SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
+			/*SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 
 				GameUtilities.GameConfig.ShipTextureColumns);
 
-			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);
+			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);*/
 
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 

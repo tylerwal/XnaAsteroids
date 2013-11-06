@@ -133,6 +133,7 @@
       <DependentUpon>GameStatusBar.cs</DependentUpon>
     </Compile>
     <Compile Include="GameObjects\Asteroid.cs" />
+    <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BaseClass\GameObjectBase.cs" />
     <Compile Include="GameObjects\BaseClass\IGameObject.cs" />
     <Compile Include="GameObjects\GameControls.cs" />

@@ -154,16 +154,17 @@ namespace ShipGame.GameDisplay
 			//test end*/
 			
 			_stopwatch = Stopwatch.StartNew();
+
+			Background background = new Background(this);
+			GameObjects.Add(background);
 			
 			Ship ship = new Ship(this);
-
 			GameObjects.Add(ship);
 
 			GameControls gameControls = new GameControls(this);
-
 			GameObjects.Add(gameControls);
 
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 20; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}

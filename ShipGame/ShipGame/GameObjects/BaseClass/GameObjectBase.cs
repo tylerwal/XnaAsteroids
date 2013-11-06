@@ -73,7 +73,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public int Width
+		/*public int Width
 		{
 			get
 			{
@@ -91,7 +91,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 				//return SpriteRectangles.First().Height;
 			}
-		}
+		}*/
 
 		protected XnaGame XnaGame
 		{
@@ -117,7 +117,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public IList<Rectangle> SpriteRectangles
+		/*public IList<Rectangle> SpriteRectangles
 		{
 			get
 			{
@@ -127,7 +127,7 @@ namespace ShipGame.GameObjects.BaseClass
 			{
 				_spriteRectangles = value;
 			}
-		}
+		}*/
 
 		public Vector2 VelocityVector
 		{
@@ -205,11 +205,20 @@ namespace ShipGame.GameObjects.BaseClass
 		#endregion Constructors
 
 		#region Methods
-
+		
+		/// <summary>
+		/// Initializes the required settings for a displayed game object: including visibility, texture, and display order
+		/// </summary>
 		public abstract void Initialize();
 
+		/// <summary>
+		/// Draws the texture for the object using the XnaGame's spritebatch
+		/// </summary>
 		public abstract void Draw();
 
+		/// <summary>
+		/// Updates the object based on other objects, randomness, and player control
+		/// </summary>
 		public abstract void Update();
 		
 		#endregion Methods

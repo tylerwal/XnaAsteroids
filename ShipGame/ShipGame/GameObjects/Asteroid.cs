@@ -28,7 +28,7 @@ namespace ShipGame.GameObjects
 
 		//delete below
 		private Rectangle rectangle;
-		private Texture2D tesTexture2D;
+		private Texture2D testingTexture;
 		//delete above
 
 		#endregion Fields
@@ -51,6 +51,8 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
+			InitializeRandomTexture();
+
 			RandomizeStart();
 			
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture,
@@ -64,6 +66,10 @@ namespace ShipGame.GameObjects
 			IsVisible = true;
 
 			TerminalVelocity = GameUtilities.GameConfig.AsteroidTerminalVelocity;
+
+			rectangle = new Rectangle(50, 50, 50, 50);
+			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
+			testingTexture.SetData(new Color[] { Color.AliceBlue });
 		}
 
 		public override void Draw()
@@ -79,6 +85,9 @@ namespace ShipGame.GameObjects
 					SpriteEffects.None,
 					1.0f //layer depth, not used
 				);
+
+			
+			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
 		}
 
 		public override void Update()
@@ -99,11 +108,11 @@ namespace ShipGame.GameObjects
 				{
 					Vector2 collidedVelocity = collidedObject.VelocityVector;
 
-					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, -0.0001f);
+					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, 0.001f);
 
 					Vector2 thisVelocity = VelocityVector;
 
-					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, -0.0001f);
+					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, 0.001f);
 
 					collidedObject.VelocityVector = thisVelocity;
 
@@ -120,8 +129,6 @@ namespace ShipGame.GameObjects
 
 		private void RandomizeStart()
 		{
-			InitializeRandomTexture();
-			
 			Texture = XnaGame.Content.Load<Texture2D>(_textureName);
 
 			/*SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
@@ -184,7 +191,7 @@ namespace ShipGame.GameObjects
 		{
 			float rotationSpeed = _random.Next(0, 10) * .005f;
 
-			if (XnaGame.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.GetRandomBool())
 			{
 				rotationSpeed *= -1;
 			}
@@ -200,11 +207,11 @@ namespace ShipGame.GameObjects
 		{
 			Vector2 velocity = XnaGame.GameUtilities.GetRandomVector(0f, 1.2f, 0f, 1.2f);
 
-			if (XnaGame.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.GetRandomBool())
 			{
 				velocity.X *= -1;
 			}
-			if (XnaGame.GameUtilities.CoinFlip())
+			if (XnaGame.GameUtilities.GetRandomBool())
 			{
 				velocity.Y *= -1;
 			}
