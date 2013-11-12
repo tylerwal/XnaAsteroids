@@ -27,7 +27,6 @@ namespace ShipGame.GameObjects
 		private float _textureScale;
 
 		//delete below
-		private Rectangle rectangle;
 		private Texture2D testingTexture;
 		//delete above
 
@@ -68,7 +67,6 @@ namespace ShipGame.GameObjects
 			TerminalVelocity = GameUtilities.GameConfig.AsteroidTerminalVelocity;
 
 			//delete below
-			rectangle = new Rectangle(50, 50, 50, 50);
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
 			testingTexture.SetData(new Color[] { Color.AliceBlue });
 			//delete above
@@ -106,7 +104,7 @@ namespace ShipGame.GameObjects
 
 			if (collidedObject != null)
 			{
-				if (collidedObject is Asteroid)
+				/*if (collidedObject is Asteroid)*/
 				{
 					#region Old Collision Handling
 

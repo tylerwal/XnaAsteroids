@@ -156,7 +156,7 @@ namespace ShipGame.GameDisplay
 			GameControls gameControls = new GameControls(this);
 			GameObjects.Add(gameControls);
 
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 1; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}
@@ -214,7 +214,7 @@ namespace ShipGame.GameDisplay
 
 				Ship ship = GameObjects.OfType<Ship>().First();
 
-				bullet.PositionVector = ship.PositionVector;
+				bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center) - new Vector2(2.5f, 2.5f);
 
 				Vector2 mousePosition = new Vector2(MouseCurrentState.X, MouseCurrentState.Y);
 
@@ -222,12 +222,20 @@ namespace ShipGame.GameDisplay
 
 				directionVector.Normalize();
 
-				bullet.VelocityVector = directionVector;
+				bullet.VelocityVector = directionVector * 2;
 
 				GameObjects.Add(bullet);
 
 				bullet.Initialize();
 			}
+
+			IEnumerable<Bullet> markedForDeletion = GameObjects.OfType<Bullet>().Where(i => i.MarkForDeletion == false);
+
+			foreach (Bullet bullet in markedForDeletion)
+			{
+				GameObjects.Remove(bullet);
+			}
+
 		}
 
 		#endregion Methods

@@ -17,7 +17,23 @@ namespace ShipGame.GameObjects
 
 		#endregion Fields
 
+		private bool _markForDeletion;
+
 		#region Properties
+
+		public bool MarkForDeletion
+		{
+			get
+			{
+				return _markForDeletion;
+			}
+			set
+			{
+				_markForDeletion = value;
+			}
+		}
+
+		
 		
 		#endregion Properties
 
@@ -42,19 +58,19 @@ namespace ShipGame.GameObjects
 			//testing
 			//rectangle = new Rectangle(50, 50, 50, 50);
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
-			testingTexture.SetData(new Color[] { Color.AliceBlue });
+			testingTexture.SetData(new Color[] { Color.LightGreen });
 		}
 
 		public override void Draw()
 		{
-			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,50,50), Color.Purple);
+			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,5,5), Color.LightGreen);
 		}
 
 		public override void Update()
 		{
 			if (!XnaGame.ClientRectangle.Contains(new Point((int)PositionVector.X, (int)PositionVector.Y)))
 			{
-				IsVisible = false;
+				MarkForDeletion = true;
 			}
 
 			PositionVector += VelocityVector;

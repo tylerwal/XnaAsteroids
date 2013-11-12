@@ -25,6 +25,10 @@ namespace ShipGame.GameObjects
 
 		private MouseState _mouseState;
 
+		//delete below
+		private Texture2D testingTexture;
+		//delete above
+
 		#endregion Fields
 
 		#region Properties
@@ -73,6 +77,11 @@ namespace ShipGame.GameObjects
 			DisplayOrder = 2;
 
 			IsVisible = true;
+
+			//delete below
+			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
+			testingTexture.SetData(new Color[] { Color.AliceBlue });
+			//delete above
 		}
 
 		public override void Draw()
@@ -129,6 +138,8 @@ namespace ShipGame.GameObjects
 					SpriteEffects.None,
 					1.0f //layer depth, for sorting sprites but this is already done
 				);
+
+			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Red);
 		}
 
 		public override void Update()
