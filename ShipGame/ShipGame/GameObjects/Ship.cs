@@ -58,11 +58,11 @@ namespace ShipGame.GameObjects
 
 			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
 			
-			/*SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture, 
-				GameUtilities.GameConfig.ShipTextureRows, 
-				GameUtilities.GameConfig.ShipTextureColumns);
+			/*SpriteRectangles = GameUtility.GameUtility.GetSpriteRectangles(Texture, 
+				GameUtility.GameConfig.ShipTextureRows, 
+				GameUtility.GameConfig.ShipTextureColumns);
 
-			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);*/
+			SpriteRectangles = GameUtility.GameUtility.RemoveFrameLines(SpriteRectangles);*/
 
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 
@@ -189,10 +189,17 @@ namespace ShipGame.GameObjects
 
 			#region Mouse Press
 
-			if (_mouseState.LeftButton == ButtonState.Pressed)
+			/*if (_mouseState.LeftButton == ButtonState.Pressed)
 			{
-				XnaGame.Stopwatch.Stop();
-			}
+				Bullet bullet = new Bullet(XnaGame);
+
+				bullet.PositionVector = PositionVector;
+
+				bullet.VelocityVector = new Vector2(2f, 2f);
+
+				XnaGame.GameObjects.Add(bullet);
+
+			}*/
 
 			#endregion Mouse Press
 

@@ -146,17 +146,17 @@ namespace ShipGame.GameUtilities
 		/// Transforms an input float to a float closer to zero
 		/// </summary>
 		/// <param name="input"></param>
-		/// <param name="offset"></param>
+		/// <param name="offset">Amount to move towards zero</param>
 		/// <returns>Lower absolute value float</returns>
-		public static float MoveTowardsZero(float input, float offset)
+		public static float ShiftVector(float input, float offset)
 		{
 			if (input > 0)
 			{
-				return input -= offset;
+				return input += offset;
 			}
 			if (input < 0)
 			{
-				return input += offset;
+				return input -= offset;
 			}
 			return input;
 		}
@@ -165,15 +165,15 @@ namespace ShipGame.GameUtilities
 		/// Transforms an input int to a int closer to zero
 		/// </summary>
 		/// <param name="input"></param>
-		/// <param name="offset"></param>
+		/// <param name="offset">Amount to move towards zero</param>
 		/// <returns>Lower absolute value int</returns>
-		public static Vector2 MoveTowardsZero(Vector2 input, float offset)
+		public static Vector2 ShiftVector(Vector2 input, float offset)
 		{
 			Vector2 tempVector2 = input;
 
-			tempVector2.X = MoveTowardsZero(tempVector2.X, offset);
+			tempVector2.X = ShiftVector(tempVector2.X, offset);
 
-			tempVector2.Y = MoveTowardsZero(tempVector2.Y, offset);
+			tempVector2.Y = ShiftVector(tempVector2.Y, offset);
 
 			return tempVector2;
 		}

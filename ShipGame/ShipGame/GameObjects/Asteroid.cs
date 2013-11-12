@@ -42,7 +42,7 @@ namespace ShipGame.GameObjects
 		public Asteroid(XnaGame xnaXnaGame)
 			: base(xnaXnaGame)
 		{
-			_random = XnaGame.GameUtilities.Random;
+			_random = XnaGame.GameUtility.Random;
 		}
 
 		#endregion Constructors
@@ -67,9 +67,11 @@ namespace ShipGame.GameObjects
 
 			TerminalVelocity = GameUtilities.GameConfig.AsteroidTerminalVelocity;
 
+			//delete below
 			rectangle = new Rectangle(50, 50, 50, 50);
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
 			testingTexture.SetData(new Color[] { Color.AliceBlue });
+			//delete above
 		}
 
 		public override void Draw()
@@ -86,7 +88,7 @@ namespace ShipGame.GameObjects
 					1.0f //layer depth, not used
 				);
 
-			
+			//shows the bound boxes
 			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
 		}
 
@@ -95,7 +97,7 @@ namespace ShipGame.GameObjects
 			ApplyEndlessDisplay();
 
 			Bounds = GetBounds(_textureScale);
-
+			
 			RotationAngle += _rotationSpeed;
 
 			PositionVector += VelocityVector;
@@ -104,19 +106,58 @@ namespace ShipGame.GameObjects
 
 			if (collidedObject != null)
 			{
-				if (collidedObject.GetType() == this.GetType())
+				if (collidedObject is Asteroid)
 				{
+					#region Old Collision Handling
+
+					/*double force = (double)Bounds.Width / (double)(collidedObject.Bounds.Width + Bounds.Width);
+
+					bool isThisLarger = force > .5;
+
+					double forceGreaterThan = force - .5;
+
 					Vector2 collidedVelocity = collidedObject.VelocityVector;
 
-					collidedVelocity = GameUtilities.GameUtilities.MoveTowardsZero(collidedVelocity, 0.001f);
+					collidedVelocity = GameUtility.GameUtility.ShiftVector(collidedVelocity, 0.001f);
 
 					Vector2 thisVelocity = VelocityVector;
 
-					thisVelocity = GameUtilities.GameUtilities.MoveTowardsZero(thisVelocity, 0.001f);
+					thisVelocity = GameUtility.GameUtility.ShiftVector(thisVelocity, 0.001f);
 
 					collidedObject.VelocityVector = thisVelocity;
 
-					VelocityVector = collidedVelocity;
+					VelocityVector = collidedVelocity;*/
+
+
+					#endregion Old Collision Handling
+
+					Vector2 centerOfMass = (collidedObject.VelocityVector + VelocityVector) / 2;
+
+					Vector2 normalizedVector = GameUtilities.GameUtilities.GetVectorFromPoint(collidedObject.Bounds.Center) - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
+
+					normalizedVector.Normalize();
+
+					VelocityVector -= centerOfMass;
+
+					VelocityVector = Vector2.Reflect(VelocityVector, normalizedVector);
+
+					VelocityVector += centerOfMass;
+
+					#region Handling Of Colliding Objects, commented out
+
+					//may not be necessary
+					/*Vector2 normalizedVectorTwo = GameUtility.GameUtility.GetVectorFromPoint(Bounds.Center) - GameUtility.GameUtility.GetVectorFromPoint(collidedObject.Bounds.Center);
+
+					normalizedVectorTwo.Normalize();
+
+					collidedObject.VelocityVector -= centerOfMass;
+
+					collidedObject.VelocityVector = Vector2.Reflect(collidedObject.VelocityVector, normalizedVector);
+
+					collidedObject.VelocityVector += centerOfMass;*/
+
+
+					#endregion Handling Of Colliding Objects, commented out
 				} 
 			}
 
@@ -131,11 +172,11 @@ namespace ShipGame.GameObjects
 		{
 			Texture = XnaGame.Content.Load<Texture2D>(_textureName);
 
-			/*SpriteRectangles = GameUtilities.GameUtilities.GetSpriteRectangles(Texture,
+			/*SpriteRectangles = GameUtility.GameUtility.GetSpriteRectangles(Texture,
 				_textureRows,
 				_textureColumns);
 
-			SpriteRectangles = GameUtilities.GameUtilities.RemoveFrameLines(SpriteRectangles);*/
+			SpriteRectangles = GameUtility.GameUtility.RemoveFrameLines(SpriteRectangles);*/
 
 			do
 			{
@@ -148,6 +189,8 @@ namespace ShipGame.GameObjects
 			_rotationSpeed = GetRandomRotationSpeed();
 
 			VelocityVector = GetRandomVelocity();
+
+			_textureScale *= (float)XnaGame.GameUtility.Random.NextDouble() * 1.2f;
 		}
 
 		/// <summary>
@@ -157,7 +200,7 @@ namespace ShipGame.GameObjects
 		{
 			int random = _random.Next(1, 6);
 
-			KeyValuePair<int, Tuple<string, int, int, int, float>> asteroidSettingsKeyValuePair = XnaGame.GameUtilities.AsteroidSettings.Single(i => i.Key == random);
+			KeyValuePair<int, Tuple<string, int, int, int, float>> asteroidSettingsKeyValuePair = XnaGame.GameUtility.AsteroidSettings.Single(i => i.Key == random);
 
 			Tuple<string, int, int, int, float> asteroidSettingsTuple = asteroidSettingsKeyValuePair.Value;
 
@@ -191,7 +234,7 @@ namespace ShipGame.GameObjects
 		{
 			float rotationSpeed = _random.Next(0, 10) * .005f;
 
-			if (XnaGame.GameUtilities.GetRandomBool())
+			if (XnaGame.GameUtility.GetRandomBool())
 			{
 				rotationSpeed *= -1;
 			}
@@ -205,13 +248,13 @@ namespace ShipGame.GameObjects
 		/// <returns>Random Vector</returns>
 		private Vector2 GetRandomVelocity()
 		{
-			Vector2 velocity = XnaGame.GameUtilities.GetRandomVector(0f, 1.2f, 0f, 1.2f);
+			Vector2 velocity = XnaGame.GameUtility.GetRandomVector(0f, 1.2f, 0f, 1.2f);
 
-			if (XnaGame.GameUtilities.GetRandomBool())
+			if (XnaGame.GameUtility.GetRandomBool())
 			{
 				velocity.X *= -1;
 			}
-			if (XnaGame.GameUtilities.GetRandomBool())
+			if (XnaGame.GameUtility.GetRandomBool())
 			{
 				velocity.Y *= -1;
 			}

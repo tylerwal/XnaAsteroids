@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Drawing;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,6 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Color = Microsoft.Xna.Framework.Color;
+using Point = System.Drawing.Point;
 
 namespace ShipGame.GameDisplay
 {
@@ -29,7 +33,7 @@ namespace ShipGame.GameDisplay
 
 		private MouseState _mouseCurrentState;
 
-		private GameUtilities.GameUtilities _gameUtilities;
+		private GameUtilities.GameUtilities _gameUtility;
 
 		#endregion Fields
 
@@ -95,15 +99,15 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
-		public GameUtilities.GameUtilities GameUtilities
+		public GameUtilities.GameUtilities GameUtility
 		{
 			get
 			{
-				return _gameUtilities;
+				return _gameUtility;
 			}
 			set
 			{
-				_gameUtilities = value;
+				_gameUtility = value;
 			}
 		}
 
@@ -125,13 +129,9 @@ namespace ShipGame.GameDisplay
 
 		public XnaGame()
 		{
-			/*Content = new ContentManager(Services, "Content");
-
-			SpriteBatch = new SpriteBatch(GraphicsDevice);*/
-
 			GameObjects = new List<IGameObject>();
 
-			GameUtilities = new GameUtilities.GameUtilities();
+			GameUtility = new GameUtilities.GameUtilities();
 
 			//hook the idle event to constantly redraw the animation
 			Application.Idle += delegate { Invalidate(); };
@@ -146,12 +146,6 @@ namespace ShipGame.GameDisplay
 			Content = new ContentManager(Services, GameConfig.ContentManagerName);
 
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-			/*//test
-			rectangle = new Rectangle(50,50,50,50);
-			tesTexture2D = new Texture2D(GraphicsDevice, 1, 1);
-			tesTexture2D.SetData(new Color[]{Color.AliceBlue});
-			//test end*/
 			
 			_stopwatch = Stopwatch.StartNew();
 
@@ -193,10 +187,6 @@ namespace ShipGame.GameDisplay
 			
 			SpriteBatch.Begin();
 
-			//tcw delete
-			/*_spriteBatch.Draw(tesTexture2D, rectangle, Color.DarkRed);
-			_spriteBatch.Draw(shipTexture2D, new Vector2(120, 120), _shipRects[0], Color.White);*/
-
 			//loop through game objects and draw them based on DisplayOrder
 			GameObjects.Where(v => v.IsVisible).OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
 		
@@ -218,6 +208,19 @@ namespace ShipGame.GameDisplay
 			foreach (GameObjectBase gameObject in GameObjects)
 			{
 				gameObject.Update();
+			}
+
+			if (MouseCurrentState.LeftButton == ButtonState.Pressed)
+			{
+				Bullet bullet = new Bullet(this);
+
+				bullet.PositionVector = GameObjects.OfType<Ship>().First().PositionVector;
+
+				bullet.VelocityVector = new Vector2(2f, 2f);
+
+				GameObjects.Add(bullet);
+
+				bullet.Initialize();
 			}
 		}
 

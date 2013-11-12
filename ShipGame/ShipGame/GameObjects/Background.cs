@@ -32,7 +32,7 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			//Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.BackgroundOneTextureName);
+			//Texture = XnaGame.Content.Load<Texture2D>(GameUtility.GameConfig.BackgroundOneTextureName);
 
 			InitializeRandomTexture();
 			
@@ -56,7 +56,7 @@ namespace ShipGame.GameObjects
 
 		private void InitializeRandomTexture()
 		{
-			int random = XnaGame.GameUtilities.Random.Next(1, 4);
+			int random = XnaGame.GameUtility.Random.Next(1, 4);
 
 			switch (random)
 			{

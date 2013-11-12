@@ -181,7 +181,6 @@ namespace ShipGame.GameObjects.BaseClass
 		{
 			get
 			{
-				//return new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);
 				return _bounds;
 			}
 			set
@@ -319,7 +318,7 @@ namespace ShipGame.GameObjects.BaseClass
 			{
 				Rectangle gameObjectRectangle = otherGameObject.Bounds;
 
-				Rectangle startingRectangle = Bounds;/*new Rectangle((int)PositionVector.X, (int)PositionVector.Y, Width, Height);*/
+				Rectangle startingRectangle = Bounds;
 
 				if (startingRectangle.Intersects(gameObjectRectangle))
 				{
@@ -332,7 +331,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected Vector2 GetRandomStartingPoint()
 		{
-			return XnaGame.GameUtilities.GetRandomVector(
+			return XnaGame.GameUtility.GetRandomVector(
 				XnaGame.ClientRectangle.Left,
 				XnaGame.ClientRectangle.Right,
 				XnaGame.ClientRectangle.Top,

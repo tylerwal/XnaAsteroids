@@ -139,6 +139,7 @@
     <Compile Include="GameObjects\GameControls.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TargetingSystem.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameUtilities\AsteroidEnum.cs" />
     <Compile Include="GameUtilities\GameConfig.cs" />
     <Compile Include="GameUtilities\GameUtilities.cs" />
