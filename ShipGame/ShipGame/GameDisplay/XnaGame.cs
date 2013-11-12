@@ -214,9 +214,17 @@ namespace ShipGame.GameDisplay
 			{
 				Bullet bullet = new Bullet(this);
 
-				bullet.PositionVector = GameObjects.OfType<Ship>().First().PositionVector;
+				Ship ship = GameObjects.OfType<Ship>().First();
 
-				bullet.VelocityVector = new Vector2(2f, 2f);
+				bullet.PositionVector = ship.PositionVector;
+
+				Vector2 mousePosition = new Vector2(MouseCurrentState.X, MouseCurrentState.Y);
+
+				Vector2 directionVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center);
+
+				directionVector.Normalize();
+
+				bullet.VelocityVector =directionVector;
 
 				GameObjects.Add(bullet);
 

@@ -11,7 +11,7 @@ namespace ShipGame.GameObjects
 		#region Fields
 
 		//delete below
-		private Rectangle rectangle;
+		//private Rectangle rectangle;
 		private Texture2D testingTexture;
 		//delete above
 
@@ -40,14 +40,14 @@ namespace ShipGame.GameObjects
 			IsVisible = true;
 
 			//testing
-			rectangle = new Rectangle(50, 50, 50, 50);
+			//rectangle = new Rectangle(50, 50, 50, 50);
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
 			testingTexture.SetData(new Color[] { Color.AliceBlue });
 		}
 
 		public override void Draw()
 		{
-			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle(50,50,50,50), Color.Purple);
+			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,50,50), Color.Purple);
 		}
 
 		public override void Update()
