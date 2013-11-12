@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +12,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Color = Microsoft.Xna.Framework.Color;
-using Point = System.Drawing.Point;
 
 namespace ShipGame.GameDisplay
 {
@@ -224,7 +222,7 @@ namespace ShipGame.GameDisplay
 
 				directionVector.Normalize();
 
-				bullet.VelocityVector =directionVector;
+				bullet.VelocityVector = directionVector;
 
 				GameObjects.Add(bullet);
 
