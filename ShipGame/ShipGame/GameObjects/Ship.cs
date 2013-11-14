@@ -74,9 +74,11 @@ namespace ShipGame.GameObjects
 				SpriteSelectedFrame, 
 				true);
 
-			DisplayOrder = 2;
+			DisplayOrder = 3;
 
 			IsVisible = true;
+
+			Health = GameUtilities.GameConfig.ShipStartingHealth;
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
@@ -126,7 +128,6 @@ namespace ShipGame.GameObjects
 
 			#endregion Junk
 
-			//moving
 			XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,

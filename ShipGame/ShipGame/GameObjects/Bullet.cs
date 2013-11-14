@@ -9,7 +9,7 @@ namespace ShipGame.GameObjects
 	public class Bullet : GameObjectBase
 	{
 		#region Fields
-
+		
 		//delete below
 		//private Rectangle rectangle;
 		private Texture2D testingTexture;
@@ -17,24 +17,8 @@ namespace ShipGame.GameObjects
 
 		#endregion Fields
 
-		private bool _markForDeletion;
-
 		#region Properties
 
-		public bool MarkForDeletion
-		{
-			get
-			{
-				return _markForDeletion;
-			}
-			set
-			{
-				_markForDeletion = value;
-			}
-		}
-
-		
-		
 		#endregion Properties
 
 		#region Constructors
@@ -51,24 +35,33 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			DisplayOrder = 1;
+			DisplayOrder = 2;
 
 			IsVisible = true;
 
 			//testing
-			//rectangle = new Rectangle(50, 50, 50, 50);
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
 			testingTexture.SetData(new Color[] { Color.LightGreen });
+
 		}
 
 		public override void Draw()
 		{
-			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,5,5), Color.LightGreen);
+			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,2,2), Color.LightGreen);
 		}
 
 		public override void Update()
 		{
+			Bounds = new Rectangle((int)PositionVector.X, (int)PositionVector.Y, 5, 5);
+
 			if (!XnaGame.ClientRectangle.Contains(new Point((int)PositionVector.X, (int)PositionVector.Y)))
+			{
+				MarkForDeletion = true;
+			}
+
+			GameObjectBase collidedObject = GetCollidedObject();
+
+			if (collidedObject is Asteroid)
 			{
 				MarkForDeletion = true;
 			}

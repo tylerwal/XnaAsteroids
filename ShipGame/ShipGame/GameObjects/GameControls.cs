@@ -40,8 +40,6 @@ namespace ShipGame.GameObjects
 			}
 		}
 
-		
-
 		#endregion Properties
 
 		#region Constructors
@@ -57,6 +55,7 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
+			IsVisible = false;
 		}
 
 		public override void Draw()

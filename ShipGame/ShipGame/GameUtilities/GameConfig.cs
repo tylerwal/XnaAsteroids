@@ -30,7 +30,7 @@ namespace ShipGame.GameUtilities
 
 		public const int ShipSelectedFrame = 4;
 
-		public const float ShipBrakePower = .07f;
+		public const float ShipBrakePower = .09f;
 
 		public const float ShipTerminalVelocity = 2.5f;
 
@@ -40,11 +40,23 @@ namespace ShipGame.GameUtilities
 
 		public const float ShipScale = 1.25f;
 
+		public const int ShipStartingHealth = 100;
+
 		#endregion Ship Constants
+
+		#region Bullet Constants
+
+		public const float BulletReloadSpeed = 0.02f;
+
+		public const int BulletSpeed = 6;
+
+		#endregion Bullet Constants
 
 		#region Asteroid Constants
 
 		public const float AsteroidTerminalVelocity = 1.5f;
+
+		public const int AsteroidStartingHealth = 25;
 		
 		#region AsteroidOne
 

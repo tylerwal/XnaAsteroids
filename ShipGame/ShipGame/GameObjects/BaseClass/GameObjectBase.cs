@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Globalization;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using System;
@@ -32,6 +33,10 @@ namespace ShipGame.GameObjects.BaseClass
 		private int _spriteSelectedFrame;
 
 		private Rectangle _bounds;
+
+		private int _health;
+
+		private bool _markForDeletion;
 		
 		#endregion Fields
 
@@ -188,6 +193,30 @@ namespace ShipGame.GameObjects.BaseClass
 				_bounds = value;
 			}
 		}
+
+		public int Health
+		{
+			get
+			{
+				return _health;
+			}
+			set
+			{
+				_health = value;
+			}
+		}
+
+		public bool MarkForDeletion
+		{
+			get
+			{
+				return _markForDeletion;
+			}
+			set
+			{
+				_markForDeletion = value;
+			}
+		}
 		
 		#endregion Properties
 
@@ -312,7 +341,11 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected GameObjectBase GetCollidedObject()
 		{
-			IEnumerable<GameObjectBase> otherGameObjectsVisible = XnaGame.GameObjects.OfType<GameObjectBase>().Where(i => i.IsVisible).Where(i => i != this);
+			IEnumerable<GameObjectBase> otherGameObjectsVisible = XnaGame.GameObjects
+				.OfType<GameObjectBase>()
+				.Except(XnaGame.GameObjects.OfType<Background>())
+				.Where(i => i.IsVisible)
+				.Where(i => i != this);
 
 			foreach (GameObjectBase otherGameObject in otherGameObjectsVisible)
 			{

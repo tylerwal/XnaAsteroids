@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -23,7 +24,9 @@ namespace ShipGame.GameDisplay
 
 		private SpriteBatch _spriteBatch;
 
-		private Stopwatch _stopwatch;
+		private Stopwatch _gameUpdateStopWatch;
+
+		private Stopwatch _globalGameStopWatch;
 
 		private IList<IGameObject> _gameObjects;
 
@@ -32,6 +35,8 @@ namespace ShipGame.GameDisplay
 		private MouseState _mouseCurrentState;
 
 		private GameUtilities.GameUtilities _gameUtility;
+
+		private TimeSpan _lastBulletCreationTime;
 
 		#endregion Fields
 
@@ -109,18 +114,44 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
-		public Stopwatch Stopwatch
+		public Stopwatch GameUpdateStopWatch
 		{
 			get
 			{
-				return _stopwatch;
+				return _gameUpdateStopWatch;
 			}
 			set
 			{
-				_stopwatch = value;
+				_gameUpdateStopWatch = value;
 			}
 		}
 
+		public Stopwatch GlobalGameStopWatch
+		{
+			get
+			{
+				return _globalGameStopWatch;
+			}
+			set
+			{
+				_globalGameStopWatch = value;
+			}
+		}
+
+		public TimeSpan LastBulletCreationTime
+		{
+			get
+			{
+				return _lastBulletCreationTime;
+			}
+			set
+			{
+				_lastBulletCreationTime = value;
+			}
+		}
+
+		
+		
 		#endregion Properties
 
 		#region Constructors
@@ -144,8 +175,12 @@ namespace ShipGame.GameDisplay
 			Content = new ContentManager(Services, GameConfig.ContentManagerName);
 
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
-			
-			_stopwatch = Stopwatch.StartNew();
+
+			GameUpdateStopWatch = Stopwatch.StartNew();
+
+			GlobalGameStopWatch = Stopwatch.StartNew();
+
+			LastBulletCreationTime = TimeSpan.Zero;
 
 			Background background = new Background(this);
 			GameObjects.Add(background);
@@ -156,7 +191,7 @@ namespace ShipGame.GameDisplay
 			GameControls gameControls = new GameControls(this);
 			GameObjects.Add(gameControls);
 
-			for (int i = 0; i < 1; i++)
+			for (int i = 0; i < 15; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}
@@ -173,22 +208,28 @@ namespace ShipGame.GameDisplay
 			//background color
 			GraphicsDevice.Clear(Color.Black);
 
-			int elapsedTime = _stopwatch.Elapsed.Milliseconds;
+			int elapsedTimeFromLastGameUpdate = GameUpdateStopWatch.Elapsed.Milliseconds;
 
 			//only update game objects so often to avoid game moving too fast
-			if (elapsedTime > ShipGame.GameUtilities.GameConfig.GameUpdateTime)
+			if (elapsedTimeFromLastGameUpdate > GameConfig.GameUpdateTime)
 			{
 				UpdateGameObjects();
 
-				_stopwatch.Restart();
+				GameUpdateStopWatch.Restart();
 			}
 			
 			SpriteBatch.Begin();
 
 			//loop through game objects and draw them based on DisplayOrder
-			GameObjects.Where(v => v.IsVisible).OrderBy(i => i.DisplayOrder).ToList().ForEach(j => j.Draw());
+			GameObjects
+				.Where(v => v.IsVisible)
+				.OrderBy(i => i.DisplayOrder)
+				.ToList()
+				.ForEach(
+					j => j.Draw()
+					);
 		
-			_spriteBatch.End();
+			SpriteBatch.End();
 
 		}
 
@@ -201,39 +242,53 @@ namespace ShipGame.GameDisplay
 			KeyboardCurrentState = Keyboard.GetState();
 
 			MouseCurrentState = Mouse.GetState();
-
+			
 			//loop through game object update methods
-			foreach (GameObjectBase gameObject in GameObjects)
+			/*foreach (GameObjectBase gameObject in GameObjects)
 			{
 				gameObject.Update();
-			}
+			}*/
+
+			GameObjects
+				.OrderBy(i => i.DisplayOrder)
+				.ToList()
+				.ForEach(
+					j => j.Update()
+					);
 
 			if (MouseCurrentState.LeftButton == ButtonState.Pressed)
 			{
-				Bullet bullet = new Bullet(this);
+				TimeSpan time = GlobalGameStopWatch.Elapsed;
 
-				Ship ship = GameObjects.OfType<Ship>().First();
+				if (time - LastBulletCreationTime > TimeSpan.FromSeconds(GameConfig.BulletReloadSpeed))
+				{
+					Bullet bullet = new Bullet(this);
 
-				bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center) - new Vector2(2.5f, 2.5f);
+					Ship ship = GameObjects.OfType<Ship>().First();
 
-				Vector2 mousePosition = new Vector2(MouseCurrentState.X, MouseCurrentState.Y);
+					bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center) - new Vector2(2.5f, 2.5f);
 
-				Vector2 directionVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center);
+					Vector2 mousePosition = new Vector2(MouseCurrentState.X, MouseCurrentState.Y);
 
-				directionVector.Normalize();
+					Vector2 shipAngleVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center);
 
-				bullet.VelocityVector = directionVector * 2;
+					shipAngleVector.Normalize();
 
-				GameObjects.Add(bullet);
+					bullet.VelocityVector = shipAngleVector * GameConfig.BulletSpeed;
 
-				bullet.Initialize();
+					GameObjects.Add(bullet);
+
+					bullet.Initialize();
+
+					LastBulletCreationTime = GlobalGameStopWatch.Elapsed;
+				}
 			}
 
-			IEnumerable<Bullet> markedForDeletion = GameObjects.OfType<Bullet>().Where(i => i.MarkForDeletion == false);
+			List<GameObjectBase> markedForDeletion = GameObjects.OfType<GameObjectBase>().Where(i => i.MarkForDeletion).ToList();
 
-			foreach (Bullet bullet in markedForDeletion)
+			foreach (GameObjectBase gameObject in markedForDeletion)
 			{
-				GameObjects.Remove(bullet);
+				GameObjects.Remove(gameObject);
 			}
 
 		}

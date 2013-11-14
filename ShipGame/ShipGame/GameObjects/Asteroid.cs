@@ -64,6 +64,8 @@ namespace ShipGame.GameObjects
 
 			IsVisible = true;
 
+			Health = GameUtilities.GameConfig.AsteroidStartingHealth;
+
 			TerminalVelocity = GameUtilities.GameConfig.AsteroidTerminalVelocity;
 
 			//delete below
@@ -87,7 +89,7 @@ namespace ShipGame.GameObjects
 				);
 
 			//shows the bound boxes
-			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
+			XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
 		}
 
 		public override void Update()
@@ -141,6 +143,16 @@ namespace ShipGame.GameObjects
 
 					VelocityVector += centerOfMass;
 
+					if (collidedObject is Asteroid)
+					{
+						Health -= 1;
+					}
+
+					if (collidedObject is Bullet)
+					{
+						Health -= 2;
+					}
+
 					#region Handling Of Colliding Objects, commented out
 
 					//may not be necessary
@@ -160,6 +172,11 @@ namespace ShipGame.GameObjects
 			}
 
 			MaintainTerminalVelocity();
+
+			if (Health <= 0)
+			{
+				MarkForDeletion = true;
+			}
 		}
 
 		#endregion Methods
