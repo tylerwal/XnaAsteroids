@@ -1,9 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using ShipGame.Entities;
 
-namespace GameProgrammingTest
+namespace ShipGame.GameForms
 {
-	public partial class MainWindowMenu0 : UserControl
+	public partial class MainWindowMenu : UserControl
 	{
 		#region Fields
 
@@ -25,18 +26,38 @@ namespace GameProgrammingTest
 			}
 		}
 
+		public int Health
+		{
+			set
+			{
+				pbPlayerOneHealth.Value = value;
+			}
+		}
+
 		#endregion Properties
 
-		public MainWindowMenu0()
+		public MainWindowMenu()
 		{
 			InitializeComponent();
 
-			_gameStatsCriteria = new GameStats();
+			GameStatsCriteria = new GameStats();
 
-			bsGameStats.DataSource = _gameStatsCriteria;
+			GameStatsCriteria.Score = 0;
 
-			_gameStatsCriteria.PlayerOneScore = 0;
-			_gameStatsCriteria.PlayerTwoScore = 0;
+			bsGameStats.DataSource = GameStatsCriteria;
+
+			((GameStats)bsGameStats.DataSource).PlayerOneHealth = 50;
+
+			pbPlayerOneHealth.Value = 50;
 		}
+
+		#region Methods
+
+		public void SetScore(int score)
+		{
+			txtPlayerOneScore.Text = score.ToString();
+		}
+
+		#endregion Methods
 	}
 }

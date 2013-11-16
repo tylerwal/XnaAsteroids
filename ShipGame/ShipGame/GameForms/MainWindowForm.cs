@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ShipGame.GameForms
 {
@@ -18,6 +11,12 @@ namespace ShipGame.GameForms
 			/*XnaGame.MouseEnter += xnaGameDisplay_MouseEnter;
 
 			XnaGame.MouseLeave += xnaGameDisplay_MouseLeave;*/
+
+			gameStatusBar.GameStatsCriteria.Score = 50;
+
+			gameStatusBar.SetScore(25);
+
+			gameStatusBar.Health = 75;
 		}
 
 		#region Event Handlers

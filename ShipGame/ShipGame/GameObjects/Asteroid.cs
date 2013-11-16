@@ -16,7 +16,7 @@ namespace ShipGame.GameObjects
 
 		private Random _random;
 
-		private KeyValuePair<int, Tuple<string, int, int, int, float>> _asteroidSettings;
+		/*private KeyValuePair<int, Tuple<string, int, int, int, float>> _asteroidSettings;*/
 
 		private string _textureName;
 
@@ -147,12 +147,7 @@ namespace ShipGame.GameObjects
 					{
 						Health -= 1;
 					}
-
-					if (collidedObject is Bullet)
-					{
-						Health -= 2;
-					}
-
+					
 					#region Handling Of Colliding Objects, commented out
 
 					//may not be necessary
@@ -205,7 +200,12 @@ namespace ShipGame.GameObjects
 
 			VelocityVector = GetRandomVelocity();
 
-			_textureScale *= (float)XnaGame.GameUtility.Random.NextDouble() * 1.2f;
+			//use random sized asteroid
+			_textureScale *= (float)XnaGame.GameUtility.Random.NextDouble() * 1f + .2f;
+
+			//use sizing of asteroid to determine health
+			Health = (int)(_textureScale * 100);
+
 		}
 
 		/// <summary>

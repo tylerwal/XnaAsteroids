@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
+using ShipGame.GameUtilities;
 using Point = System.Drawing.Point;
 
 namespace ShipGame.GameObjects
@@ -64,6 +65,8 @@ namespace ShipGame.GameObjects
 			if (collidedObject is Asteroid)
 			{
 				MarkForDeletion = true;
+
+				collidedObject.Health -= GameConfig.BulletDamage;
 			}
 
 			PositionVector += VelocityVector;

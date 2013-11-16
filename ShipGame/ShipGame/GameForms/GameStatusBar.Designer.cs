@@ -1,8 +1,8 @@
 ﻿using ShipGame.Entities;
 
-namespace GameProgrammingTest
+namespace ShipGame.GameForms
 {
-	partial class MainWindowMenu0
+	partial class MainWindowMenu
 	{
 		/// <summary> 
 		/// Required designer variable.

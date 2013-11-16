@@ -50,6 +50,8 @@ namespace ShipGame.GameUtilities
 
 		public const int BulletSpeed = 6;
 
+		public const int BulletDamage = 1;
+
 		#endregion Bullet Constants
 
 		#region Asteroid Constants

@@ -30,7 +30,7 @@ namespace ShipGame.GameForms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			ShipGame.Entities.GameStats gameStats1 = new ShipGame.Entities.GameStats();
+			/*ShipGame.Entities.GameStats gameStats1 = new ShipGame.Entities.GameStats();*/
 			this.mnsTopMenu = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +38,7 @@ namespace ShipGame.GameForms
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
 			this.xnaGame = new ShipGame.GameDisplay.XnaGame();
-			this.gameStatusBar = new GameProgrammingTest.MainWindowMenu0();
+			this.gameStatusBar = new MainWindowMenu();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -106,11 +106,9 @@ namespace ShipGame.GameForms
 			// 
 			this.gameStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.gameStatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-			gameStats1.PlayerOneHealth = 0;
-			gameStats1.PlayerOneScore = 0;
-			gameStats1.PlayerTwoHealth = 0;
-			gameStats1.PlayerTwoScore = 0;
-			this.gameStatusBar.GameStatsCriteria = gameStats1;
+			/*gameStats1.PlayerOneHealth = 0;
+			gameStats1.Score = 50;
+			this.gameStatusBar.GameStatsCriteria = gameStats1;*/
 			this.gameStatusBar.Location = new System.Drawing.Point(0, 479);
 			this.gameStatusBar.Name = "gameStatusBar";
 			this.gameStatusBar.Size = new System.Drawing.Size(784, 83);
@@ -143,7 +141,7 @@ namespace ShipGame.GameForms
 		private System.Windows.Forms.MenuStrip mnsTopMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
-		private GameProgrammingTest.MainWindowMenu0 gameStatusBar;
+		private MainWindowMenu gameStatusBar;
 		private System.Windows.Forms.Panel pnlGamePanel;
 		private System.Windows.Forms.ToolStripMenuItem highScoresToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;

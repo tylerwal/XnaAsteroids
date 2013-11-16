@@ -19,7 +19,7 @@ namespace ShipGame.GameObjects
 
 		private float _thrusterPower;
 
-		private int _spriteSelectedFrame;
+		/*private int _spriteSelectedFrame;*/
 
 		private KeyboardState _keyboardState;
 

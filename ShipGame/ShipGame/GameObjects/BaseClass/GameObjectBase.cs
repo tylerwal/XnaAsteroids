@@ -24,7 +24,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private int _displayOrder;
 
-		private IList<Rectangle> _spriteRectangles;
+		/*private IList<Rectangle> _spriteRectangles;*/
 
 		private float _terminalVelocity;
 

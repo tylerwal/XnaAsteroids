@@ -9,42 +9,26 @@ namespace ShipGame.Entities
 	{
 		#region Fields
 
-		private int _playerOneScore;
-
-		private int _playerTwoScore;
-
+		private int _score;
+		
 		private int _playerOneHealth;
-
-		private int _playerTwoHealth;
-
+		
 		#endregion Fields
 
 		#region Properties
 
-		public int PlayerOneScore
+		public int Score
 		{
 			get
 			{
-				return _playerOneScore;
+				return _score;
 			}
 			set
 			{
-				_playerOneScore = value;
+				_score = value;
 			}
 		}
-
-		public int PlayerTwoScore
-		{
-			get
-			{
-				return _playerTwoScore;
-			}
-			set
-			{
-				_playerTwoScore = value;
-			}
-		}
-
+		
 		public int PlayerOneHealth
 		{
 			get
@@ -56,21 +40,7 @@ namespace ShipGame.Entities
 				_playerOneHealth = value;
 			}
 		}
-
-		public int PlayerTwoHealth
-		{
-			get
-			{
-				return _playerTwoHealth;
-			}
-			set
-			{
-				_playerTwoHealth = value;
-			}
-		}
-
-
-
+		
 		#endregion Properties
 
 		#region Constructors

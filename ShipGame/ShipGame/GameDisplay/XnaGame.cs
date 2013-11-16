@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ShipGame.Entities;
+using ShipGame.GameForms;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.GameUtilities;
@@ -37,6 +39,8 @@ namespace ShipGame.GameDisplay
 		private GameUtilities.GameUtilities _gameUtility;
 
 		private TimeSpan _lastBulletCreationTime;
+
+		private GameStats _gameStats;
 
 		#endregion Fields
 
@@ -150,6 +154,18 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
+		public GameStats GameStats
+		{
+			get
+			{
+				return _gameStats;
+			}
+			set
+			{
+				_gameStats = value;
+			}
+		}
+
 		
 		
 		#endregion Properties
@@ -158,10 +174,6 @@ namespace ShipGame.GameDisplay
 
 		public XnaGame()
 		{
-			GameObjects = new List<IGameObject>();
-
-			GameUtility = new GameUtilities.GameUtilities();
-
 			//hook the idle event to constantly redraw the animation
 			Application.Idle += delegate { Invalidate(); };
 		}
@@ -172,6 +184,10 @@ namespace ShipGame.GameDisplay
 
 		protected override void Initialize()
 		{
+			GameObjects = new List<IGameObject>();
+
+			GameUtility = new GameUtilities.GameUtilities();
+
 			Content = new ContentManager(Services, GameConfig.ContentManagerName);
 
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -210,7 +226,7 @@ namespace ShipGame.GameDisplay
 
 			int elapsedTimeFromLastGameUpdate = GameUpdateStopWatch.Elapsed.Milliseconds;
 
-			//only update game objects so often to avoid game moving too fast
+			//update game objects
 			if (elapsedTimeFromLastGameUpdate > GameConfig.GameUpdateTime)
 			{
 				UpdateGameObjects();
@@ -225,9 +241,7 @@ namespace ShipGame.GameDisplay
 				.Where(v => v.IsVisible)
 				.OrderBy(i => i.DisplayOrder)
 				.ToList()
-				.ForEach(
-					j => j.Draw()
-					);
+				.ForEach(j => j.Draw());
 		
 			SpriteBatch.End();
 
@@ -244,17 +258,12 @@ namespace ShipGame.GameDisplay
 			MouseCurrentState = Mouse.GetState();
 			
 			//loop through game object update methods
-			/*foreach (GameObjectBase gameObject in GameObjects)
-			{
-				gameObject.Update();
-			}*/
-
 			GameObjects
 				.OrderBy(i => i.DisplayOrder)
 				.ToList()
-				.ForEach(
-					j => j.Update()
-					);
+				.ForEach(j => j.Update());
+
+			#region Bullet Creation
 
 			if (MouseCurrentState.LeftButton == ButtonState.Pressed)
 			{
@@ -282,14 +291,21 @@ namespace ShipGame.GameDisplay
 
 					LastBulletCreationTime = GlobalGameStopWatch.Elapsed;
 				}
-			}
+			} 
 
+			#endregion Bullet Creation
+
+			//remove 'deleted' items
 			List<GameObjectBase> markedForDeletion = GameObjects.OfType<GameObjectBase>().Where(i => i.MarkForDeletion).ToList();
 
 			foreach (GameObjectBase gameObject in markedForDeletion)
 			{
 				GameObjects.Remove(gameObject);
 			}
+			
+			var test2 = (MainWindowForm)TopLevelControl;
+
+			var test3 = test2.Controls;
 
 		}
 
