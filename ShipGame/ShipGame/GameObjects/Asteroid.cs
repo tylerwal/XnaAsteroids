@@ -89,7 +89,7 @@ namespace ShipGame.GameObjects
 				);
 
 			//shows the bound boxes
-			XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
+			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
 		}
 
 		public override void Update()
