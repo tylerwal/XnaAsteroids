@@ -119,7 +119,7 @@
     <Compile Include="GameDisplay\XnaGame.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Entities\GameStats.cs" />
+    <Compile Include="Entities\GameStatRepository.cs" />
     <Compile Include="GameForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,8 +136,8 @@
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BaseClass\GameObjectBase.cs" />
     <Compile Include="GameObjects\BaseClass\IGameObject.cs" />
-    <Compile Include="GameObjects\GameControls.cs" />
-    <Compile Include="GameObjects\GameStats.cs" />
+    <Compile Include="GameObjects\GameControl.cs" />
+    <Compile Include="GameObjects\GameStatUpdater.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TargetingSystem.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
@@ -146,7 +146,7 @@
     <Compile Include="GameUtilities\GameUtilities.cs" />
     <Compile Include="GameUtilities\StringValueAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GameMainStart.cs" />
     <Compile Include="Possibly don%27t Need\Game1.cs" />
     <Compile Include="WinFormGraphicDevice\GraphicsDeviceControl.cs">
       <SubType>Component</SubType>

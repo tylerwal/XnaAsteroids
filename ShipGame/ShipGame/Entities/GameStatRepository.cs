@@ -5,13 +5,17 @@ using System.Text;
 
 namespace ShipGame.Entities
 {
-	public class GameStats
+	public class GameStatRepository
 	{
 		#region Fields
 
 		private int _score;
 		
-		private int _playerOneHealth;
+		private int _health;
+
+		private int _ammoLeft;
+
+		private int _asteroidsLeft;
 		
 		#endregion Fields
 
@@ -29,23 +33,49 @@ namespace ShipGame.Entities
 			}
 		}
 		
-		public int PlayerOneHealth
+		public int Health
 		{
 			get
 			{
-				return _playerOneHealth;
+				return _health;
 			}
 			set
 			{
-				_playerOneHealth = value;
+				_health = value;
 			}
 		}
+
+		public int AmmoLeft
+		{
+			get
+			{
+				return _ammoLeft;
+			}
+			set
+			{
+				_ammoLeft = value;
+			}
+		}
+
+		public int AsteroidsLeft
+		{
+			get
+			{
+				return _asteroidsLeft;
+			}
+			set
+			{
+				_asteroidsLeft = value;
+			}
+		}
+
+		
 		
 		#endregion Properties
 
 		#region Constructors
 
-		public GameStats()
+		public GameStatRepository()
 		{
 
 		}

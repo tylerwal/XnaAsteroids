@@ -16,7 +16,14 @@ namespace ShipGame.GameForms
 		{
 			set
 			{
-				pbPlayerOneHealth.Value = value;
+				if (value >= 0)
+				{
+					pbPlayerOneHealth.Value = value; 
+				}
+				else
+				{
+					pbPlayerOneHealth.Value = 0;
+				}
 			}
 		}
 
@@ -49,16 +56,6 @@ namespace ShipGame.GameForms
 		public GameStatusControl()
 		{
 			InitializeComponent();
-
-			/*GameStatsCriteria = new GameStats();
-
-			GameStatsCriteria.Score = 0;
-
-			bsGameStats.DataSource = GameStatsCriteria;
-
-			((GameStats)bsGameStats.DataSource).PlayerOneHealth = 50;
-
-			pbPlayerOneHealth.Value = 50;*/
 		}
 	}
 }

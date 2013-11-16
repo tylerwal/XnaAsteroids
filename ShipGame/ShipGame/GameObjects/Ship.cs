@@ -140,6 +140,7 @@ namespace ShipGame.GameObjects
 					1.0f //layer depth, for sorting sprites but this is already done
 				);
 
+			//for testing ship bounds
 			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Red);
 		}
 
@@ -218,6 +219,13 @@ namespace ShipGame.GameObjects
 			VelocityVector = tempVelocity;
 
 			PositionVector = tempPosition;
+
+			GameObjectBase collidedObject = GetCollidedObject();
+
+			if (collidedObject is Asteroid)
+			{
+				Health--;
+			}
 		}
 
 		#endregion Methods
@@ -226,9 +234,9 @@ namespace ShipGame.GameObjects
 
 		private void GetCurrentKeyboardMouseStates()
 		{
-			_mouseState = XnaGame.GameObjects.OfType<GameControls>().First().MouseCurrentState;
+			_mouseState = XnaGame.GameObjects.OfType<GameControl>().First().MouseCurrentState;
 
-			_keyboardState = XnaGame.GameObjects.OfType<GameControls>().First().KeyboardCurrentState;
+			_keyboardState = XnaGame.GameObjects.OfType<GameControl>().First().KeyboardCurrentState;
 		}
 
 		private Vector2 ApplyBrakes(Vector2 currentVelocity)

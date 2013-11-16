@@ -4,7 +4,7 @@ using ShipGame.GameObjects.BaseClass;
 
 namespace ShipGame.GameObjects
 {
-	public class GameControls: GameObjectBase
+	public class GameControl: GameObjectBase
 	{
 		#region Fields
 
@@ -44,7 +44,7 @@ namespace ShipGame.GameObjects
 
 		#region Constructors
 
-		public GameControls(XnaGame xnaXnaGame): base(xnaXnaGame)
+		public GameControl(XnaGame xnaXnaGame): base(xnaXnaGame)
 		{
 			
 		}

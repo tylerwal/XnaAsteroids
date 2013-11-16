@@ -102,53 +102,7 @@ namespace ShipGame.GameObjects
 
 			PositionVector += VelocityVector;
 
-			GameObjectBase collidedObject = GetCollidedObject();
-
-			if (collidedObject != null)
-			{
-				/*if (collidedObject is Asteroid)*/
-				{
-					#region Old Collision Handling
-
-					/*double force = (double)Bounds.Width / (double)(collidedObject.Bounds.Width + Bounds.Width);
-
-					bool isThisLarger = force > .5;
-
-					double forceGreaterThan = force - .5;
-
-					Vector2 collidedVelocity = collidedObject.VelocityVector;
-
-					collidedVelocity = GameUtility.GameUtility.ShiftVector(collidedVelocity, 0.001f);
-
-					Vector2 thisVelocity = VelocityVector;
-
-					thisVelocity = GameUtility.GameUtility.ShiftVector(thisVelocity, 0.001f);
-
-					collidedObject.VelocityVector = thisVelocity;
-
-					VelocityVector = collidedVelocity;*/
-
-
-					#endregion Old Collision Handling
-
-					Vector2 centerOfMass = (collidedObject.VelocityVector + VelocityVector) / 2;
-
-					Vector2 normalizedVector = GameUtilities.GameUtilities.GetVectorFromPoint(collidedObject.Bounds.Center) - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
-
-					normalizedVector.Normalize();
-
-					VelocityVector -= centerOfMass;
-
-					VelocityVector = Vector2.Reflect(VelocityVector, normalizedVector);
-
-					VelocityVector += centerOfMass;
-/*
-					if (collidedObject is Asteroid)
-					{
-						Health -= 1;
-					}*/
-				} 
-			}
+			CollisionHandling();
 
 			MaintainTerminalVelocity();
 
@@ -162,6 +116,9 @@ namespace ShipGame.GameObjects
 
 		#region Helper Methods
 
+		/// <summary>
+		/// Randomizes the starting position, velocity, rotation, rotation speed, texture, texture scale (and health) for each Asteroid instantiation
+		/// </summary>
 		private void RandomizeStart()
 		{
 			Texture = XnaGame.Content.Load<Texture2D>(_textureName);
@@ -286,6 +243,28 @@ namespace ShipGame.GameObjects
 			}
 
 			VelocityVector = tempVelocity;
+		}
+
+		private void CollisionHandling()
+		{
+			GameObjectBase collidedObject = GetCollidedObject();
+
+			if (collidedObject != null)
+			{
+				{
+					Vector2 centerOfMass = (collidedObject.VelocityVector + VelocityVector) / 2;
+
+					Vector2 normalizedVector = GameUtilities.GameUtilities.GetVectorFromPoint(collidedObject.Bounds.Center) - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
+
+					normalizedVector.Normalize();
+
+					VelocityVector -= centerOfMass;
+
+					VelocityVector = Vector2.Reflect(VelocityVector, normalizedVector);
+
+					VelocityVector += centerOfMass;
+				}
+			}
 		}
 
 		#endregion Helper Methods

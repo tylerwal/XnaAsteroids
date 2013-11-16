@@ -32,7 +32,7 @@ namespace ShipGame.GameUtilities
 
 		public const float ShipBrakePower = .09f;
 
-		public const float ShipTerminalVelocity = 2.5f;
+		public const float ShipTerminalVelocity = 3.5f;
 
 		public const float ShipEnginePower = 1f;
 
@@ -48,7 +48,7 @@ namespace ShipGame.GameUtilities
 
 		public const float BulletReloadSpeed = 0.02f;
 
-		public const int BulletSpeed = 6;
+		public const int BulletSpeed = 7;
 
 		public const int BulletDamage = 1;
 

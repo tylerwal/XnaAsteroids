@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ShipGame.Entities;
 using ShipGame.GameForms;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.GameUtilities;
 using ShipGame.WinFormGraphicDevice;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -195,10 +194,13 @@ namespace ShipGame.GameDisplay
 			Ship ship = new Ship(this);
 			GameObjects.Add(ship);
 
-			GameControls gameControls = new GameControls(this);
+			GameControl gameControls = new GameControl(this);
 			GameObjects.Add(gameControls);
 
-			for (int i = 0; i < 15; i++)
+			GameStatUpdater gameStatUpdaters = new GameStatUpdater(this);
+			GameObjects.Add(gameStatUpdaters);
+
+			for (int i = 0; i < 25; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}
@@ -263,11 +265,6 @@ namespace ShipGame.GameDisplay
 			BulletCreation();
 
 			RemoveDeletedObjects();
-			
-			var test2 = (GameForm)TopLevelControl;
-
-			test2.GameStatusBar.AmmoLeft = 5;
-
 		}
 
 		#endregion Methods

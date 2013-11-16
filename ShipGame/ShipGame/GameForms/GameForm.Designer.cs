@@ -30,7 +30,6 @@ namespace ShipGame.GameForms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			/*ShipGame.Entities.GameStats gameStats1 = new ShipGame.Entities.GameStats();*/
 			this.mnsTopMenu = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +37,7 @@ namespace ShipGame.GameForms
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
 			this.xnaGame = new ShipGame.GameDisplay.XnaGame();
-			this.gameStatusBar = new GameStatusControl();
+			this.gameStatusBar = new ShipGame.GameForms.GameStatusControl();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -46,7 +45,7 @@ namespace ShipGame.GameForms
 			// mnsTopMenu
 			// 
 			this.mnsTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-		  this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem});
 			this.mnsTopMenu.Location = new System.Drawing.Point(0, 0);
 			this.mnsTopMenu.Name = "mnsTopMenu";
 			this.mnsTopMenu.Size = new System.Drawing.Size(784, 24);
@@ -56,9 +55,9 @@ namespace ShipGame.GameForms
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-		  this.newGameToolStripMenuItem,
-		  this.highScoresToolStripMenuItem,
-		  this.exitToolStripMenuItem});
+            this.newGameToolStripMenuItem,
+            this.highScoresToolStripMenuItem,
+            this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -90,11 +89,16 @@ namespace ShipGame.GameForms
 			this.pnlGamePanel.Size = new System.Drawing.Size(784, 455);
 			this.pnlGamePanel.TabIndex = 3;
 			// 
-			// XnaGame
+			// xnaGame
 			// 
 			this.xnaGame.Content = null;
-			this.xnaGame.Cursor = System.Windows.Forms.Cursors.Default;
+			this.xnaGame.Cursor = System.Windows.Forms.Cursors.Cross;
 			this.xnaGame.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.xnaGame.GameObjects = null;
+			this.xnaGame.GameUpdateStopWatch = null;
+			this.xnaGame.GameUtility = null;
+			this.xnaGame.GlobalGameStopWatch = null;
+			this.xnaGame.LastBulletCreationTime = System.TimeSpan.Parse("00:00:00");
 			this.xnaGame.Location = new System.Drawing.Point(0, 0);
 			this.xnaGame.Name = "xnaGame";
 			this.xnaGame.Size = new System.Drawing.Size(784, 455);
@@ -106,15 +110,12 @@ namespace ShipGame.GameForms
 			// 
 			this.gameStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.gameStatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-			/*gameStats1.PlayerOneHealth = 0;
-			gameStats1.Score = 50;
-			this.gameStatusBar.GameStatsCriteria = gameStats1;*/
 			this.gameStatusBar.Location = new System.Drawing.Point(0, 479);
 			this.gameStatusBar.Name = "gameStatusBar";
 			this.gameStatusBar.Size = new System.Drawing.Size(784, 83);
 			this.gameStatusBar.TabIndex = 2;
 			// 
-			// MainWindowForm
+			// GameForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,7 +126,7 @@ namespace ShipGame.GameForms
 			this.Cursor = System.Windows.Forms.Cursors.Default;
 			this.DoubleBuffered = true;
 			this.MainMenuStrip = this.mnsTopMenu;
-			this.Name = "MainWindowForm";
+			this.Name = "GameForm";
 			this.Text = "Ship Commander";
 			this.mnsTopMenu.ResumeLayout(false);
 			this.mnsTopMenu.PerformLayout();

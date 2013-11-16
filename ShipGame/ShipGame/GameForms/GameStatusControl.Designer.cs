@@ -30,17 +30,14 @@ namespace ShipGame.GameForms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			this.pbPlayerOneHealth = new System.Windows.Forms.ProgressBar();
 			this.txtScore = new System.Windows.Forms.TextBox();
-			this.bsGameStats = new System.Windows.Forms.BindingSource(this.components);
 			this.lblAmmoLeft = new System.Windows.Forms.Label();
 			this.lblPlayerOneScore = new System.Windows.Forms.Label();
 			this.lblPlayerOneHealth = new System.Windows.Forms.Label();
 			this.txtAsteroidsLeft = new System.Windows.Forms.TextBox();
 			this.lblAsteroidsLeft = new System.Windows.Forms.Label();
 			this.txtAmmoLeft = new System.Windows.Forms.TextBox();
-			((System.ComponentModel.ISupportInitialize)(this.bsGameStats)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pbPlayerOneHealth
@@ -52,17 +49,12 @@ namespace ShipGame.GameForms
 			// 
 			// txtScore
 			// 
-			this.txtScore.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsGameStats, "PlayerOneScore", true));
 			this.txtScore.Enabled = false;
 			this.txtScore.Location = new System.Drawing.Point(363, 8);
 			this.txtScore.Name = "txtScore";
 			this.txtScore.ReadOnly = true;
 			this.txtScore.Size = new System.Drawing.Size(100, 20);
 			this.txtScore.TabIndex = 4;
-			// 
-			// bsGameStats
-			// 
-			this.bsGameStats.DataSource = typeof(ShipGame.Entities.GameStats);
 			// 
 			// lblAmmoLeft
 			// 
@@ -96,7 +88,6 @@ namespace ShipGame.GameForms
 			// 
 			// txtAsteroidsLeft
 			// 
-			this.txtAsteroidsLeft.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsGameStats, "PlayerTwoScore", true));
 			this.txtAsteroidsLeft.Enabled = false;
 			this.txtAsteroidsLeft.Location = new System.Drawing.Point(546, 8);
 			this.txtAsteroidsLeft.Name = "txtAsteroidsLeft";
@@ -116,7 +107,6 @@ namespace ShipGame.GameForms
 			// 
 			// txtAmmoLeft
 			// 
-			this.txtAmmoLeft.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsGameStats, "PlayerTwoScore", true));
 			this.txtAmmoLeft.Enabled = false;
 			this.txtAmmoLeft.Location = new System.Drawing.Point(216, 8);
 			this.txtAmmoLeft.Name = "txtAmmoLeft";
@@ -124,7 +114,7 @@ namespace ShipGame.GameForms
 			this.txtAmmoLeft.Size = new System.Drawing.Size(100, 20);
 			this.txtAmmoLeft.TabIndex = 13;
 			// 
-			// MainWindowMenu
+			// GameStatusControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -137,9 +127,8 @@ namespace ShipGame.GameForms
 			this.Controls.Add(this.txtAsteroidsLeft);
 			this.Controls.Add(this.txtScore);
 			this.Controls.Add(this.pbPlayerOneHealth);
-			this.Name = "MainWindowMenu";
+			this.Name = "GameStatusControl";
 			this.Size = new System.Drawing.Size(798, 83);
-			((System.ComponentModel.ISupportInitialize)(this.bsGameStats)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -149,7 +138,6 @@ namespace ShipGame.GameForms
 
 		private System.Windows.Forms.ProgressBar pbPlayerOneHealth;
 		private System.Windows.Forms.TextBox txtScore;
-		private System.Windows.Forms.BindingSource bsGameStats;
 		private System.Windows.Forms.Label lblAmmoLeft;
 		private System.Windows.Forms.Label lblPlayerOneScore;
 		private System.Windows.Forms.Label lblPlayerOneHealth;

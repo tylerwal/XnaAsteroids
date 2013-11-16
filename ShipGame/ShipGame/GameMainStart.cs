@@ -4,7 +4,7 @@ using ShipGame.GameForms;
 
 namespace ShipGame
 {
-	static class Program
+	static class GameMainStart
 	{
 
 		[STAThread]
