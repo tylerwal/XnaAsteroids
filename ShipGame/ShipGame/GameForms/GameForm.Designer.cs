@@ -2,7 +2,7 @@
 
 namespace ShipGame.GameForms
 {
-	partial class MainWindowForm
+	partial class GameForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -38,7 +38,7 @@ namespace ShipGame.GameForms
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pnlGamePanel = new System.Windows.Forms.Panel();
 			this.xnaGame = new ShipGame.GameDisplay.XnaGame();
-			this.gameStatusBar = new MainWindowMenu();
+			this.gameStatusBar = new GameStatusControl();
 			this.mnsTopMenu.SuspendLayout();
 			this.pnlGamePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -141,7 +141,7 @@ namespace ShipGame.GameForms
 		private System.Windows.Forms.MenuStrip mnsTopMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
-		private MainWindowMenu gameStatusBar;
+		private GameStatusControl gameStatusBar;
 		private System.Windows.Forms.Panel pnlGamePanel;
 		private System.Windows.Forms.ToolStripMenuItem highScoresToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;

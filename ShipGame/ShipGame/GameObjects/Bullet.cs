@@ -57,14 +57,14 @@ namespace ShipGame.GameObjects
 
 			if (!XnaGame.ClientRectangle.Contains(new Point((int)PositionVector.X, (int)PositionVector.Y)))
 			{
-				MarkForDeletion = true;
+				IsMarkedForDeletion = true;
 			}
 
 			GameObjectBase collidedObject = GetCollidedObject();
 
 			if (collidedObject is Asteroid)
 			{
-				MarkForDeletion = true;
+				IsMarkedForDeletion = true;
 
 				collidedObject.Health -= GameConfig.BulletDamage;
 			}

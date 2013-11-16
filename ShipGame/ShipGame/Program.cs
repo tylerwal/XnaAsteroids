@@ -13,7 +13,7 @@ namespace ShipGame
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			using (MainWindowForm mainWindowForm = new MainWindowForm())
+			using (GameForm mainWindowForm = new GameForm())
 			{
 				Application.Run(mainWindowForm);
 			}

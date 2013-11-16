@@ -36,7 +36,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		private int _health;
 
-		private bool _markForDeletion;
+		private bool _isMarkedForDeletion;
 		
 		#endregion Fields
 
@@ -206,15 +206,15 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public bool MarkForDeletion
+		public bool IsMarkedForDeletion
 		{
 			get
 			{
-				return _markForDeletion;
+				return _isMarkedForDeletion;
 			}
 			set
 			{
-				_markForDeletion = value;
+				_isMarkedForDeletion = value;
 			}
 		}
 		

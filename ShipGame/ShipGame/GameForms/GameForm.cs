@@ -2,9 +2,31 @@
 
 namespace ShipGame.GameForms
 {
-	public partial class MainWindowForm : Form
+	public partial class GameForm : Form
 	{
-		public MainWindowForm()
+		#region Fields
+
+		 
+
+		#endregion Fields
+
+		#region Properties
+
+		public GameStatusControl GameStatusBar
+		{
+			get
+			{
+				return gameStatusBar;
+			}
+			set
+			{
+				gameStatusBar = value;
+			}
+		}
+		
+		#endregion Properties
+
+		public GameForm()
 		{
 			InitializeComponent();
 
@@ -12,11 +34,13 @@ namespace ShipGame.GameForms
 
 			XnaGame.MouseLeave += xnaGameDisplay_MouseLeave;*/
 
-			gameStatusBar.GameStatsCriteria.Score = 50;
+			/*gameStatusBar.GameStatsCriteria.Score = 50;*/
 
-			gameStatusBar.SetScore(25);
+			/*gameStatusBar.SetScore(25);*/
 
-			gameStatusBar.Health = 75;
+			GameStatusBar.Health = 75;
+
+			GameStatusBar.Score = 10000;
 		}
 
 		#region Event Handlers

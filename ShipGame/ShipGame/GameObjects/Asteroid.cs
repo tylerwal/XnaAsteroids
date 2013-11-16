@@ -142,27 +142,11 @@ namespace ShipGame.GameObjects
 					VelocityVector = Vector2.Reflect(VelocityVector, normalizedVector);
 
 					VelocityVector += centerOfMass;
-
+/*
 					if (collidedObject is Asteroid)
 					{
 						Health -= 1;
-					}
-					
-					#region Handling Of Colliding Objects, commented out
-
-					//may not be necessary
-					/*Vector2 normalizedVectorTwo = GameUtility.GameUtility.GetVectorFromPoint(Bounds.Center) - GameUtility.GameUtility.GetVectorFromPoint(collidedObject.Bounds.Center);
-
-					normalizedVectorTwo.Normalize();
-
-					collidedObject.VelocityVector -= centerOfMass;
-
-					collidedObject.VelocityVector = Vector2.Reflect(collidedObject.VelocityVector, normalizedVector);
-
-					collidedObject.VelocityVector += centerOfMass;*/
-
-
-					#endregion Handling Of Colliding Objects, commented out
+					}*/
 				} 
 			}
 
@@ -170,7 +154,7 @@ namespace ShipGame.GameObjects
 
 			if (Health <= 0)
 			{
-				MarkForDeletion = true;
+				IsMarkedForDeletion = true;
 			}
 		}
 

@@ -39,9 +39,7 @@ namespace ShipGame.GameDisplay
 		private GameUtilities.GameUtilities _gameUtility;
 
 		private TimeSpan _lastBulletCreationTime;
-
-		private GameStats _gameStats;
-
+		
 		#endregion Fields
 
 		#region Properties
@@ -153,20 +151,6 @@ namespace ShipGame.GameDisplay
 				_lastBulletCreationTime = value;
 			}
 		}
-
-		public GameStats GameStats
-		{
-			get
-			{
-				return _gameStats;
-			}
-			set
-			{
-				_gameStats = value;
-			}
-		}
-
-		
 		
 		#endregion Properties
 
@@ -182,8 +166,13 @@ namespace ShipGame.GameDisplay
 
 		#region Overrides
 
+		/// <summary>
+		/// Initializes several objects that are necessary for the game (controls, ships, timers, etc.)
+		/// </summary>
 		protected override void Initialize()
 		{
+			#region Initialize Game Essentials
+
 			GameObjects = new List<IGameObject>();
 
 			GameUtility = new GameUtilities.GameUtilities();
@@ -197,6 +186,8 @@ namespace ShipGame.GameDisplay
 			GlobalGameStopWatch = Stopwatch.StartNew();
 
 			LastBulletCreationTime = TimeSpan.Zero;
+
+			#endregion Initialize Game Essentials
 
 			Background background = new Background(this);
 			GameObjects.Add(background);
@@ -219,6 +210,9 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
+		/// <summary>
+		/// Where the game is redrawn and updated (update is timer based)
+		/// </summary>
 		protected override void Draw()
 		{
 			//background color
@@ -251,6 +245,9 @@ namespace ShipGame.GameDisplay
 
 		#region Methods
 
+		/// <summary>
+		/// Method that updates game objects, called from Draw method based on timer interval.
+		/// </summary>
 		private void UpdateGameObjects()
 		{
 			KeyboardCurrentState = Keyboard.GetState();
@@ -263,8 +260,25 @@ namespace ShipGame.GameDisplay
 				.ToList()
 				.ForEach(j => j.Update());
 
-			#region Bullet Creation
+			BulletCreation();
 
+			RemoveDeletedObjects();
+			
+			var test2 = (GameForm)TopLevelControl;
+
+			test2.GameStatusBar.AmmoLeft = 5;
+
+		}
+
+		#endregion Methods
+
+		#region Helper Methods
+
+		/// <summary>
+		/// Checks mouse state and instantiates a new Bullet and adds it to the game objects list
+		/// </summary>
+		private void BulletCreation()
+		{
 			if (MouseCurrentState.LeftButton == ButtonState.Pressed)
 			{
 				TimeSpan time = GlobalGameStopWatch.Elapsed;
@@ -292,28 +306,20 @@ namespace ShipGame.GameDisplay
 					LastBulletCreationTime = GlobalGameStopWatch.Elapsed;
 				}
 			} 
+		}
 
-			#endregion Bullet Creation
-
-			//remove 'deleted' items
-			List<GameObjectBase> markedForDeletion = GameObjects.OfType<GameObjectBase>().Where(i => i.MarkForDeletion).ToList();
+		/// <summary>
+		/// Removes objects from the game object list when they are marked for deletion
+		/// </summary>
+		private void RemoveDeletedObjects()
+		{
+			List<GameObjectBase> markedForDeletion = GameObjects.OfType<GameObjectBase>().Where(i => i.IsMarkedForDeletion).ToList();
 
 			foreach (GameObjectBase gameObject in markedForDeletion)
 			{
 				GameObjects.Remove(gameObject);
 			}
-			
-			var test2 = (MainWindowForm)TopLevelControl;
-
-			var test3 = test2.Controls;
-
 		}
-
-		#endregion Methods
-
-		#region Helper Methods
-
-
 
 		#endregion Helper Methods
 	}

@@ -120,23 +120,24 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\GameStats.cs" />
-    <Compile Include="GameForms\MainWindowForm.cs">
+    <Compile Include="GameForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameForms\MainWindowForm.Designer.cs">
-      <DependentUpon>MainWindowForm.cs</DependentUpon>
+    <Compile Include="GameForms\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameForms\GameStatusBar.cs">
+    <Compile Include="GameForms\GameStatusControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GameForms\GameStatusBar.Designer.cs">
-      <DependentUpon>GameStatusBar.cs</DependentUpon>
+    <Compile Include="GameForms\GameStatusControl.Designer.cs">
+      <DependentUpon>GameStatusControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GameObjects\Asteroid.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BaseClass\GameObjectBase.cs" />
     <Compile Include="GameObjects\BaseClass\IGameObject.cs" />
     <Compile Include="GameObjects\GameControls.cs" />
+    <Compile Include="GameObjects\GameStats.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TargetingSystem.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
@@ -186,11 +187,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameForms\MainWindowForm.resx">
-      <DependentUpon>MainWindowForm.cs</DependentUpon>
+    <EmbeddedResource Include="GameForms\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameForms\GameStatusBar.resx">
-      <DependentUpon>GameStatusBar.cs</DependentUpon>
+    <EmbeddedResource Include="GameForms\GameStatusControl.resx">
+      <DependentUpon>GameStatusControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
