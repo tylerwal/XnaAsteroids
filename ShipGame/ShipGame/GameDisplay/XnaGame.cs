@@ -67,7 +67,7 @@ namespace ShipGame.GameDisplay
 			}
 		}
 
-		public KeyboardState KeyboardCurrentState
+		/*public KeyboardState KeyboardCurrentState
 		{
 			get
 			{
@@ -89,7 +89,7 @@ namespace ShipGame.GameDisplay
 			{
 				_mouseCurrentState = value;
 			}
-		}
+		}*/
 
 		public IList<IGameObject> GameObjects
 		{
@@ -252,9 +252,9 @@ namespace ShipGame.GameDisplay
 		/// </summary>
 		private void UpdateGameObjects()
 		{
-			KeyboardCurrentState = Keyboard.GetState();
+			//KeyboardCurrentState = Keyboard.GetState();
 
-			MouseCurrentState = Mouse.GetState();
+			//MouseCurrentState = Mouse.GetState();
 			
 			//loop through game object update methods
 			GameObjects
@@ -276,7 +276,9 @@ namespace ShipGame.GameDisplay
 		/// </summary>
 		private void BulletCreation()
 		{
-			if (MouseCurrentState.LeftButton == ButtonState.Pressed)
+			MouseState mouseCurrentState = GameObjects.OfType<GameControl>().First().MouseCurrentState;
+
+			if (mouseCurrentState.LeftButton == ButtonState.Pressed)
 			{
 				TimeSpan time = GlobalGameStopWatch.Elapsed;
 
@@ -288,7 +290,7 @@ namespace ShipGame.GameDisplay
 
 					bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center) - new Vector2(2.5f, 2.5f);
 
-					Vector2 mousePosition = new Vector2(MouseCurrentState.X, MouseCurrentState.Y);
+					Vector2 mousePosition = new Vector2(mouseCurrentState.X, mouseCurrentState.Y);
 
 					Vector2 shipAngleVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center);
 
