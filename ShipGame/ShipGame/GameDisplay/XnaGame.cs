@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ShipGame.Entities;
 using ShipGame.GameForms;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
@@ -38,6 +39,8 @@ namespace ShipGame.GameDisplay
 		private GameUtilities.GameUtilities _gameUtility;
 
 		private TimeSpan _lastBulletCreationTime;
+
+		private GameStatRepository _gameStatRepository;
 		
 		#endregion Fields
 
@@ -150,6 +153,18 @@ namespace ShipGame.GameDisplay
 				_lastBulletCreationTime = value;
 			}
 		}
+
+		public GameStatRepository GameStatRepository
+		{
+			get
+			{
+				return _gameStatRepository;
+			}
+			set
+			{
+				_gameStatRepository = value;
+			}
+		}
 		
 		#endregion Properties
 
@@ -185,6 +200,8 @@ namespace ShipGame.GameDisplay
 			GlobalGameStopWatch = Stopwatch.StartNew();
 
 			LastBulletCreationTime = TimeSpan.Zero;
+
+			GameStatRepository = new GameStatRepository();
 
 			#endregion Initialize Game Essentials
 

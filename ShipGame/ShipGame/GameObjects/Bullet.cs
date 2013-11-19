@@ -67,6 +67,8 @@ namespace ShipGame.GameObjects
 				IsMarkedForDeletion = true;
 
 				collidedObject.Health -= GameConfig.BulletDamage;
+
+				XnaGame.GameStatRepository.Score += 10;
 			}
 
 			PositionVector += VelocityVector;

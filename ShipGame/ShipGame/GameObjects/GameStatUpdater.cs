@@ -62,7 +62,7 @@ namespace ShipGame.GameObjects
 		{
 			IsVisible = false;
 
-			GameStatRepository = new GameStatRepository();
+			GameStatRepository = XnaGame.GameStatRepository;
 
 			GameStatusControl = ((GameForm)XnaGame.TopLevelControl).GameStatusBar;
 		}
@@ -76,12 +76,24 @@ namespace ShipGame.GameObjects
 			UpdateNumberOfAsteroidsoLeft();
 
 			UpdatePlayerHealth();
+
+			UpdatePlayerScore();
 			
 		}
 
 		#endregion Methods
 
 		#region Helper Methods
+
+		private void UpdateAmmoLeft()
+		{
+			GameStatusControl.AmmoLeft = GameStatRepository.AmmoLeft;
+		}
+
+		private void UpdatePlayerScore()
+		{
+			GameStatusControl.Score = GameStatRepository.Score;
+		}
 
 		private void UpdateNumberOfAsteroidsoLeft()
 		{

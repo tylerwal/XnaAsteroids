@@ -26,6 +26,10 @@ namespace ShipGame.GameObjects
 
 		private float _textureScale;
 
+		private bool _explosionStarted;
+
+		private TimeSpan _startingExplosionTime;
+
 		//delete below
 		private Texture2D testingTexture;
 		//delete above
@@ -109,6 +113,8 @@ namespace ShipGame.GameObjects
 			if (Health <= 0)
 			{
 				IsMarkedForDeletion = true;
+
+				XnaGame.GameObjects.Add(new Explosion(XnaGame, this));
 			}
 		}
 
@@ -245,6 +251,9 @@ namespace ShipGame.GameObjects
 			VelocityVector = tempVelocity;
 		}
 
+		/// <summary>
+		/// Methods that handles the collision detection and collision event handling.
+		/// </summary>
 		private void CollisionHandling()
 		{
 			GameObjectBase collidedObject = GetCollidedObject();
@@ -266,7 +275,7 @@ namespace ShipGame.GameObjects
 				}
 			}
 		}
-
+		
 		#endregion Helper Methods
 	}
 }

@@ -136,6 +136,7 @@
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BaseClass\GameObjectBase.cs" />
     <Compile Include="GameObjects\BaseClass\IGameObject.cs" />
+    <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="GameObjects\GameControl.cs" />
     <Compile Include="GameObjects\GameStatUpdater.cs" />
     <Compile Include="GameObjects\Ship.cs" />
