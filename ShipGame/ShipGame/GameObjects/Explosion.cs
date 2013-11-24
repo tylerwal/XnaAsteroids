@@ -8,6 +8,8 @@ using ShipGame.GameObjects.BaseClass;
 
 namespace ShipGame.GameObjects
 {
+	using ShipGame.GameUtilities;
+
 	public class Explosion : GameObjectBase
 	{
 		#region Fields
@@ -34,6 +36,8 @@ namespace ShipGame.GameObjects
 		private Texture2D testingTexture;
 		//delete above
 
+		private IList<Rectangle> _spriteRectangles;
+
 		#endregion Fields
 
 		#region Properties
@@ -47,7 +51,8 @@ namespace ShipGame.GameObjects
 		{
 		}
 
-		public Explosion(XnaGame xnaGame, Asteroid asteroid) : base(xnaGame)
+		public Explosion(XnaGame xnaGame, Asteroid asteroid)
+			: base(xnaGame)
 		{
 			Bounds = asteroid.Bounds;
 		}
@@ -58,15 +63,19 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture,
-				_textureRows,
-				_textureColumns,
-				SpriteSelectedFrame,
-				true);
+			Texture = XnaGame.Content.Load<Texture2D>(GameConfig.ExplosionTextureName);
+
+			_spriteRectangles = GameUtilities.GetSpriteRectangles(
+				Texture,
+				GameConfig.ExplosionTextureRows,
+				GameConfig.ExplosionTextureColumns
+				);
 
 			DisplayOrder = 1;
 
 			IsVisible = true;
+
+			SpriteSelectedFrame = 0;
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
@@ -76,47 +85,33 @@ namespace ShipGame.GameObjects
 
 		public override void Draw()
 		{
-			/*XnaGame.SpriteBatch.Draw(
-					Texture,
-					PositionVector,
-					null, //use whole texture
-					Color.White, //tint
-					RotationAngle,
-					new Vector2(Texture.Height / 2, Texture.Width / 2), //origin of rotation
-					_textureScale, //scale
-					SpriteEffects.None,
-					1.0f //layer depth, not used
-				);*/
+			XnaGame.SpriteBatch.Draw(
+				Texture,
+				Bounds,
+				_spriteRectangles[SpriteSelectedFrame],
+				Color.White
+				);
 
-			//shows the bound boxes
-			XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
+			/*//shows the bound boxes
+			XnaGame.SpriteBatch.Draw(Texture, Bounds, Color.Purple);*/
 		}
 
 		public override void Update()
 		{
-			Bounds = GetBounds(_textureScale);
-
-			RotationAngle += _rotationSpeed;
-
-			PositionVector += VelocityVector;
-
-			if (Health <= 0)
+			if (SpriteSelectedFrame < 24)
 			{
-				if (!_explosionStarted)
-				{
-					StartExplosion();
-				}
-				else
-				{
-					ContinueExplosion();
-				}
+				SpriteSelectedFrame++;
+			}
+			else
+			{
+				IsMarkedForDeletion = true;
 			}
 		}
 
 		#endregion Methods
 
 		#region Helper Methods
-		
+
 		/// <summary>
 		/// When the asteroid has zero health, this method starts the texture to an explosion texture.
 		/// </summary>

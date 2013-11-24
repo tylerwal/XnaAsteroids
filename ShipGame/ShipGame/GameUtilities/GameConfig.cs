@@ -131,5 +131,15 @@ namespace ShipGame.GameUtilities
 		#endregion AsteroidFive
 
 		#endregion Asteroid Constants
+
+		#region Explosion Constants
+
+		public const string ExplosionTextureName = "Explosion";
+
+		public const int ExplosionTextureRows = 5;
+
+		public const int ExplosionTextureColumns = 5;
+
+		#endregion Explosion Constants
 	}
 }

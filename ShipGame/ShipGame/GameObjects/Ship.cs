@@ -61,12 +61,6 @@ namespace ShipGame.GameObjects
 			SpriteSelectedFrame = GameUtilities.GameConfig.ShipSelectedFrame;
 
 			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
-			
-			/*SpriteRectangles = GameUtility.GameUtility.GetSpriteRectangles(Texture, 
-				GameUtility.GameConfig.ShipTextureRows, 
-				GameUtility.GameConfig.ShipTextureColumns);
-
-			SpriteRectangles = GameUtility.GameUtility.RemoveFrameLines(SpriteRectangles);*/
 
 			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 

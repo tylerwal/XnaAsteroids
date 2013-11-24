@@ -114,13 +114,19 @@ namespace ShipGame.GameObjects
 			{
 				IsMarkedForDeletion = true;
 
-				XnaGame.GameObjects.Add(new Explosion(XnaGame, this));
+				Explosion explosion = new Explosion(XnaGame, this);
+
+				XnaGame.GameObjects.Add(explosion);
+
+				explosion.Initialize();
 			}
 		}
 
 		#endregion Methods
 
 		#region Helper Methods
+
+		#region Randomized Start Methods
 
 		/// <summary>
 		/// Randomizes the starting position, velocity, rotation, rotation speed, texture, texture scale (and health) for each Asteroid instantiation
@@ -223,6 +229,8 @@ namespace ShipGame.GameObjects
 
 			return velocity;
 		}
+
+		#endregion Randomized Start Methods
 
 		/// <summary>
 		/// Keeps Velocity under a set Terminal Velocity

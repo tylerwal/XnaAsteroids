@@ -58,7 +58,55 @@ namespace ShipGame.GameUtilities
 		#endregion Constructors
 
 		#region Methods
-		
+
+		/// <summary>
+		/// Gets a list of rectangles for the sprite frames
+		/// </summary>
+		/// <param name="texture"></param>
+		/// <param name="rows"></param>
+		/// <param name="columns"></param>
+		/// <returns>A list of rectangles</returns>
+		public static IList<Rectangle> GetSpriteRectangles(Texture2D texture, int rows, int columns)
+		{
+			IList<Rectangle> spriteRectangles = new List<Rectangle>(rows * columns);
+
+			int frameHeight = GetFrameHeight(texture, rows);
+
+			int frameWidth = GetFrameWidth(texture, columns);
+
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					Rectangle currentFrame = new Rectangle(frameWidth * j, frameHeight * i, frameWidth, frameHeight);
+					spriteRectangles.Add(currentFrame);
+				}
+			}
+
+			return spriteRectangles;
+		}
+
+		/// <summary>
+		/// Deflates a list of sprite rectangles to remove Sprite frame lines
+		/// </summary>
+		/// <param name="spriteRectangles"></param>
+		/// <returns>A list of rectangles</returns>
+		public static IList<Rectangle> RemoveFrameLines(IEnumerable<Rectangle> spriteRectangles)
+		{
+			IList<Rectangle> tempList = spriteRectangles.ToList();
+
+			for (int i = 0; i < tempList.Count(); i++)
+			{
+				Rectangle tempRectangle = tempList[i];
+
+				tempRectangle.Inflate(-2, -2);
+
+				tempList[i] = tempRectangle;
+			}
+
+			return tempList;
+		}
+
 		/// <summary>
 		/// Gets a single sprite frame from an image with multiple frames
 		/// </summary>
@@ -201,54 +249,6 @@ namespace ShipGame.GameUtilities
 		#endregion Methods
 
 		#region Helper Methods
-
-		/// <summary>
-		/// Gets a list of rectangles for the sprite frames
-		/// </summary>
-		/// <param name="texture"></param>
-		/// <param name="rows"></param>
-		/// <param name="columns"></param>
-		/// <returns>A list of rectangles</returns>
-		private static IList<Rectangle> GetSpriteRectangles(Texture2D texture, int rows, int columns)
-		{
-			IList<Rectangle> spriteRectangles = new List<Rectangle>(rows * columns);
-
-			int frameHeight = GetFrameHeight(texture, rows);
-
-			int frameWidth = GetFrameWidth(texture, columns);
-
-			for (int i = 0; i < rows; i++)
-			{
-				for (int j = 0; j < columns; j++)
-				{
-					Rectangle currentFrame = new Rectangle(frameWidth * j, frameHeight * i, frameWidth, frameHeight);
-					spriteRectangles.Add(currentFrame);
-				}
-			}
-
-			return spriteRectangles;
-		}
-
-		/// <summary>
-		/// Deflates a list of sprite rectangles to remove Sprite frame lines
-		/// </summary>
-		/// <param name="spriteRectangles"></param>
-		/// <returns>A list of rectangles</returns>
-		private static IList<Rectangle> RemoveFrameLines(IEnumerable<Rectangle> spriteRectangles)
-		{
-			IList<Rectangle> tempList = spriteRectangles.ToList();
-
-			for (int i = 0; i < tempList.Count(); i++)
-			{
-				Rectangle tempRectangle = tempList[i];
-
-				tempRectangle.Inflate(-2, -2);
-
-				tempList[i] = tempRectangle;
-			}
-
-			return tempList;
-		}
 
 		private static int GetFrameWidth(Texture2D texture, int columns)
 		{
