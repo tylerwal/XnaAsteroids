@@ -141,5 +141,30 @@ namespace ShipGame.GameUtilities
 		public const int ExplosionTextureColumns = 5;
 
 		#endregion Explosion Constants
+
+		#region Crystal Constants
+
+		public const string CrystalTextureName = "Crystal";
+
+		public const int CrystalTextureRows = 5;
+
+		public const int CrystalTextureColumns = 4;
+
+		public const string RedCrystal = "Ammo";
+		public const int RedCrystalBoost = 20;
+
+		public const string GoldCrystal = "Ammo";
+		public const int GoldCrystalBoost = 50;
+
+		public const string BlueCrystal = "Health";
+		public const int BlueCrystalBoost = 20;
+
+		public const string GreenCrystal = "Health";
+		public const int GreenCrystalBoost = 50;
+
+		public const string GreyCrystal = "Life";
+		public const int GreyCrystalBoost = 1;
+
+		#endregion Crystal Constants
 	}
 }
