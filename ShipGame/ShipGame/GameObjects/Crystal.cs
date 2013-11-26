@@ -95,17 +95,6 @@ namespace ShipGame.GameObjects
 			RotationAngle += _rotationSpeed;
 			
 			CollisionHandling();
-			
-			if (Health <= 0)
-			{
-				IsMarkedForDeletion = true;
-
-				Explosion explosion = new Explosion(XnaGame, this);
-
-				XnaGame.GameObjects.Add(explosion);
-
-				explosion.Initialize();
-			}
 		}
 
 		#endregion Methods
