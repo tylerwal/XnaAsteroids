@@ -60,13 +60,15 @@ namespace ShipGame.GameObjects
 				IsMarkedForDeletion = true;
 			}
 
-			GameObjectBase collidedObject = GetCollidedObject();
+			//GameObjectBase collidedObject = GetCollidedObject();
 
-			if (collidedObject is Asteroid)
+			Asteroid collidedAsteroid = GetCollidedObject() as Asteroid;
+
+			if (collidedAsteroid != null)
 			{
 				IsMarkedForDeletion = true;
 
-				collidedObject.Health -= GameConfig.BulletDamage;
+				collidedAsteroid.Health -= GameConfig.BulletDamage;
 
 				XnaGame.GameStatRepository.Score += 10;
 			}

@@ -4,6 +4,8 @@ using ShipGame.Entities;
 
 namespace ShipGame.GameForms
 {
+	using ShipGame.GameUtilities;
+
 	public partial class GameStatusControl : UserControl
 	{
 		#region Fields
@@ -18,7 +20,7 @@ namespace ShipGame.GameForms
 			{
 				if (value >= 0)
 				{
-					pbPlayerOneHealth.Value = value; 
+					pbPlayerOneHealth.Value = value;
 				}
 				else
 				{

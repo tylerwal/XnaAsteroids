@@ -41,9 +41,7 @@ namespace ShipGame.GameObjects
 				_gameStatRepository = value;
 			}
 		}
-
 		
-
 		#endregion Properties
 
 		#region Constructors

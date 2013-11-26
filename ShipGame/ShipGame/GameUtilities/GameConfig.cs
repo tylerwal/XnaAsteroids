@@ -42,6 +42,8 @@ namespace ShipGame.GameUtilities
 
 		public const int ShipStartingHealth = 100;
 
+		public const int ShipTotalMaxHealth = 100;
+
 		#endregion Ship Constants
 
 		#region Bullet Constants
@@ -150,20 +152,22 @@ namespace ShipGame.GameUtilities
 
 		public const int CrystalTextureColumns = 4;
 
-		public const string RedCrystal = "Ammo";
-		public const int RedCrystalBoost = 20;
+		public const float CrystalScale = 1.2f;
 
-		public const string GoldCrystal = "Ammo";
-		public const int GoldCrystalBoost = 50;
+		public const string RedCrystalType = "Ammo";
+		public const int RedCrystalAmount = 20;
 
-		public const string BlueCrystal = "Health";
-		public const int BlueCrystalBoost = 20;
+		public const string GoldCrystalType = "Ammo";
+		public const int GoldCrystalAmount = 50;
 
-		public const string GreenCrystal = "Health";
-		public const int GreenCrystalBoost = 50;
+		public const string BlueCrystalType = "Health";
+		public const int BlueCrystalAmount = 20;
 
-		public const string GreyCrystal = "Life";
-		public const int GreyCrystalBoost = 1;
+		public const string GreenCrystalType = "Health";
+		public const int GreenCrystalAmount = 50;
+
+		public const string GreyCrystalType = "Life";
+		public const int GreyCrystalAmount = 1;
 
 		#endregion Crystal Constants
 	}

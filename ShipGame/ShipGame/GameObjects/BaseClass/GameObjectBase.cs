@@ -37,6 +37,8 @@ namespace ShipGame.GameObjects.BaseClass
 		private int _health;
 
 		private bool _isMarkedForDeletion;
+
+		private int _maxHealth;
 		
 		#endregion Fields
 
@@ -77,27 +79,7 @@ namespace ShipGame.GameObjects.BaseClass
 				_isVisible = value;
 			}
 		}
-
-		/*public int Width
-		{
-			get
-			{
-				return Bounds.Width;
-
-				//return SpriteRectangles.First().Width;
-			}
-		}
-
-		public int Height
-		{
-			get
-			{
-				return Bounds.Height;
-
-				//return SpriteRectangles.First().Height;
-			}
-		}*/
-
+		
 		protected XnaGame XnaGame
 		{
 			get
@@ -121,19 +103,7 @@ namespace ShipGame.GameObjects.BaseClass
 				_displayOrder = value;
 			}
 		}
-
-		/*public IList<Rectangle> SpriteRectangles
-		{
-			get
-			{
-				return _spriteRectangles;
-			}
-			set
-			{
-				_spriteRectangles = value;
-			}
-		}*/
-
+		
 		public Vector2 VelocityVector
 		{
 			get
@@ -203,6 +173,11 @@ namespace ShipGame.GameObjects.BaseClass
 			set
 			{
 				_health = value;
+
+				if (MaxHealth != 0 && _health > MaxHealth)
+				{
+					_health = MaxHealth;
+				}
 			}
 		}
 
@@ -215,6 +190,18 @@ namespace ShipGame.GameObjects.BaseClass
 			set
 			{
 				_isMarkedForDeletion = value;
+			}
+		}
+
+		protected internal int MaxHealth
+		{
+			get
+			{
+				return _maxHealth;
+			}
+			set
+			{
+				_maxHealth = value;
 			}
 		}
 		

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShipGame.Entities;
-using ShipGame.GameForms;
 using ShipGame.GameObjects;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.GameUtilities;
@@ -205,18 +204,29 @@ namespace ShipGame.GameDisplay
 
 			#endregion Initialize Game Essentials
 
+			//background
 			Background background = new Background(this);
 			GameObjects.Add(background);
 			
+			//ship
 			Ship ship = new Ship(this);
 			GameObjects.Add(ship);
 
+			//game controls
 			GameControl gameControls = new GameControl(this);
 			GameObjects.Add(gameControls);
 
+			//game stats
 			GameStatUpdater gameStatUpdaters = new GameStatUpdater(this);
 			GameObjects.Add(gameStatUpdaters);
 
+			//crystals
+			for (int i = 0; i < 10; i++)
+			{
+				GameObjects.Add(new Crystal(this));
+			}
+
+			//asteroids
 			for (int i = 0; i < 25; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 

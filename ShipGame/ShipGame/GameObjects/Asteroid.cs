@@ -268,6 +268,7 @@ namespace ShipGame.GameObjects
 
 			if (collidedObject != null)
 			{
+				if (!(collidedObject is Crystal))
 				{
 					Vector2 centerOfMass = (collidedObject.VelocityVector + VelocityVector) / 2;
 

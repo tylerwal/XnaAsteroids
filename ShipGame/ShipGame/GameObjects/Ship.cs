@@ -18,9 +18,7 @@ namespace ShipGame.GameObjects
 		private float _enginePower;
 
 		private float _thrusterPower;
-
-		/*private int _spriteSelectedFrame;*/
-
+		
 		private KeyboardState _keyboardState;
 
 		private MouseState _mouseState;
@@ -32,9 +30,7 @@ namespace ShipGame.GameObjects
 		#endregion Fields
 
 		#region Properties
-
-
-
+		
 		#endregion Properties
 
 		#region Constructors
@@ -62,7 +58,8 @@ namespace ShipGame.GameObjects
 
 			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
 
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(Texture, 
+			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(
+				Texture, 
 				GameUtilities.GameConfig.ShipTextureRows, 
 				GameUtilities.GameConfig.ShipTextureColumns,
 				SpriteSelectedFrame, 
@@ -73,6 +70,8 @@ namespace ShipGame.GameObjects
 			IsVisible = true;
 
 			Health = GameUtilities.GameConfig.ShipStartingHealth;
+
+			MaxHealth = GameUtilities.GameConfig.ShipTotalMaxHealth;
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);

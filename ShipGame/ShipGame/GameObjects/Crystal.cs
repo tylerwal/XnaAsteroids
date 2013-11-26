@@ -26,6 +26,8 @@ namespace ShipGame.GameObjects
 
 		private bool _explosionStarted;
 
+		private int _crystalTypeId;
+
 		//delete below
 		private Texture2D testingTexture;
 		//delete above
@@ -55,6 +57,8 @@ namespace ShipGame.GameObjects
 			InitializeRandomTexture();
 
 			RandomizeStart();
+
+			_textureScale = GameUtilities.GameConfig.CrystalScale;
 
 			DisplayOrder = 1;
 
@@ -86,6 +90,7 @@ namespace ShipGame.GameObjects
 
 			//shows the bound boxes
 			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
+			//XnaGame.SpriteBatch.Draw(Texture, new Rectangle((int)PositionVector.X, (int)PositionVector.Y, 50, 50), Color.Tomato);
 		}
 
 		public override void Update()
@@ -94,7 +99,14 @@ namespace ShipGame.GameObjects
 
 			RotationAngle += _rotationSpeed;
 			
-			CollisionHandling();
+			Ship collidedShip = GetCollidedObject() as Ship;
+
+			if (collidedShip != null)
+			{
+				HandleCrystalTypes(collidedShip);
+
+				IsMarkedForDeletion = true;
+			}
 		}
 
 		#endregion Methods
@@ -108,14 +120,10 @@ namespace ShipGame.GameObjects
 		/// </summary>
 		private void RandomizeStart()
 		{
-			do
-			{
-				PositionVector = GetRandomStartingPoint();
-			}
-			while (IsBoundsWithinAnotherObjectsBounds());
+			PositionVector = GetRandomStartingPoint();
 
 			RotationAngle = GetRandomStartingRotation();
-
+			
 			_rotationSpeed = GetRandomRotationSpeed();
 		}
 
@@ -124,17 +132,17 @@ namespace ShipGame.GameObjects
 		/// </summary>
 		private void InitializeRandomTexture()
 		{
-			int random = _random.Next(1, 6);
+			int random = _random.Next(0, 20);
 
-			_textureName = asteroidSettingsTuple.Item1;
+			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(
+				Texture,
+				GameUtilities.GameConfig.CrystalTextureRows,
+				GameUtilities.GameConfig.CrystalTextureColumns,
+				random,
+				false
+				);
 
-			_textureRows = asteroidSettingsTuple.Item2;
-
-			_textureColumns = asteroidSettingsTuple.Item3;
-
-			SpriteSelectedFrame = asteroidSettingsTuple.Item4;
-
-			_textureScale = asteroidSettingsTuple.Item5;
+			_crystalTypeId = ((random / GameUtilities.GameConfig.CrystalTextureColumns) % GameUtilities.GameConfig.CrystalTextureRows) + 1;
 		}
 
 		/// <summary>
@@ -166,28 +174,50 @@ namespace ShipGame.GameObjects
 
 		#endregion Randomized Start Methods
 
-		/// <summary>
-		/// Methods that handles the collision detection and collision event handling.
-		/// </summary>
-		private void CollisionHandling()
+		private void HandleCrystalTypes(Ship ship)
 		{
-			GameObjectBase collidedObject = GetCollidedObject();
+			string boostType = string.Empty;
 
-			if (collidedObject != null)
+			int boostAmount = 0;
+
+			switch (_crystalTypeId)
 			{
-				{
-					Vector2 centerOfMass = (collidedObject.VelocityVector + VelocityVector) / 2;
+				case (int)GameUtilities.CrystalEnum.RedCrystal:
+					boostType = GameUtilities.GameConfig.RedCrystalType;
+					boostAmount = GameUtilities.GameConfig.RedCrystalAmount;
+					break;
+				case (int)GameUtilities.CrystalEnum.GoldCrystal:
+					boostType = GameUtilities.GameConfig.GoldCrystalType;
+					boostAmount = GameUtilities.GameConfig.GoldCrystalAmount;
+					break;
+				case (int)GameUtilities.CrystalEnum.BlueCrystal:
+					boostType = GameUtilities.GameConfig.BlueCrystalType;
+					boostAmount = GameUtilities.GameConfig.BlueCrystalAmount;
+					break;
+				case (int)GameUtilities.CrystalEnum.GreenCrystal:
+					boostType = GameUtilities.GameConfig.GreenCrystalType;
+					boostAmount = GameUtilities.GameConfig.GreenCrystalAmount;
+					break;
+				case (int)GameUtilities.CrystalEnum.GreyCrystal:
+					boostType = GameUtilities.GameConfig.GreyCrystalType;
+					boostAmount = GameUtilities.GameConfig.GreyCrystalAmount;
+					break;
+			}
 
-					Vector2 normalizedVector = GameUtilities.GameUtilities.GetVectorFromPoint(collidedObject.Bounds.Center) - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
+			BoostShip(ship, boostType, boostAmount);
+		}
 
-					normalizedVector.Normalize();
-
-					VelocityVector -= centerOfMass;
-
-					VelocityVector = Vector2.Reflect(VelocityVector, normalizedVector);
-
-					VelocityVector += centerOfMass;
-				}
+		private void BoostShip(Ship ship, string boostType, int boostAmount)
+		{
+			switch (boostType)
+			{
+				case "Ammo":
+					break;
+				case "Health":
+					ship.Health += boostAmount;
+					break;
+				case "Life":
+					break;
 			}
 		}
 
