@@ -140,6 +140,7 @@
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="GameObjects\GameControl.cs" />
     <Compile Include="GameObjects\GameStatUpdater.cs" />
+    <Compile Include="GameObjects\GameMessage.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TargetingSystem.cs" />
     <Compile Include="GameObjects\Bullet.cs" />

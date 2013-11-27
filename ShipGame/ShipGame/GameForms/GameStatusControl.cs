@@ -4,7 +4,11 @@ using ShipGame.Entities;
 
 namespace ShipGame.GameForms
 {
+	using Microsoft.Xna.Framework;
+
 	using ShipGame.GameUtilities;
+
+	using Color = System.Drawing.Color;
 
 	public partial class GameStatusControl : UserControl
 	{
@@ -33,7 +37,7 @@ namespace ShipGame.GameForms
 		{
 			set
 			{
-				txtAmmoLeft.Text = value.ToString();
+				dtlAmmoLeft.Text = value.ToString();
 			}
 		}
 
@@ -41,7 +45,7 @@ namespace ShipGame.GameForms
 		{
 			set
 			{
-				txtScore.Text = value.ToString();
+				dtlScore.Text = value.ToString();
 			}
 		}
 
@@ -49,7 +53,7 @@ namespace ShipGame.GameForms
 		{
 			set
 			{
-				txtAsteroidsLeft.Text = value.ToString();
+				dtlAsteroidsLeft.Text = value.ToString();
 			}
 		}
 

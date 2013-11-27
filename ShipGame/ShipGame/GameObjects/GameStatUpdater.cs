@@ -1,11 +1,13 @@
-﻿using System.Linq;
-using ShipGame.Entities;
+﻿using ShipGame.Entities;
 using ShipGame.GameDisplay;
 using ShipGame.GameForms;
 using ShipGame.GameObjects.BaseClass;
+using ShipGame.GameUtilities;
+using System.Linq;
 
 namespace ShipGame.GameObjects
 {
+	
 	public class GameStatUpdater : GameObjectBase
 	{
 		#region Fields
@@ -62,6 +64,8 @@ namespace ShipGame.GameObjects
 
 			GameStatRepository = XnaGame.GameStatRepository;
 
+			GameStatRepository.AmmoLeft = GameConfig.StartingAmmo;
+
 			GameStatusControl = ((GameForm)XnaGame.TopLevelControl).GameStatusBar;
 		}
 
@@ -71,12 +75,13 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
+			UpdateAmmoLeft();
+			
 			UpdateNumberOfAsteroidsoLeft();
 
 			UpdatePlayerHealth();
 
 			UpdatePlayerScore();
-			
 		}
 
 		#endregion Methods

@@ -68,31 +68,7 @@ namespace ShipGame.GameDisplay
 				_content = value;
 			}
 		}
-
-		/*public KeyboardState KeyboardCurrentState
-		{
-			get
-			{
-				return _keyboardCurrentState;
-			}
-			set
-			{
-				_keyboardCurrentState = value;
-			}
-		}
-
-		public MouseState MouseCurrentState
-		{
-			get
-			{
-				return _mouseCurrentState;
-			}
-			set
-			{
-				_mouseCurrentState = value;
-			}
-		}*/
-
+		
 		public IList<IGameObject> GameObjects
 		{
 			get
@@ -221,16 +197,19 @@ namespace ShipGame.GameDisplay
 			GameObjects.Add(gameStatUpdaters);
 
 			//crystals
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < GameConfig.NumberOfStartingCrystals; i++)
 			{
 				GameObjects.Add(new Crystal(this));
 			}
 
 			//asteroids
-			for (int i = 0; i < 25; i++)
+			for (int i = 0; i < GameConfig.NumberOfStartingAsteroids; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}
+
+			GameMessage message = new GameMessage(this, "Message Added");
+			GameObjects.Add(message);
 
 			//loop through game object initialize methods
 			foreach (GameObjectBase gameObject in GameObjects)
@@ -267,7 +246,6 @@ namespace ShipGame.GameDisplay
 				.ForEach(j => j.Draw());
 		
 			SpriteBatch.End();
-
 		}
 
 		#endregion Overrides
@@ -279,10 +257,6 @@ namespace ShipGame.GameDisplay
 		/// </summary>
 		private void UpdateGameObjects()
 		{
-			//KeyboardCurrentState = Keyboard.GetState();
-
-			//MouseCurrentState = Mouse.GetState();
-			
 			//loop through game object update methods
 			GameObjects
 				.OrderBy(i => i.DisplayOrder)
@@ -326,6 +300,9 @@ namespace ShipGame.GameDisplay
 					bullet.VelocityVector = shipAngleVector * GameConfig.BulletSpeed;
 
 					GameObjects.Add(bullet);
+
+					//update number of bullets (ammmo) left
+					GameObjects.OfType<GameStatUpdater>().First().GameStatRepository.AmmoLeft--;
 
 					bullet.Initialize();
 

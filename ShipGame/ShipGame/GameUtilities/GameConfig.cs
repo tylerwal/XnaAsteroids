@@ -17,7 +17,7 @@ namespace ShipGame.GameUtilities
 		public const string BackgroundTwoTextureName = "SpaceBackground2";
 
 		public const string BackgroundThreeTextureName = "SpaceBackground3";
-
+		
 		#endregion General
 
 		#region Ship Constants
@@ -54,6 +54,8 @@ namespace ShipGame.GameUtilities
 
 		public const int BulletDamage = 1;
 
+		public const int StartingAmmo = 500;
+
 		#endregion Bullet Constants
 
 		#region Asteroid Constants
@@ -61,6 +63,8 @@ namespace ShipGame.GameUtilities
 		public const float AsteroidTerminalVelocity = 1.5f;
 
 		public const int AsteroidStartingHealth = 25;
+
+		public const int NumberOfStartingAsteroids = 20;
 		
 		#region AsteroidOne
 
@@ -148,6 +152,8 @@ namespace ShipGame.GameUtilities
 
 		public const string CrystalTextureName = "Crystal";
 
+		public const int NumberOfStartingCrystals = 10;
+
 		public const int CrystalTextureRows = 5;
 
 		public const int CrystalTextureColumns = 4;
@@ -155,10 +161,10 @@ namespace ShipGame.GameUtilities
 		public const float CrystalScale = 1.2f;
 
 		public const string RedCrystalType = "Ammo";
-		public const int RedCrystalAmount = 20;
+		public const int RedCrystalAmount = 100;
 
 		public const string GoldCrystalType = "Ammo";
-		public const int GoldCrystalAmount = 50;
+		public const int GoldCrystalAmount = 200;
 
 		public const string BlueCrystalType = "Health";
 		public const int BlueCrystalAmount = 20;
@@ -166,8 +172,8 @@ namespace ShipGame.GameUtilities
 		public const string GreenCrystalType = "Health";
 		public const int GreenCrystalAmount = 50;
 
-		public const string GreyCrystalType = "Life";
-		public const int GreyCrystalAmount = 1;
+		public const string GreyCrystalType = "Score";
+		public const int GreyCrystalAmount = 1000;
 
 		#endregion Crystal Constants
 	}

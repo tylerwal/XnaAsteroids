@@ -31,101 +31,110 @@ namespace ShipGame.GameForms
 		private void InitializeComponent()
 		{
 			this.pbPlayerOneHealth = new System.Windows.Forms.ProgressBar();
-			this.txtScore = new System.Windows.Forms.TextBox();
 			this.lblAmmoLeft = new System.Windows.Forms.Label();
 			this.lblPlayerOneScore = new System.Windows.Forms.Label();
 			this.lblPlayerOneHealth = new System.Windows.Forms.Label();
-			this.txtAsteroidsLeft = new System.Windows.Forms.TextBox();
 			this.lblAsteroidsLeft = new System.Windows.Forms.Label();
-			this.txtAmmoLeft = new System.Windows.Forms.TextBox();
+			this.dtlAmmoLeft = new System.Windows.Forms.Label();
+			this.dtlScore = new System.Windows.Forms.Label();
+			this.dtlAsteroidsLeft = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// pbPlayerOneHealth
 			// 
-			this.pbPlayerOneHealth.Location = new System.Drawing.Point(47, 8);
+			this.pbPlayerOneHealth.Location = new System.Drawing.Point(71, 27);
 			this.pbPlayerOneHealth.Name = "pbPlayerOneHealth";
 			this.pbPlayerOneHealth.Size = new System.Drawing.Size(100, 23);
 			this.pbPlayerOneHealth.TabIndex = 3;
 			// 
-			// txtScore
-			// 
-			this.txtScore.Enabled = false;
-			this.txtScore.Location = new System.Drawing.Point(363, 8);
-			this.txtScore.Name = "txtScore";
-			this.txtScore.ReadOnly = true;
-			this.txtScore.Size = new System.Drawing.Size(100, 20);
-			this.txtScore.TabIndex = 4;
-			// 
 			// lblAmmoLeft
 			// 
 			this.lblAmmoLeft.AutoSize = true;
-			this.lblAmmoLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAmmoLeft.Location = new System.Drawing.Point(153, 11);
+			this.lblAmmoLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAmmoLeft.Location = new System.Drawing.Point(177, 27);
 			this.lblAmmoLeft.Name = "lblAmmoLeft";
-			this.lblAmmoLeft.Size = new System.Drawing.Size(57, 13);
+			this.lblAmmoLeft.Size = new System.Drawing.Size(96, 20);
 			this.lblAmmoLeft.TabIndex = 9;
 			this.lblAmmoLeft.Text = "Ammo Left";
 			// 
 			// lblPlayerOneScore
 			// 
 			this.lblPlayerOneScore.AutoSize = true;
-			this.lblPlayerOneScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPlayerOneScore.Location = new System.Drawing.Point(322, 11);
+			this.lblPlayerOneScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblPlayerOneScore.Location = new System.Drawing.Point(362, 27);
 			this.lblPlayerOneScore.Name = "lblPlayerOneScore";
-			this.lblPlayerOneScore.Size = new System.Drawing.Size(35, 13);
+			this.lblPlayerOneScore.Size = new System.Drawing.Size(56, 20);
 			this.lblPlayerOneScore.TabIndex = 11;
 			this.lblPlayerOneScore.Text = "Score";
 			// 
 			// lblPlayerOneHealth
 			// 
 			this.lblPlayerOneHealth.AutoSize = true;
-			this.lblPlayerOneHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPlayerOneHealth.Location = new System.Drawing.Point(3, 11);
+			this.lblPlayerOneHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblPlayerOneHealth.Location = new System.Drawing.Point(3, 27);
 			this.lblPlayerOneHealth.Name = "lblPlayerOneHealth";
-			this.lblPlayerOneHealth.Size = new System.Drawing.Size(38, 13);
+			this.lblPlayerOneHealth.Size = new System.Drawing.Size(62, 20);
 			this.lblPlayerOneHealth.TabIndex = 12;
 			this.lblPlayerOneHealth.Text = "Health";
-			// 
-			// txtAsteroidsLeft
-			// 
-			this.txtAsteroidsLeft.Enabled = false;
-			this.txtAsteroidsLeft.Location = new System.Drawing.Point(546, 8);
-			this.txtAsteroidsLeft.Name = "txtAsteroidsLeft";
-			this.txtAsteroidsLeft.ReadOnly = true;
-			this.txtAsteroidsLeft.Size = new System.Drawing.Size(100, 20);
-			this.txtAsteroidsLeft.TabIndex = 7;
 			// 
 			// lblAsteroidsLeft
 			// 
 			this.lblAsteroidsLeft.AutoSize = true;
-			this.lblAsteroidsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAsteroidsLeft.Location = new System.Drawing.Point(469, 11);
+			this.lblAsteroidsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAsteroidsLeft.Location = new System.Drawing.Point(530, 27);
 			this.lblAsteroidsLeft.Name = "lblAsteroidsLeft";
-			this.lblAsteroidsLeft.Size = new System.Drawing.Size(71, 13);
+			this.lblAsteroidsLeft.Size = new System.Drawing.Size(122, 20);
 			this.lblAsteroidsLeft.TabIndex = 10;
 			this.lblAsteroidsLeft.Text = "Asteroids Left";
 			// 
-			// txtAmmoLeft
+			// dtlAmmoLeft
 			// 
-			this.txtAmmoLeft.Enabled = false;
-			this.txtAmmoLeft.Location = new System.Drawing.Point(216, 8);
-			this.txtAmmoLeft.Name = "txtAmmoLeft";
-			this.txtAmmoLeft.ReadOnly = true;
-			this.txtAmmoLeft.Size = new System.Drawing.Size(100, 20);
-			this.txtAmmoLeft.TabIndex = 13;
+			this.dtlAmmoLeft.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.dtlAmmoLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.dtlAmmoLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dtlAmmoLeft.ForeColor = System.Drawing.Color.Lime;
+			this.dtlAmmoLeft.Location = new System.Drawing.Point(279, 26);
+			this.dtlAmmoLeft.Name = "dtlAmmoLeft";
+			this.dtlAmmoLeft.Size = new System.Drawing.Size(77, 29);
+			this.dtlAmmoLeft.TabIndex = 14;
+			this.dtlAmmoLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// dtlScore
+			// 
+			this.dtlScore.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.dtlScore.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.dtlScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dtlScore.ForeColor = System.Drawing.Color.Lime;
+			this.dtlScore.Location = new System.Drawing.Point(424, 26);
+			this.dtlScore.Name = "dtlScore";
+			this.dtlScore.Size = new System.Drawing.Size(100, 29);
+			this.dtlScore.TabIndex = 15;
+			this.dtlScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// dtlAsteroidsLeft
+			// 
+			this.dtlAsteroidsLeft.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.dtlAsteroidsLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.dtlAsteroidsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dtlAsteroidsLeft.ForeColor = System.Drawing.Color.Lime;
+			this.dtlAsteroidsLeft.Location = new System.Drawing.Point(658, 26);
+			this.dtlAsteroidsLeft.Name = "dtlAsteroidsLeft";
+			this.dtlAsteroidsLeft.Size = new System.Drawing.Size(77, 29);
+			this.dtlAsteroidsLeft.TabIndex = 16;
+			this.dtlAsteroidsLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// GameStatusControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.Controls.Add(this.txtAmmoLeft);
+			this.Controls.Add(this.dtlAsteroidsLeft);
+			this.Controls.Add(this.dtlScore);
+			this.Controls.Add(this.dtlAmmoLeft);
 			this.Controls.Add(this.lblPlayerOneHealth);
 			this.Controls.Add(this.lblPlayerOneScore);
 			this.Controls.Add(this.lblAsteroidsLeft);
 			this.Controls.Add(this.lblAmmoLeft);
-			this.Controls.Add(this.txtAsteroidsLeft);
-			this.Controls.Add(this.txtScore);
 			this.Controls.Add(this.pbPlayerOneHealth);
 			this.Name = "GameStatusControl";
 			this.Size = new System.Drawing.Size(798, 83);
@@ -137,13 +146,13 @@ namespace ShipGame.GameForms
 		#endregion
 
 		private System.Windows.Forms.ProgressBar pbPlayerOneHealth;
-		private System.Windows.Forms.TextBox txtScore;
 		private System.Windows.Forms.Label lblAmmoLeft;
 		private System.Windows.Forms.Label lblPlayerOneScore;
 		private System.Windows.Forms.Label lblPlayerOneHealth;
-		private System.Windows.Forms.TextBox txtAsteroidsLeft;
 		private System.Windows.Forms.Label lblAsteroidsLeft;
-		private System.Windows.Forms.TextBox txtAmmoLeft;
+		private System.Windows.Forms.Label dtlAmmoLeft;
+		private System.Windows.Forms.Label dtlScore;
+		private System.Windows.Forms.Label dtlAsteroidsLeft;
 
 	}
 }

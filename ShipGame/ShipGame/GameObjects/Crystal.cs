@@ -23,9 +23,7 @@ namespace ShipGame.GameObjects
 		private int _textureColumns;
 
 		private float _textureScale;
-
-		private bool _explosionStarted;
-
+		
 		private int _crystalTypeId;
 
 		//delete below
@@ -212,11 +210,13 @@ namespace ShipGame.GameObjects
 			switch (boostType)
 			{
 				case "Ammo":
+					XnaGame.GameObjects.OfType<GameStatUpdater>().First().GameStatRepository.AmmoLeft += boostAmount;
 					break;
 				case "Health":
 					ship.Health += boostAmount;
 					break;
-				case "Life":
+				case "Score":
+					XnaGame.GameObjects.OfType<GameStatUpdater>().First().GameStatRepository.Score += boostAmount;
 					break;
 			}
 		}
