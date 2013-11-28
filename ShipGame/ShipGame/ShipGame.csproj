@@ -147,6 +147,7 @@
     <Compile Include="GameUtilities\CrystalEnum.cs" />
     <Compile Include="GameUtilities\GameConfig.cs" />
     <Compile Include="GameUtilities\GameUtilities.cs" />
+    <Compile Include="GameUtilities\StringEnum.cs" />
     <Compile Include="GameUtilities\StringValueAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameMainStart.cs" />

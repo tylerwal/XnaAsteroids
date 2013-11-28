@@ -180,6 +180,8 @@ namespace ShipGame.GameDisplay
 
 			#endregion Initialize Game Essentials
 
+			#region Constant Objects
+
 			//background
 			Background background = new Background(this);
 			GameObjects.Add(background);
@@ -196,21 +198,23 @@ namespace ShipGame.GameDisplay
 			GameStatUpdater gameStatUpdaters = new GameStatUpdater(this);
 			GameObjects.Add(gameStatUpdaters);
 
+			GameMessage message = new GameMessage(this);
+			GameObjects.Add(message);
+
+			#endregion Constant Objects
+			
 			//crystals
-			for (int i = 0; i < GameConfig.NumberOfStartingCrystals; i++)
+			for (int i = 0; i < GameConfig.NumberOfLevelOneCrystals; i++)
 			{
 				GameObjects.Add(new Crystal(this));
 			}
 
 			//asteroids
-			for (int i = 0; i < GameConfig.NumberOfStartingAsteroids; i++)
+			for (int i = 0; i < GameConfig.NumberOfLevelTwoAsteroids; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}
-
-			GameMessage message = new GameMessage(this, "Message Added");
-			GameObjects.Add(message);
-
+			
 			//loop through game object initialize methods
 			foreach (GameObjectBase gameObject in GameObjects)
 			{
@@ -278,6 +282,32 @@ namespace ShipGame.GameDisplay
 		private void BulletCreation()
 		{
 			MouseState mouseCurrentState = GameObjects.OfType<GameControl>().First().MouseCurrentState;
+
+			//no bullet creation if ammo depleted
+			if (GameStatRepository.AmmoLeft <= 0)
+			{
+				return;
+			}
+
+			string message = string.Empty;
+
+			if (GameStatRepository.AmmoLeft == GameConfig.LowBulletFirstWarningNumber)
+			{
+				message = GameConfig.LowBulletFirstWarningText;
+			}
+
+			if (GameStatRepository.AmmoLeft == GameConfig.LowBulletSecondWarningNumber)
+			{
+				message = GameConfig.LowBulletSecondWarningText;
+			}
+
+			if (message != string.Empty)
+			{
+				GameObjects.
+					OfType<GameMessage>().
+					First().
+					AddMessage(GlobalGameStopWatch.Elapsed,message);
+			}
 
 			if (mouseCurrentState.LeftButton == ButtonState.Pressed)
 			{

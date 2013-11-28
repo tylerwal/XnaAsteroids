@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
+using System;
+using System.Linq;
 
 namespace ShipGame.GameObjects
 {
+	using ShipGame.GameUtilities;
+
 	public class Crystal : GameObjectBase
 	{
 		#region Fields
@@ -50,21 +51,21 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.CrystalTextureName);
+			Texture = XnaGame.Content.Load<Texture2D>(GameConfig.CrystalTextureName);
 
 			InitializeRandomTexture();
 
 			RandomizeStart();
 
-			_textureScale = GameUtilities.GameConfig.CrystalScale;
+			_textureScale = GameConfig.CrystalScale;
 
 			DisplayOrder = 1;
 
 			IsVisible = true;
 
-			Health = GameUtilities.GameConfig.AsteroidStartingHealth;
+			Health = GameConfig.AsteroidStartingHealth;
 
-			TerminalVelocity = GameUtilities.GameConfig.AsteroidTerminalVelocity;
+			TerminalVelocity = GameConfig.AsteroidTerminalVelocity;
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
@@ -88,7 +89,6 @@ namespace ShipGame.GameObjects
 
 			//shows the bound boxes
 			//XnaGame.SpriteBatch.Draw(testingTexture, Bounds, Color.Purple);
-			//XnaGame.SpriteBatch.Draw(Texture, new Rectangle((int)PositionVector.X, (int)PositionVector.Y, 50, 50), Color.Tomato);
 		}
 
 		public override void Update()
@@ -102,6 +102,10 @@ namespace ShipGame.GameObjects
 			if (collidedShip != null)
 			{
 				HandleCrystalTypes(collidedShip);
+
+				string crystalMessage = string.Concat("Boost: ",StringEnum.GetStringValue((CrystalEnum)_crystalTypeId));
+
+				XnaGame.GameObjects.OfType<GameMessage>().First().AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, crystalMessage);
 
 				IsMarkedForDeletion = true;
 			}
@@ -132,15 +136,15 @@ namespace ShipGame.GameObjects
 		{
 			int random = _random.Next(0, 20);
 
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(
+			Texture = GameUtilities.ReturnSingleSpriteFrame(
 				Texture,
-				GameUtilities.GameConfig.CrystalTextureRows,
-				GameUtilities.GameConfig.CrystalTextureColumns,
+				GameConfig.CrystalTextureRows,
+				GameConfig.CrystalTextureColumns,
 				random,
 				false
 				);
 
-			_crystalTypeId = ((random / GameUtilities.GameConfig.CrystalTextureColumns) % GameUtilities.GameConfig.CrystalTextureRows) + 1;
+			_crystalTypeId = ((random / GameConfig.CrystalTextureColumns) % GameConfig.CrystalTextureRows) + 1;
 		}
 
 		/// <summary>
@@ -180,25 +184,25 @@ namespace ShipGame.GameObjects
 
 			switch (_crystalTypeId)
 			{
-				case (int)GameUtilities.CrystalEnum.RedCrystal:
-					boostType = GameUtilities.GameConfig.RedCrystalType;
-					boostAmount = GameUtilities.GameConfig.RedCrystalAmount;
+				case (int)CrystalEnum.RedCrystal:
+					boostType = GameConfig.RedCrystalType;
+					boostAmount = GameConfig.RedCrystalAmount;
 					break;
-				case (int)GameUtilities.CrystalEnum.GoldCrystal:
-					boostType = GameUtilities.GameConfig.GoldCrystalType;
-					boostAmount = GameUtilities.GameConfig.GoldCrystalAmount;
+				case (int)CrystalEnum.GoldCrystal:
+					boostType = GameConfig.GoldCrystalType;
+					boostAmount = GameConfig.GoldCrystalAmount;
 					break;
-				case (int)GameUtilities.CrystalEnum.BlueCrystal:
-					boostType = GameUtilities.GameConfig.BlueCrystalType;
-					boostAmount = GameUtilities.GameConfig.BlueCrystalAmount;
+				case (int)CrystalEnum.BlueCrystal:
+					boostType = GameConfig.BlueCrystalType;
+					boostAmount = GameConfig.BlueCrystalAmount;
 					break;
-				case (int)GameUtilities.CrystalEnum.GreenCrystal:
-					boostType = GameUtilities.GameConfig.GreenCrystalType;
-					boostAmount = GameUtilities.GameConfig.GreenCrystalAmount;
+				case (int)CrystalEnum.GreenCrystal:
+					boostType = GameConfig.GreenCrystalType;
+					boostAmount = GameConfig.GreenCrystalAmount;
 					break;
-				case (int)GameUtilities.CrystalEnum.GreyCrystal:
-					boostType = GameUtilities.GameConfig.GreyCrystalType;
-					boostAmount = GameUtilities.GameConfig.GreyCrystalAmount;
+				case (int)CrystalEnum.GreyCrystal:
+					boostType = GameConfig.GreyCrystalType;
+					boostAmount = GameConfig.GreyCrystalAmount;
 					break;
 			}
 

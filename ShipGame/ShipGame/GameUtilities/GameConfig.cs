@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
+﻿
 namespace ShipGame.GameUtilities
 {
 	public static class GameConfig
@@ -17,6 +14,8 @@ namespace ShipGame.GameUtilities
 		public const string BackgroundTwoTextureName = "SpaceBackground2";
 
 		public const string BackgroundThreeTextureName = "SpaceBackground3";
+
+		public const float MessageScreenTime = 2f;
 		
 		#endregion General
 
@@ -56,6 +55,14 @@ namespace ShipGame.GameUtilities
 
 		public const int StartingAmmo = 500;
 
+		public const int LowBulletFirstWarningNumber = 100;
+
+		public const int LowBulletSecondWarningNumber = 50;
+
+		public const string LowBulletFirstWarningText = "-!Warning!-\nRunning Low On Ammo\n-!Warning!-";
+
+		public const string LowBulletSecondWarningText = "--!!Danger!!--\nCritically Low On Ammo\n--!!Danger!!--";
+
 		#endregion Bullet Constants
 
 		#region Asteroid Constants
@@ -64,7 +71,7 @@ namespace ShipGame.GameUtilities
 
 		public const int AsteroidStartingHealth = 25;
 
-		public const int NumberOfStartingAsteroids = 20;
+		public const int NumberOfLevelTwoAsteroids = 20;
 		
 		#region AsteroidOne
 
@@ -152,7 +159,7 @@ namespace ShipGame.GameUtilities
 
 		public const string CrystalTextureName = "Crystal";
 
-		public const int NumberOfStartingCrystals = 10;
+		public const int NumberOfLevelOneCrystals = 10;
 
 		public const int CrystalTextureRows = 5;
 
