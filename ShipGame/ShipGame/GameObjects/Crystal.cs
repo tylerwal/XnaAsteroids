@@ -78,13 +78,13 @@ namespace ShipGame.GameObjects
 			XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
-					null, //use whole texture
-					Color.White, //tint
+					null, 
+					TextureTint,
 					RotationAngle,
-					new Vector2(Texture.Height / 2, Texture.Width / 2), //origin of rotation
-					_textureScale, //scale
+					new Vector2(Texture.Height / 2, Texture.Width / 2), 
+					_textureScale, 
 					SpriteEffects.None,
-					1.0f //layer depth, not used
+					1.0f 
 				);
 
 			//shows the bound boxes
@@ -101,10 +101,10 @@ namespace ShipGame.GameObjects
 
 			if (collidedShip != null)
 			{
-				HandleCrystalTypes(collidedShip);
+				string boostType = HandleCrystalTypes(collidedShip);
 
-				string crystalMessage = string.Concat("Boost: ",StringEnum.GetStringValue((CrystalEnum)_crystalTypeId));
-
+				string crystalMessage = string.Concat(StringEnum.GetStringValue((CrystalEnum)_crystalTypeId), " : ", boostType);
+				
 				XnaGame.GameObjects.OfType<GameMessage>().First().AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, crystalMessage);
 
 				IsMarkedForDeletion = true;
@@ -176,7 +176,7 @@ namespace ShipGame.GameObjects
 
 		#endregion Randomized Start Methods
 
-		private void HandleCrystalTypes(Ship ship)
+		private string HandleCrystalTypes(Ship ship)
 		{
 			string boostType = string.Empty;
 
@@ -207,6 +207,8 @@ namespace ShipGame.GameObjects
 			}
 
 			BoostShip(ship, boostType, boostAmount);
+
+			return string.Concat(boostType, " ", boostAmount);
 		}
 
 		private void BoostShip(Ship ship, string boostType, int boostAmount)

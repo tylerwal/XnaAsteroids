@@ -47,7 +47,7 @@ namespace ShipGame.GameObjects
 		
 		public override void Draw()
 		{
-			XnaGame.SpriteBatch.Draw(Texture, new Vector2(XnaGame.ClientRectangle.Left, XnaGame.ClientRectangle.Top), Color.White);
+			XnaGame.SpriteBatch.Draw(Texture, new Vector2(XnaGame.ClientRectangle.Left, XnaGame.ClientRectangle.Top), TextureTint);
 		}
 		
 		#endregion Methods

@@ -11,14 +11,23 @@ namespace ShipGame.GameObjects
 	{
 		#region Fields
 		
-		//delete below
-		//private Rectangle rectangle;
-		private Texture2D testingTexture;
-		//delete above
+		private Color _textureTint;
 
 		#endregion Fields
 
 		#region Properties
+
+		public new Color TextureTint 
+		{
+			get
+			{
+				return _textureTint;
+			}
+			set
+			{
+				_textureTint = value;
+			}
+		}
 
 		#endregion Properties
 
@@ -40,28 +49,28 @@ namespace ShipGame.GameObjects
 
 			IsVisible = true;
 
-			//testing
-			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
-			testingTexture.SetData(new Color[] { Color.LightGreen });
+			Texture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
+			Texture.SetData(new Color[] { Color.White });
 
+			//position comes from ship center
+			//have to account for width/height of bullet for new position
+			PositionVector = PositionVector - new Vector2(.5f, .5f);
 		}
-
 		public override void Draw()
 		{
-			XnaGame.SpriteBatch.Draw(testingTexture, new Rectangle((int)PositionVector.X,(int)PositionVector.Y,2,2), Color.LightGreen);
+			XnaGame.SpriteBatch.Draw(Texture, Bounds, TextureTint);
 		}
 
 		public override void Update()
 		{
-			Bounds = new Rectangle((int)PositionVector.X, (int)PositionVector.Y, 5, 5);
+			Bounds = new Rectangle((int)PositionVector.X, (int)PositionVector.Y, 2, 2);
 
+			//delete if goes off screen
 			if (!XnaGame.ClientRectangle.Contains(new Point((int)PositionVector.X, (int)PositionVector.Y)))
 			{
 				IsMarkedForDeletion = true;
 			}
-
-			//GameObjectBase collidedObject = GetCollidedObject();
-
+			
 			Asteroid collidedAsteroid = GetCollidedObject() as Asteroid;
 
 			if (collidedAsteroid != null)

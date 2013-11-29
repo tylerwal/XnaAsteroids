@@ -319,7 +319,7 @@ namespace ShipGame.GameDisplay
 
 					Ship ship = GameObjects.OfType<Ship>().First();
 
-					bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center) - new Vector2(2.5f, 2.5f);
+					bullet.PositionVector = GameUtilities.GameUtilities.GetVectorFromPoint(ship.Bounds.Center);
 
 					Vector2 mousePosition = new Vector2(mouseCurrentState.X, mouseCurrentState.Y);
 
@@ -328,6 +328,8 @@ namespace ShipGame.GameDisplay
 					shipAngleVector.Normalize();
 
 					bullet.VelocityVector = shipAngleVector * GameConfig.BulletSpeed;
+
+					bullet.TextureTint = Color.LimeGreen;
 
 					GameObjects.Add(bullet);
 

@@ -2,16 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
+using ShipGame.GameUtilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace ShipGame.GameObjects
 {
-	using ShipGame.GameUtilities;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-
+	
 	public class GameMessage : GameObjectBase
 	{
 		#region Fields

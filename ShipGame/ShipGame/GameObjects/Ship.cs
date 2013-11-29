@@ -26,9 +26,23 @@ namespace ShipGame.GameObjects
 		private Texture2D testingTexture;
 		//delete above
 
+		private Color _textureTint;
+
 		#endregion Fields
 
 		#region Properties
+
+		public new Color TextureTint
+		{
+			get
+			{
+				return _textureTint;
+			}
+			set
+			{
+				_textureTint = value;
+			}
+		}
 		
 		#endregion Properties
 
@@ -72,6 +86,8 @@ namespace ShipGame.GameObjects
 
 			MaxHealth = GameUtilities.GameConfig.ShipTotalMaxHealth;
 
+			TextureTint = Color.White;
+
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
 			testingTexture.SetData(new Color[] { Color.AliceBlue });
@@ -80,56 +96,16 @@ namespace ShipGame.GameObjects
 
 		public override void Draw()
 		{
-			#region Junk
-
-			/*XnaGame.SpriteBatch.Draw(
-					Texture,
-					PositionVector,
-					SpriteRectangles[0], //source rectangle
-					Color.White, //tint
-					RotationAngle/* + (float)(Math.PI/2)#1#,
-					new Vector2(Height / 2, Width / 2), //origin of rotation
-					1.0f, //scale
-					SpriteEffects.None,
-					1.0f
-				);*/
-
-			/*XnaGame.SpriteBatch.Draw(
-					Texture,
-					new Vector2(30, 30),
-					null,
-					Color.White,
-					RotationAngle,
-					new Vector2(Width / 2, Height / 2),
-					1.0f,
-					SpriteEffects.None,
-					1.0f);*/
-
-			/*XnaGame.SpriteBatch.Draw(
-					Texture,
-					new Rectangle(50, 50, 24, 24),
-					null, //use whole texture
-					Color.White, //tint
-					RotationAngle/* + (float)(Math.PI/2)#1#,
-					new Vector2(Height / 2, Width / 2), //origin of rotation
-				//1.0f, //scale
-					SpriteEffects.None,
-					1.0f
-				);*/
-
-
-			#endregion Junk
-
 			XnaGame.SpriteBatch.Draw(
 					Texture,
 					PositionVector,
-					null, //use whole texture
-					Color.White, //tint
-					RotationAngle/* + (float)(Math.PI/2)*/,
-					new Vector2(Bounds.Width/2, Bounds.Height / 2), //origin of rotation from the top left of the texture
-					GameUtilities.GameConfig.ShipScale, //scale
+					null,
+					TextureTint, 
+					RotationAngle,
+					new Vector2(Bounds.Width/2, Bounds.Height / 2), 
+					GameUtilities.GameConfig.ShipScale, 
 					SpriteEffects.None,
-					1.0f //layer depth, for sorting sprites but this is already done
+					1.0f 
 				);
 
 			//for testing ship bounds
@@ -217,6 +193,12 @@ namespace ShipGame.GameObjects
 			if (collidedObject is Asteroid)
 			{
 				Health--;
+
+				TextureTint = Color.Red;
+			}
+			else
+			{
+				TextureTint = Color.White;
 			}
 		}
 

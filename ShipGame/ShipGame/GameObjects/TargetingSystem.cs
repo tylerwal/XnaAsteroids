@@ -7,55 +7,11 @@ namespace ShipGame.GameObjects
 	public class TargetingSystem : GameObjectBase
 	{
 		#region Fields
-
-		private Vector2 _originatingVector;
-
-		private Vector2 _targetedVector;
-
-		private float _targetingLength;
-
+		
 		#endregion Fields
 
 		#region Properties
-
-		public Vector2 OriginatingVector
-		{
-			get
-			{
-				return _originatingVector;
-			}
-			set
-			{
-				_originatingVector = value;
-			}
-		}
-
-		public Vector2 TargetedVector
-		{
-			get
-			{
-				return _targetedVector;
-			}
-			set
-			{
-				_targetedVector = value;
-			}
-		}
-
-		public float TargetingLength
-		{
-			get
-			{
-				return _targetingLength;
-			}
-			set
-			{
-				_targetingLength = value;
-			}
-		}
-
 		
-
 		#endregion Properties
 
 		#region Constructors

@@ -84,7 +84,7 @@ namespace ShipGame.GameObjects
 					Texture,
 					PositionVector,
 					null, //use whole texture
-					Color.White, //tint
+					TextureTint,
 					RotationAngle,
 					new Vector2(Texture.Height / 2, Texture.Width / 2), //origin of rotation
 					_textureScale, //scale

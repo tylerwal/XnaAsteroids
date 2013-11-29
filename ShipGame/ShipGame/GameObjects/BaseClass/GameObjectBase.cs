@@ -204,6 +204,14 @@ namespace ShipGame.GameObjects.BaseClass
 				_maxHealth = value;
 			}
 		}
+
+		protected internal Color TextureTint
+		{
+			get
+			{
+				return Color.White;
+			}
+		}
 		
 		#endregion Properties
 
