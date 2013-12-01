@@ -45,6 +45,14 @@ namespace ShipGame.GameUtilities
 
 		#endregion Ship Constants
 
+		#region name
+
+		public const string ShieldTextureName = "Shield";
+
+		public const int ShieldStartingHealth = 100;
+
+		#endregion name
+
 		#region Bullet Constants
 
 		public const float BulletReloadSpeed = 0.02f;

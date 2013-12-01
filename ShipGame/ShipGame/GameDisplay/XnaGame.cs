@@ -190,6 +190,10 @@ namespace ShipGame.GameDisplay
 			Ship ship = new Ship(this);
 			GameObjects.Add(ship);
 
+			//shield
+			Shield shield = new Shield(this, ship);
+			GameObjects.Add(shield);
+
 			//game controls
 			GameControl gameControls = new GameControl(this);
 			GameObjects.Add(gameControls);

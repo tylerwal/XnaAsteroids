@@ -329,6 +329,8 @@ namespace ShipGame.GameObjects.BaseClass
 			PositionVector = tempPosition;
 		}
 
+		#region Collision Handling
+
 		protected bool IsBoundsWithinAnotherObjectsBounds()
 		{
 			return GetCollidedObject() != null;
@@ -336,11 +338,35 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected GameObjectBase GetCollidedObject()
 		{
+			return GetCollidedObject(new List<GameObjectBase>());
+		}
+
+		protected GameObjectBase GetCollidedObject(GameObjectBase objectToIgnore)
+		{
+			List<GameObjectBase> objectToIgnoreList = new List<GameObjectBase>(1)
+			{
+				objectToIgnore
+			};
+
+			return GetCollidedObject(objectToIgnoreList);
+		}
+
+		protected GameObjectBase GetCollidedObject(IEnumerable<GameObjectBase> objectsToIgnore)
+		{
+			return GetCollidedObject(objectsToIgnore, null);
+		}
+
+		protected GameObjectBase GetCollidedObject(IEnumerable<GameObjectBase> objectsToIgnore, Type typeToIgnore)
+		{
 			IEnumerable<GameObjectBase> otherGameObjectsVisible = XnaGame.GameObjects
 				.OfType<GameObjectBase>()
 				.Except(XnaGame.GameObjects.OfType<Background>())
 				.Where(i => i.IsVisible)
 				.Where(i => i != this);
+
+			otherGameObjectsVisible = otherGameObjectsVisible.Except(objectsToIgnore);
+
+			otherGameObjectsVisible = otherGameObjectsVisible.Where(i => i.GetType() != typeToIgnore);
 
 			foreach (GameObjectBase otherGameObject in otherGameObjectsVisible)
 			{
@@ -355,7 +381,9 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 
 			return null;
-		}
+		} 
+
+		#endregion Collision Handling
 
 		protected Vector2 GetRandomStartingPoint()
 		{

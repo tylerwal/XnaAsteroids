@@ -8,6 +8,8 @@ using System.Linq;
 
 namespace ShipGame.GameObjects
 {
+	using ShipGame.GameUtilities;
+
 	public class Ship : GameObjectBase
 	{
 		#region Fields
@@ -55,10 +57,10 @@ namespace ShipGame.GameObjects
 			Vector2 centerScreenVector = new Vector2(XnaGame.ClientRectangle.Width / 2, XnaGame.ClientRectangle.Height / 2);
 			PositionVector = centerScreenVector;
 
-			TerminalVelocity = GameUtilities.GameConfig.ShipTerminalVelocity;
-			_brakePower = GameUtilities.GameConfig.ShipBrakePower;
-			_enginePower = GameUtilities.GameConfig.ShipEnginePower;
-			_thrusterPower = GameUtilities.GameConfig.ShipThrusterPower;
+			TerminalVelocity = GameConfig.ShipTerminalVelocity;
+			_brakePower = GameConfig.ShipBrakePower;
+			_enginePower = GameConfig.ShipEnginePower;
+			_thrusterPower = GameConfig.ShipThrusterPower;
 		}
 
 		#endregion Constructors
@@ -67,14 +69,14 @@ namespace ShipGame.GameObjects
 
 		public override void Initialize()
 		{
-			SpriteSelectedFrame = GameUtilities.GameConfig.ShipSelectedFrame;
+			SpriteSelectedFrame = GameConfig.ShipSelectedFrame;
 
-			Texture = XnaGame.Content.Load<Texture2D>(GameUtilities.GameConfig.ShipTextureName);
+			Texture = XnaGame.Content.Load<Texture2D>(GameConfig.ShipTextureName);
 
-			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(
+			Texture = GameUtilities.ReturnSingleSpriteFrame(
 				Texture, 
-				GameUtilities.GameConfig.ShipTextureRows, 
-				GameUtilities.GameConfig.ShipTextureColumns,
+				GameConfig.ShipTextureRows, 
+				GameConfig.ShipTextureColumns,
 				SpriteSelectedFrame, 
 				true);
 
@@ -82,9 +84,9 @@ namespace ShipGame.GameObjects
 
 			IsVisible = true;
 
-			Health = GameUtilities.GameConfig.ShipStartingHealth;
+			Health = GameConfig.ShipStartingHealth;
 
-			MaxHealth = GameUtilities.GameConfig.ShipTotalMaxHealth;
+			MaxHealth = GameConfig.ShipTotalMaxHealth;
 
 			TextureTint = Color.White;
 
@@ -103,7 +105,7 @@ namespace ShipGame.GameObjects
 					TextureTint, 
 					RotationAngle,
 					new Vector2(Bounds.Width/2, Bounds.Height / 2), 
-					GameUtilities.GameConfig.ShipScale, 
+					GameConfig.ShipScale, 
 					SpriteEffects.None,
 					1.0f 
 				);
@@ -114,7 +116,7 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
-			Bounds = GetBounds(GameUtilities.GameConfig.ShipScale);
+			Bounds = GetBounds(GameConfig.ShipScale);
 
 			GetCurrentKeyboardMouseStates();
 
@@ -160,7 +162,7 @@ namespace ShipGame.GameObjects
 
 			Vector2 mousePosition = new Vector2(_mouseState.X, _mouseState.Y);
 
-			Vector2 directionVector = mousePosition - GameUtilities.GameUtilities.GetVectorFromPoint(Bounds.Center);
+			Vector2 directionVector = mousePosition - GameUtilities.GetVectorFromPoint(Bounds.Center);
 			
 			directionVector.Normalize();
 
