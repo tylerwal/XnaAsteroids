@@ -16,8 +16,6 @@ namespace ShipGame.GameObjects
 
 		private Random _random;
 
-		/*private KeyValuePair<int, Tuple<string, int, int, int, float>> _asteroidSettings;*/
-
 		private string _textureName;
 
 		private int _textureRows;
@@ -25,10 +23,6 @@ namespace ShipGame.GameObjects
 		private int _textureColumns;
 
 		private float _textureScale;
-
-		private bool _explosionStarted;
-
-		private TimeSpan _startingExplosionTime;
 
 		//delete below
 		private Texture2D testingTexture;

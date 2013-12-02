@@ -51,6 +51,8 @@ namespace ShipGame.GameUtilities
 
 		public const int ShieldStartingHealth = 100;
 
+		public const int ShieldMaxHealth = 100;
+
 		#endregion name
 
 		#region Bullet Constants
@@ -182,9 +184,9 @@ namespace ShipGame.GameUtilities
 		public const int GoldCrystalAmount = 200;
 
 		public const string BlueCrystalType = "Health";
-		public const int BlueCrystalAmount = 20;
+		public const int BlueCrystalAmount = 50;
 
-		public const string GreenCrystalType = "Health";
+		public const string GreenCrystalType = "Shield";
 		public const int GreenCrystalAmount = 50;
 
 		public const string GreyCrystalType = "Score";

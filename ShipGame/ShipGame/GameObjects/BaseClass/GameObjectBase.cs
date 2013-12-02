@@ -44,7 +44,7 @@ namespace ShipGame.GameObjects.BaseClass
 
 		#region Properties
 
-		public Texture2D Texture
+		protected Texture2D Texture
 		{
 			get
 			{
@@ -116,7 +116,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public float TerminalVelocity
+		protected float TerminalVelocity
 		{
 			get
 			{
@@ -128,7 +128,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public float RotationAngle
+		protected float RotationAngle
 		{
 			get
 			{
@@ -140,7 +140,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		public int SpriteSelectedFrame
+		protected int SpriteSelectedFrame
 		{
 			get
 			{
@@ -178,6 +178,11 @@ namespace ShipGame.GameObjects.BaseClass
 				{
 					_health = MaxHealth;
 				}
+
+				if (_health < 0)
+				{
+					_health = 0;
+				}
 			}
 		}
 
@@ -193,7 +198,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		protected internal int MaxHealth
+		protected int MaxHealth
 		{
 			get
 			{
@@ -205,7 +210,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 		}
 
-		protected internal Color TextureTint
+		protected Color TextureTint
 		{
 			get
 			{
@@ -338,25 +343,10 @@ namespace ShipGame.GameObjects.BaseClass
 
 		protected GameObjectBase GetCollidedObject()
 		{
-			return GetCollidedObject(new List<GameObjectBase>());
+			return GetCollidedObject(new List<GameObjectBase>(), new List<Type>());
 		}
 
-		protected GameObjectBase GetCollidedObject(GameObjectBase objectToIgnore)
-		{
-			List<GameObjectBase> objectToIgnoreList = new List<GameObjectBase>(1)
-			{
-				objectToIgnore
-			};
-
-			return GetCollidedObject(objectToIgnoreList);
-		}
-
-		protected GameObjectBase GetCollidedObject(IEnumerable<GameObjectBase> objectsToIgnore)
-		{
-			return GetCollidedObject(objectsToIgnore, null);
-		}
-
-		protected GameObjectBase GetCollidedObject(IEnumerable<GameObjectBase> objectsToIgnore, Type typeToIgnore)
+		protected GameObjectBase GetCollidedObject(IEnumerable<GameObjectBase> objectsToIgnore, IEnumerable<Type> typesToIgnore)
 		{
 			IEnumerable<GameObjectBase> otherGameObjectsVisible = XnaGame.GameObjects
 				.OfType<GameObjectBase>()
@@ -366,7 +356,10 @@ namespace ShipGame.GameObjects.BaseClass
 
 			otherGameObjectsVisible = otherGameObjectsVisible.Except(objectsToIgnore);
 
-			otherGameObjectsVisible = otherGameObjectsVisible.Where(i => i.GetType() != typeToIgnore);
+			foreach (Type type in typesToIgnore)
+			{
+				otherGameObjectsVisible = otherGameObjectsVisible.Where(i => i.GetType() != type);
+			}
 
 			foreach (GameObjectBase otherGameObject in otherGameObjectsVisible)
 			{
@@ -381,7 +374,7 @@ namespace ShipGame.GameObjects.BaseClass
 			}
 
 			return null;
-		} 
+		}
 
 		#endregion Collision Handling
 

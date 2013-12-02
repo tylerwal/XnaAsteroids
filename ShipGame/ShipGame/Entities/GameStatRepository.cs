@@ -12,6 +12,8 @@ namespace ShipGame.Entities
 		private int _ammoLeft;
 
 		private int _asteroidsLeft;
+
+		private int _shield;
 		
 		#endregion Fields
 
@@ -38,6 +40,18 @@ namespace ShipGame.Entities
 			set
 			{
 				_health = value;
+			}
+		}
+
+		public int Shield
+		{
+			get
+			{
+				return _shield;
+			}
+			set
+			{
+				_shield = value;
 			}
 		}
 

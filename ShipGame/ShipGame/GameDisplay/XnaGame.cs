@@ -31,10 +31,6 @@ namespace ShipGame.GameDisplay
 
 		private IList<IGameObject> _gameObjects;
 
-		private KeyboardState _keyboardCurrentState;
-
-		private MouseState _mouseCurrentState;
-
 		private GameUtilities.GameUtilities _gameUtility;
 
 		private TimeSpan _lastBulletCreationTime;
@@ -224,6 +220,8 @@ namespace ShipGame.GameDisplay
 			{
 				gameObject.Initialize();
 			}
+
+			message.AddMessage(GlobalGameStopWatch.Elapsed, "New Game\nStart!");
 		}
 
 		/// <summary>

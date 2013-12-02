@@ -15,6 +15,8 @@ namespace ShipGame.GameObjects
 		private GameStatusControl _gameStatusControl;
 
 		private GameStatRepository _gameStatRepository;
+
+		private GameMessage _message;
 		
 		#endregion Fields
 
@@ -67,6 +69,8 @@ namespace ShipGame.GameObjects
 			GameStatRepository.AmmoLeft = GameConfig.StartingAmmo;
 
 			GameStatusControl = ((GameForm)XnaGame.TopLevelControl).GameStatusBar;
+
+			_message = XnaGame.GameObjects.OfType<GameMessage>().First();
 		}
 
 		public override void Draw()
@@ -82,6 +86,8 @@ namespace ShipGame.GameObjects
 			UpdatePlayerHealth();
 
 			UpdatePlayerScore();
+
+			UpdatePlayerShield();
 		}
 
 		#endregion Methods
@@ -108,6 +114,21 @@ namespace ShipGame.GameObjects
 		{
 			GameStatRepository.Health = XnaGame.GameObjects.OfType<Ship>().First().Health;
 			GameStatusControl.Health = GameStatRepository.Health;
+		}
+
+		private void UpdatePlayerShield()
+		{
+			int updatedShield = XnaGame.GameObjects.OfType<Shield>().First().Health;
+
+			bool isShieldLow = (updatedShield < 10) && (GameStatRepository.Shield >= 10);
+
+			GameStatRepository.Shield = updatedShield;
+			GameStatusControl.Shield = GameStatRepository.Shield;
+
+			if (isShieldLow)
+			{
+				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "Shield Low");
+			}
 		}
 
 		#endregion Helper Methods

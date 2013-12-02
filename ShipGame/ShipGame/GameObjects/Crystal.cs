@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
+using ShipGame.GameUtilities;
 using System;
 using System.Linq;
 
 namespace ShipGame.GameObjects
 {
-	using ShipGame.GameUtilities;
+	using ShipGame.Entities;
 
 	public class Crystal : GameObjectBase
 	{
@@ -16,16 +17,12 @@ namespace ShipGame.GameObjects
 		private float _rotationSpeed;
 
 		private Random _random;
-		
-		private string _textureName;
-
-		private int _textureRows;
-
-		private int _textureColumns;
 
 		private float _textureScale;
 		
 		private int _crystalTypeId;
+
+		private GameStatRepository _gameStatRepository;
 
 		//delete below
 		private Texture2D testingTexture;
@@ -66,6 +63,8 @@ namespace ShipGame.GameObjects
 			Health = GameConfig.AsteroidStartingHealth;
 
 			TerminalVelocity = GameConfig.AsteroidTerminalVelocity;
+
+			_gameStatRepository = XnaGame.GameObjects.OfType<GameStatUpdater>().First().GameStatRepository;
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
@@ -136,7 +135,7 @@ namespace ShipGame.GameObjects
 		{
 			int random = _random.Next(0, 20);
 
-			Texture = GameUtilities.ReturnSingleSpriteFrame(
+			Texture = GameUtilities.GameUtilities.ReturnSingleSpriteFrame(
 				Texture,
 				GameConfig.CrystalTextureRows,
 				GameConfig.CrystalTextureColumns,
@@ -216,13 +215,16 @@ namespace ShipGame.GameObjects
 			switch (boostType)
 			{
 				case "Ammo":
-					XnaGame.GameObjects.OfType<GameStatUpdater>().First().GameStatRepository.AmmoLeft += boostAmount;
+					_gameStatRepository.AmmoLeft += boostAmount;
 					break;
 				case "Health":
 					ship.Health += boostAmount;
 					break;
 				case "Score":
-					XnaGame.GameObjects.OfType<GameStatUpdater>().First().GameStatRepository.Score += boostAmount;
+					_gameStatRepository.Score += boostAmount;
+					break;
+				case "Shield":
+					XnaGame.GameObjects.OfType<Shield>().First().Health += boostAmount;
 					break;
 			}
 		}

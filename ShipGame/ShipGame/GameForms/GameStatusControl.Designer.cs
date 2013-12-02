@@ -38,11 +38,13 @@ namespace ShipGame.GameForms
 			this.dtlAmmoLeft = new System.Windows.Forms.Label();
 			this.dtlScore = new System.Windows.Forms.Label();
 			this.dtlAsteroidsLeft = new System.Windows.Forms.Label();
+			this.lblShield = new System.Windows.Forms.Label();
+			this.pbShield = new System.Windows.Forms.ProgressBar();
 			this.SuspendLayout();
 			// 
 			// pbPlayerOneHealth
 			// 
-			this.pbPlayerOneHealth.Location = new System.Drawing.Point(71, 27);
+			this.pbPlayerOneHealth.Location = new System.Drawing.Point(71, 9);
 			this.pbPlayerOneHealth.Name = "pbPlayerOneHealth";
 			this.pbPlayerOneHealth.Size = new System.Drawing.Size(100, 23);
 			this.pbPlayerOneHealth.TabIndex = 3;
@@ -71,7 +73,7 @@ namespace ShipGame.GameForms
 			// 
 			this.lblPlayerOneHealth.AutoSize = true;
 			this.lblPlayerOneHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPlayerOneHealth.Location = new System.Drawing.Point(3, 27);
+			this.lblPlayerOneHealth.Location = new System.Drawing.Point(3, 9);
 			this.lblPlayerOneHealth.Name = "lblPlayerOneHealth";
 			this.lblPlayerOneHealth.Size = new System.Drawing.Size(62, 20);
 			this.lblPlayerOneHealth.TabIndex = 12;
@@ -123,11 +125,30 @@ namespace ShipGame.GameForms
 			this.dtlAsteroidsLeft.TabIndex = 16;
 			this.dtlAsteroidsLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// lblShield
+			// 
+			this.lblShield.AutoSize = true;
+			this.lblShield.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblShield.Location = new System.Drawing.Point(3, 44);
+			this.lblShield.Name = "lblShield";
+			this.lblShield.Size = new System.Drawing.Size(59, 20);
+			this.lblShield.TabIndex = 18;
+			this.lblShield.Text = "Shield";
+			// 
+			// pbShield
+			// 
+			this.pbShield.Location = new System.Drawing.Point(71, 44);
+			this.pbShield.Name = "pbShield";
+			this.pbShield.Size = new System.Drawing.Size(100, 23);
+			this.pbShield.TabIndex = 17;
+			// 
 			// GameStatusControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.Controls.Add(this.lblShield);
+			this.Controls.Add(this.pbShield);
 			this.Controls.Add(this.dtlAsteroidsLeft);
 			this.Controls.Add(this.dtlScore);
 			this.Controls.Add(this.dtlAmmoLeft);
@@ -153,6 +174,8 @@ namespace ShipGame.GameForms
 		private System.Windows.Forms.Label dtlAmmoLeft;
 		private System.Windows.Forms.Label dtlScore;
 		private System.Windows.Forms.Label dtlAsteroidsLeft;
+		private System.Windows.Forms.Label lblShield;
+		private System.Windows.Forms.ProgressBar pbShield;
 
 	}
 }

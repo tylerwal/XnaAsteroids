@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.GameUtilities;
+using System.Collections.Generic;
 
 namespace ShipGame.GameObjects
 {
-	using System.Collections.Generic;
+	using System;
 
 	public class Shield : GameObjectBase
 	{
@@ -55,6 +56,8 @@ namespace ShipGame.GameObjects
 			IsVisible = true;
 
 			Health = GameConfig.ShieldStartingHealth;
+
+			MaxHealth = GameConfig.ShieldMaxHealth;
 		}
 
 		public override void Draw()
@@ -71,6 +74,15 @@ namespace ShipGame.GameObjects
 			Bounds = tempRectangle;
 
 			CollisionHandling();
+
+			if (Health <= 0)
+			{
+				IsVisible = false;
+			}
+			else
+			{
+				IsVisible = true;
+			}
 		}
 
 		#endregion Methods
@@ -79,20 +91,26 @@ namespace ShipGame.GameObjects
 
 		private void CollisionHandling()
 		{
-			List<GameObjectBase> objectsToIgnore = new List<GameObjectBase>()
+			List<GameObjectBase> objectsToIgnore = new List<GameObjectBase>
 			{
 				_ship
 			};
+
+			List<Type> typesToIgnore = new List<Type>
+			{
+				typeof(Bullet),
+				typeof(Crystal)
+			};
 			
-			GameObjectBase collidedObject = GetCollidedObject(objectsToIgnore, typeof(Bullet));
+			GameObjectBase collidedObject = GetCollidedObject(objectsToIgnore, typesToIgnore);
 
 			if (collidedObject == null)
 			{
-				TextureTint = new Color(Health , 0, 0, 0);
+				TextureTint = new Color((int)(Health * 2.5), 0, 0, 0);
 			}
 			else
 			{
-				TextureTint = Color.Blue;
+				TextureTint = Color.DarkRed;
 
 				Health --;
 			}

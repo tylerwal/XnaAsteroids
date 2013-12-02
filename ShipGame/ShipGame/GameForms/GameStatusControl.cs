@@ -1,15 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using ShipGame.Entities;
+﻿using System.Windows.Forms;
 
 namespace ShipGame.GameForms
 {
-	using Microsoft.Xna.Framework;
-
-	using ShipGame.GameUtilities;
-
-	using Color = System.Drawing.Color;
-
+	
 	public partial class GameStatusControl : UserControl
 	{
 		#region Fields
@@ -29,6 +22,21 @@ namespace ShipGame.GameForms
 				else
 				{
 					pbPlayerOneHealth.Value = 0;
+				}
+			}
+		}
+
+		public int Shield
+		{
+			set
+			{
+				if (value >= 0)
+				{
+					pbShield.Value = value;
+				}
+				else
+				{
+					pbShield.Value = 0;
 				}
 			}
 		}
