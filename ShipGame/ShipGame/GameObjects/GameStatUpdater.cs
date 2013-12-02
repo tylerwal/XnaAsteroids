@@ -3,7 +3,10 @@ using ShipGame.GameDisplay;
 using ShipGame.GameForms;
 using ShipGame.GameObjects.BaseClass;
 using ShipGame.GameUtilities;
+using System;
 using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ShipGame.GameObjects
 {
@@ -112,8 +115,33 @@ namespace ShipGame.GameObjects
 
 		private void UpdatePlayerHealth()
 		{
-			GameStatRepository.Health = XnaGame.GameObjects.OfType<Ship>().First().Health;
+			int updatedHealth = XnaGame.GameObjects.OfType<Ship>().First().Health;
+
+			bool isHealthLow = (updatedHealth < 10) && (GameStatRepository.Health >= 10);
+
+			bool showGameOverMessage = (updatedHealth == 0) && (GameStatRepository.Health > 0);
+
+			bool isGameOver = (updatedHealth == 0) && (GameStatRepository.Health == 0);
+
+			GameStatRepository.Health = updatedHealth;
 			GameStatusControl.Health = GameStatRepository.Health;
+
+			if (isHealthLow)
+			{
+				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "Health Low");
+			}
+
+			if (showGameOverMessage)
+			{
+				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "You Lose!!!!!!!!!!!!");
+				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "You Lose!!!!!!!!!!!!");
+			}
+
+			if (isGameOver)
+			{
+				Thread.Sleep(new TimeSpan(0, 0, 0, 2));
+				Application.Exit();
+			}
 		}
 
 		private void UpdatePlayerShield()

@@ -210,7 +210,7 @@ namespace ShipGame.GameDisplay
 			}
 
 			//asteroids
-			for (int i = 0; i < GameConfig.NumberOfLevelTwoAsteroids; i++)
+			for (int i = 0; i < GameConfig.NumberOfLevelOneAsteroids; i++)
 			{
 				GameObjects.Add(new Asteroid(this)); 
 			}

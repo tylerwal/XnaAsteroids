@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using ShipGame.GameDisplay;
+﻿using ShipGame.GameDisplay;
 using ShipGame.GameObjects.BaseClass;
 
 namespace ShipGame.GameObjects

@@ -81,7 +81,7 @@ namespace ShipGame.GameUtilities
 
 		public const int AsteroidStartingHealth = 25;
 
-		public const int NumberOfLevelTwoAsteroids = 20;
+		public const int NumberOfLevelOneAsteroids = 10;
 		
 		#region AsteroidOne
 
