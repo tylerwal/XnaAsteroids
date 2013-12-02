@@ -57,7 +57,7 @@ namespace ShipGame.GameObjects
 			Vector2 centerScreenVector = new Vector2(XnaGame.ClientRectangle.Width / 2, XnaGame.ClientRectangle.Height / 2);
 			PositionVector = centerScreenVector;
 
-			TerminalVelocity = GameConfig.ShipTerminalVelocity;
+			//TerminalVelocity = GameConfig.ShipTerminalVelocity;
 			_brakePower = GameConfig.ShipBrakePower;
 			_enginePower = GameConfig.ShipEnginePower;
 			_thrusterPower = GameConfig.ShipThrusterPower;
@@ -104,7 +104,7 @@ namespace ShipGame.GameObjects
 					null,
 					TextureTint, 
 					RotationAngle,
-					new Vector2(Bounds.Width/2, Bounds.Height / 2), 
+					new Vector2(Bounds.Width / 2, Bounds.Height / 2), 
 					GameConfig.ShipScale, 
 					SpriteEffects.None,
 					1.0f 
@@ -116,6 +116,8 @@ namespace ShipGame.GameObjects
 
 		public override void Update()
 		{
+			TerminalVelocity = GameConfig.ShipTerminalVelocity;
+
 			Bounds = GetBounds(GameConfig.ShipScale);
 
 			GetCurrentKeyboardMouseStates();
@@ -127,6 +129,15 @@ namespace ShipGame.GameObjects
 			Vector2 tempPosition = PositionVector;
 
 			Vector2 tempVelocity = VelocityVector;
+
+			#region Mouse Press
+
+			if (_mouseState.RightButton == ButtonState.Pressed)
+			{
+				TerminalVelocity ++;
+			}
+
+			#endregion Mouse Press
 
 			#region Keyboard States
 
@@ -169,22 +180,6 @@ namespace ShipGame.GameObjects
 			RotationAngle = (float)(Math.Atan2(directionVector.Y, directionVector.X));
 
 			#endregion Rotation Angle
-
-			#region Mouse Press
-
-			/*if (_mouseState.LeftButton == ButtonState.Pressed)
-			{
-				Bullet bullet = new Bullet(XnaGame);
-
-				bullet.PositionVector = PositionVector;
-
-				bullet.VelocityVector = new Vector2(2f, 2f);
-
-				XnaGame.GameObjects.Add(bullet);
-
-			}*/
-
-			#endregion Mouse Press
 
 			VelocityVector = tempVelocity;
 

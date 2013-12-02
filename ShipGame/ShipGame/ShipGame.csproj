@@ -17,8 +17,8 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>869678d3-e585-45b9-b0aa-1439348a0b5c</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Possibly don%27t Need\Game.ico</ApplicationIcon>
-    <Thumbnail>Possibly don%27t Need\GameThumbnail.png</Thumbnail>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -160,8 +160,8 @@
     <Compile Include="WinFormGraphicDevice\ServiceContainer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Possibly don%27t Need\Game.ico" />
-    <Content Include="Possibly don%27t Need\GameThumbnail.png" />
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShipGameContent\ShipGameContent.contentproj">

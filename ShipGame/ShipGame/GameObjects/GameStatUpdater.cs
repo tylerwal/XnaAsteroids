@@ -111,6 +111,11 @@ namespace ShipGame.GameObjects
 		{
 			GameStatRepository.AsteroidsLeft = XnaGame.GameObjects.OfType<Asteroid>().Count();
 			GameStatusControl.AsteroidsLeft = GameStatRepository.AsteroidsLeft;
+
+			if (GameStatRepository.AsteroidsLeft == 0)
+			{
+				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "YOU WIN!!!!!!!!!!!!!!\nYOU WIN!!!!!!!!!!!!!!");
+			}
 		}
 
 		private void UpdatePlayerHealth()
@@ -133,7 +138,6 @@ namespace ShipGame.GameObjects
 
 			if (showGameOverMessage)
 			{
-				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "You Lose!!!!!!!!!!!!");
 				_message.AddMessage(XnaGame.GlobalGameStopWatch.Elapsed, "You Lose!!!!!!!!!!!!");
 			}
 
