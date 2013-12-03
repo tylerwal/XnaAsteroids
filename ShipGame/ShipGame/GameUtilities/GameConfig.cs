@@ -45,7 +45,7 @@ namespace ShipGame.GameUtilities
 
 		#endregion Ship Constants
 
-		#region name
+		#region Shield Constants
 
 		public const string ShieldTextureName = "Shield";
 
@@ -53,7 +53,7 @@ namespace ShipGame.GameUtilities
 
 		public const int ShieldMaxHealth = 100;
 
-		#endregion name
+		#endregion Shield Constants
 
 		#region Bullet Constants
 

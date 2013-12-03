@@ -92,7 +92,7 @@ namespace ShipGame.GameObjects
 
 			//delete below
 			testingTexture = new Texture2D(XnaGame.GraphicsDevice, 1, 1);
-			testingTexture.SetData(new Color[] { Color.AliceBlue });
+			testingTexture.SetData(new[] { Color.AliceBlue });
 			//delete above
 		}
 
